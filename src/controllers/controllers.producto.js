@@ -17,14 +17,13 @@ export const listarProducto = async (req,res)=>{
         res.json({"error": error})
     }
 }
-export const crearProducto = async (req,res)=>{
-    const { producto, categoria, preciou, descripcion} = req.body;
+export const crearProducto = async (req, res)=>{
+    const {producto, categoria, preciou, descripcion} = req.body;
     try {
-        const respuesta = await pool.query(`CALL SP_CREAR_PRODUCTO ("${producto}", "${categoria}","${preciou}", "${descripcion}");`);
-        console.log({"respuesta": respuesta});
-        res.json({"respuesta": "El producto se agrego exitosamente"})
-    } catch (error) {
-        res.json({"error": "El producto no se agrego"})
+        const respuesta = await pool.query(`CALL SP_CREAR_PRODUCTO (?,?,?,?)`, [producto], [categoria],[preciou], [descripcion]);
+        res.json({"respuesta": "el producto se agrego", respuesta})
+    } catch(error){
+        res.json({"error": "el producto no se agrego"})  
     }
 }
 export const modificarProducto = async (req,res)=>{
