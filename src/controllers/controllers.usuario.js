@@ -23,7 +23,7 @@ export const crearUsuario = async (req, res)=>{
         const respuesta = await pool.query (`CALL SP_CREAR_USUARIO (?,?,?,?,?,?,?)`, [identificacion, nombres, telefono, correo, contrasena, rol, estado]);
             res.json({"respuesta": "el usuario ha sido creado"})
     } catch (error) {
-            console.log(error);
+            res.json({"error": "el usuario no ha sido creado"})
     }
 }
 export const modificarUsuario = async (req,res)=>{
@@ -33,7 +33,7 @@ export const modificarUsuario = async (req,res)=>{
             , "${correo}", "${contrasena}", "${rol}", "${estado}")`);
             res.json({"respuesta": "el usuario ha sido modificado"})
     } catch (error) {
-            console.log(error);
+            res.json({"error": "el usuario no ha sido modificado"})
     }
 }
 export const eliminarUsuario = async (req,res)=>{
