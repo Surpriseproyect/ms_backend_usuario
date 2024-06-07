@@ -14,3 +14,6 @@ export const sobrenosotros = (req, res)=>{
 export const productos = (req, res)=>{
     res.render("views.productos.ejs")
 }
+export const dashboard = (req, res)=>{
+    res.render("views.dashboard.ejs")
+}
