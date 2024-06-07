@@ -18,18 +18,20 @@ export const listarProducto = async (req,res)=>{
     }
 }
 export const crearProducto = async (req, res)=>{
-    const {producto, categoria, preciou, descripcion} = req.body;
+    const {producto, categoria, preciou, descripcion, stock} = req.body;
     try {
-        const respuesta = await pool.query(`CALL SP_CREAR_PRODUCTO (?,?,?,?)`, [producto], [categoria],[preciou], [descripcion]);
-        res.json({"respuesta": "el producto se agrego", respuesta})
+        const respuesta = await pool.query(`CALL SP_CREAR_PRODUCTO ("${producto}", "${categoria}", "${preciou}", "${descripcion}",
+        "${stock}")`);
+        res.json({"respuesta": "El producto se agrego"})
     } catch(error){
-        res.json({"error": "el producto no se agrego"})  
+        res.json({"error": "El producto no se pudo agregar"})
     }
 }
 export const modificarProducto = async (req,res)=>{
-    const {idproducto, producto, categoria, preciou, descripcion} = req.body;
+    const {idproducto, producto, categoria, preciou, descripcion, stock} = req.body;
     try {
-        const respuesta = await pool.query(`CALL SP_MODIFICAR_PRODUCTO ("${idproducto}", "${producto}","${categoria}", "${preciou}", "${descripcion}");`);
+        const respuesta = await pool.query(`CALL SP_MODIFICAR_PRODUCTO ("${idproducto}", "${producto}","${categoria}", "${preciou}",
+         "${descripcion}", "${stock}");`);
         res.json({"respuesta": "el producto ha sido modificado"})
     } catch (error) {
         res.json({"error": "el producto no ha sido modificado"})

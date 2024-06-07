@@ -1,5 +1,11 @@
+import { mensa, mensajeconsola } from "./message/mensaje";
 import server from "./server";
 
-server.listen(3000, ()=>{
-    console.log("Estas en el puerto: 3000");
+
+
+
+
+server.listen(server.get("port"),()=> {
+    mensajeconsola("AccesoPuerto",
+        `${mensa.puerto} ${server.get("port")} http://localhost${server.get("port")}`)
 })

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <title>Caspete</title>
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <a href="/">Inicio</a>
+            <a href="/sobrenosotros">Nosotros</a>
+            <a href="/productos">Productos</a>
+        </nav>
+        <h2 class="logo">Restaurante</h2>
+       </header>
+        <div class="background"></div>
+        <div class="container">
+            <div class="item">
+                <h2 class="logo"><i class='bx bxs-building'></i>¡Bienvenido a Nuestro Restaurante!</h2>
+                <div class="text-item">
+                    <img class="imagentienda" src="./img/imagetienda.png" alt="">
+                </div>
+            </div>
+            <div class="login-section">
+                <div class="form-box login">
+                    <form action="">
+                        <h2>Iniciar Sesión</h2>
+                        <div class="input-box">
+                            <span class="icon"><i class='bx bxs-user-account'></i></span>
+                            <input type="text" required>
+                            <label>Usuario</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
+                            <input type="password"  required>
+                            <label>Contraseña</label>
+                        </div>
+                        <div class="remember-password">
+                            <label for=""><input type="checkbox">Aceptar Terminos</label>
+                            <a href="sobrenosotros.html" class="olvido-contraseña">¿Olvidaste tu contraseña?</a>
+                        </div>
+                        <button class="btn">Ingresar</button>
+                        <div class="create-account">
+                            <p>¿Aún no tienes cuenta?<a href="#" class="register-link"> 
+                                Registrarse</a></p>
+                        </div>
+                    </form>
+                </div>
+                <div class="form-box register">
+                    <form action="">
+    
+                        <h2>Ingreso</h2>
+    
+                        <div class="input-box">
+                            <span class="icon"><i class='bx bxs-user'></i></span>
+                            <input type="text" required>
+                            <label >Nombre</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="icon"><i class='bx bxs-user-account'></i></span>
+                            <input type="text" required>
+                            <label>Usuario</label>
+                        </div>
+                        <div class="input-box">
+                            <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
+                            <input type="password" required>
+                            <label>Contraseña</label>
+                        </div>
+                        <div class="remember-password">
+                        </div>
+                        <button class="btn">Registrarse</button>
+                        <div class="create-account">
+                            <p>Tienes una cuenta? <a href="#" class="login-link">
+                                Iniciar Sesión</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="js/iniciologin.js"></script>
+</body>
+</html>

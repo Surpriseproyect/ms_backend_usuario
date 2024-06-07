@@ -7,7 +7,7 @@ import { crearProducto, eliminarProducto,
  const rutaProducto = Router();
 
  rutaProducto.get("/producto/:id", mostrarProducto)
- rutaProducto.get("/producto/", listarProducto)
+ rutaProducto.get("/producto", listarProducto)
  rutaProducto.post("/producto", crearProducto)
  rutaProducto.put("/producto", modificarProducto)
  rutaProducto.delete("/producto", eliminarProducto)
