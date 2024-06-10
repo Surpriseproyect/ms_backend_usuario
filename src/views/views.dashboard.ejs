@@ -50,13 +50,14 @@
                 <form class="buscar" action="" method="">
                   <div class="box">
                       <div class="container-1">
-                          <input name="buscar" type="search" id="search" placeholder="Buscar nombre..." />
+                          <input name="buscar" type="search" id="search-cliente" placeholder="Buscar nombre..." />
                       </div>
                   </div>
               </form>
               <button class="agregar" onclick="crear()">AGREGAR +</button>
             </div>
-            <table>
+            <table id="usuariosTable">
+              <thead>
               <tr>
                 <td>ID</td>
                 <td>Identificacion</td>
@@ -68,26 +69,34 @@
                 <td>Estado</td>
                 <td>Opciones</td>
               </tr>
+              </thead>
+              <tbody id="usuariosTableBody">
+              <% if (usuarios && usuarios.length > 0) { %>
+              <% usuarios.forEach(usuario => { %>
+                <tr>
+                    <td><%= usuario.idusuario %></td>
+                    <td><%= usuario.identificacion %></td>
+                    <td><%= usuario.nombres %></td>
+                    <td><%= usuario.telefono %></td>
+                    <td><%= usuario.correo %></td>
+                    <td class="contrasena"><%= usuario.contrasena %></td>
+                    <td><%= usuario.rol %></td>
+                    <td><%= usuario.estado %></td>
+                    <td class="mods">
+                        <button class="edita" onclick="editar()"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="factura" onclick="facturas()"><i class="fa-solid fa-file-invoice"></i></button>
+                        <button class="elimina" onclick="eliminar()"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                </tr>
+            <% }) %>
+            <% } else { %>
               <tr>
-                <td>1</td>
-                <td>103209</td>
-                <td>Esneider Giraldo</td>
-                <td>302240</td>
-                <td>esneider@gmail.com</td>
-                <td>esneider</td>
-                <td>Cliente</td>
-                <td>Pagado</td>
-                <td class="mods">
-                  <button class="edita" onclick="editar()"><i class="fa-solid fa-pen-to-square"></i></button>
-                  <button class="factura" onclick="facturas()"><i class="fa-solid fa-file-invoice"></i></button>
-                  <button class="elimina" onclick="eliminar()"><i class="fa-solid fa-trash-can"></i></button>
-                </td>
+                  <td colspan="9">No hay usuarios</td>
               </tr>
+            <% } %>
+              </tbody>
             </table>
-            <div class="paginacion">
-              <a href="">Anterior</a>
-              <a href="">Siguiente</a>
-            </div>
+            <div id="paginationControls"></div>
           </div>
 
           <div class="col-12 contenido" id="productos">
@@ -95,7 +104,7 @@
               <form class="buscar" action="" method="">
                 <div class="box">
                     <div class="container-1">
-                        <input name="buscar" type="search" id="search" placeholder="Buscar productos..." />
+                        <input name="buscar" type="search" id="search-producto" placeholder="Buscar productos..." />
                     </div>
                 </div>
             </form>
@@ -244,13 +253,6 @@
               <input type="text" placeholder="Nombre">
               <input type="text" placeholder="Apellido">
             </div>
-            <div class="documento">
-              <select name="" id="">
-                <option value="T.I.">T.I.</option>
-                <option value="C.C.">C.C.</option>
-              </select>
-              <input type="text" placeholder="No. Documento">
-            </div>
             <input type="email" placeholder="Correo">
             <input type="password" placeholder="Contraseña">
             <div class="opcion">
@@ -269,12 +271,6 @@
               <input type="text" placeholder="Apellido">
             </div>
             <div class="documento">
-              <select name="" id="">
-                <option value="T.I.">T.I.</option>
-                <option value="C.C.">C.C.</option>
-              </select>
-              <input type="text" placeholder="No. Documento">
-            </div>
             <input type="email" placeholder="Correo">
             <input type="password" placeholder="Contraseña">
             <div class="opcion">
@@ -471,8 +467,7 @@
               });
           });
       });
-
-
     </script>
+    <script src="js/paginacion.js"></script>
 </body>
 </html>

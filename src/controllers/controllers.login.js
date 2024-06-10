@@ -1,4 +1,5 @@
 import { config } from "dotenv";
+import {listarUsuario} from "./controllers.usuario"
 config();
 
 export const inicio = (req, res)=>{
@@ -14,6 +15,11 @@ export const sobrenosotros = (req, res)=>{
 export const productos = (req, res)=>{
     res.render("views.productos.ejs")
 }
-export const dashboard = (req, res)=>{
-    res.render("views.dashboard.ejs")
-}
+export const dashboard = async (req, res) => {
+    try {
+        const respuesta = await listarUsuario(req, res);
+        res.render("views.dashboard.ejs", { usuarios: respuesta[0] });
+    } catch (error) {
+        res.json({ "error": error });
+    }
+};

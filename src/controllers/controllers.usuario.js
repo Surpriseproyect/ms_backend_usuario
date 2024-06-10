@@ -15,14 +15,16 @@ export const mostrarUsuario = async (req, res)=>{
         res.json({"error": error})
     }
 }
-export const listarUsuario = async (req,res) =>{
+export const listarUsuario = async (req, res) => {
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_USUARIO()`);
-        res.json({"respuesta": respuesta[0]})
+        // res.json(respuesta[0])
+        return respuesta[0];
     } catch (error) {
-        res.json({"error": error})
+        console.error(error);
+        return { "error": error };
     }
-}
+};
 export const crearUsuario = async (req, res)=>{
     const {identificacion, nombres, telefono, correo,rol, estado} = req.body;
     const contrasenasincifrar = req.body.contrasena;

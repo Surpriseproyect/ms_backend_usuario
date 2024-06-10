@@ -108,7 +108,7 @@ a{
     border: 1px black solid;
     height: 30px;
 }
-.container-1 input#search{
+.container-1 input#search-cliente, input#search-producto{
     width: 250px;
     height: 40px;
     background: rgb(168, 168, 168);
@@ -347,12 +347,40 @@ table{
   border-radius: 10px;
   overflow: hidden;
 }
-tr:nth-child(1){
+table > thead > tr{
   background: #455aff;
   color: #fff;
 }
 tr{
   background: #fff;
+}
+.contrasena{
+  max-width: 100px;
+}
+
+#paginationControls {
+  text-align: center;
+  position: fixed;
+  bottom: 20px;
+  left: 200px;
+  right: 0;
+}
+#paginationControls a {
+  margin: 0 5px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  background: none;
+  cursor: pointer;
+}
+#paginationControls a.active {
+  font-weight: bold;
+  background-color: #ddd;
+}
+#paginationControls a.disabled {
+  pointer-events: none;
+  color: #ccc;
 }
 .edita{
   background: rgb(220, 220, 0);
