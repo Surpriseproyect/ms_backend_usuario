@@ -1,4 +1,4 @@
-import { pool } from "../config/mysql.db";
+import { pool } from "../config/mysql.db.js";
 
 export const MostrarPago = async (req, res) =>{
     const {id} = req.params;

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { crearProducto, eliminarProducto,
      listarProducto, modificarProducto,
-      mostrarProducto } from "../controllers/controllers.producto";
+      mostrarProducto } from "../controllers/controllers.producto.js";
 
 
  const rutaProducto = Router();

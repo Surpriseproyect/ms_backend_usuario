@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { ListarPago, MostrarPago, crearPago } from "../controllers/controllers.metopago";
+import { ListarPago, MostrarPago, crearPago } from "../controllers/controllers.metopago.js";
 
 const rutaMetoPago = Router()
 

@@ -1,6 +1,6 @@
 import { config } from "dotenv";
-import {listarUsuario, fiados} from "./controllers.usuario"
-import { listarProducto } from "./controllers.producto";
+import {listarUsuario, fiados} from "./controllers.usuario.js"
+import { listarProducto } from "./controllers.producto.js";
 config();
 
 export const inicio = (req, res)=>{

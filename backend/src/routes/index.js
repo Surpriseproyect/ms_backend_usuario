@@ -1,10 +1,10 @@
 import { Router } from "express";
-import rutaProducto from "./routes.producto";
-import rutaUsuario from "./routes.usuario";
-import rutaProveedor from "./routes.proveedor";
-import rutaFactura from "./routes.facturas";
-import rutaMetoPago from "./routes.metopago";
-import rutaLogin from "./routes.login";
+import rutaProducto from "./routes.producto.js";
+import rutaUsuario from "./routes.usuario.js";
+import rutaProveedor from "./routes.proveedor.js";
+import rutaFactura from "./routes.facturas.js";
+import rutaMetoPago from "./routes.metopago.js";
+import rutaLogin from "./routes.login.js";
 // import swaggerui from "swagger-ui-express";
 // import swaggerFile from "../"
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { crearProveedor, eliminarProveedor,
-         listarProveedor, mostrarProveedor } from "../controllers/controllers.proveedor";
+         listarProveedor, mostrarProveedor } from "../controllers/controllers.proveedor.js";
 
 
 const rutaProveedor = Router();

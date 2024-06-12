@@ -1,3 +1,4 @@
+
 function mostrar(){
     let ventana = document.getElementById("ventana")
     ventana.style.display = "flex"

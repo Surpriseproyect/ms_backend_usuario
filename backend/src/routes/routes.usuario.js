@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { crearUsuario, eliminarUsuario,
         listarUsuario, logueoUsuario, modificarUsuario,
-        mostrarUsuario } from "../controllers/controllers.usuario";
-import { verifytoken } from "../middleware/token";
+        mostrarUsuario } from "../controllers/controllers.usuario.js";
+import { verifytoken } from "../middleware/token.js";
 
 
 const rutaUsuario = Router();

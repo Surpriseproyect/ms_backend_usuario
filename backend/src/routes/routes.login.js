@@ -1,5 +1,5 @@
 import { Router } from "express";
-import {dashboard, inicio, productos, sobrenosotros } from "../controllers/controllers.login";
+import {dashboard, inicio, productos, sobrenosotros } from "../controllers/controllers.login.js";
 
 const rutaLogin = Router();
 

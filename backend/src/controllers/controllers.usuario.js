@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
-import { pool } from "../config/mysql.db";
-import { Acceso, Error } from "../message/mensaje";
+import { pool } from "../config/mysql.db.js";
+import { Acceso, Error } from "../message/mensaje.js";
 import { config } from "dotenv";
 import jwt from "jsonwebtoken";
 import { log } from "console";
@@ -9,8 +9,9 @@ config();
 export const mostrarUsuario = async (req, res)=>{
     const {id} = req.params;
     try {
-        const respuesta = await pool.query (`CALL SP_MOSTRAR_USUARIO ("${id}")`)
-        res.json({"respuesta": respuesta[0]})
+        const [respuesta] = await pool.query (`CALL SP_MOSTRAR_USUARIO ("${id}")`)
+        // res.json({"respuesta": respuesta[0]})
+        return respuesta[0]
     } catch (error) {
         res.json({"error": error})
     }
