@@ -142,11 +142,11 @@ a{
   background: #F7F7F7;
   border-radius: 10px;
 }
-.editar > .informacion > .datos-aprendiz > .opcion{
+.editar > .informacion > .datos-usuario > .opcion{
   display: flex;
   margin-top: 10px;
 }
-.editar > .informacion > .datos-aprendiz > .opcion > input, button{
+.editar > .informacion > .datos-usuario > .opcion > input, button{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -161,11 +161,11 @@ a{
   background: #0074B5;
   border-radius: 10px;
 }
-.editar > .informacion > .datos-aprendiz{
+.editar > .informacion > .datos-usuario{
   display: flex;
   flex-direction: column;
 }
-.editar > .informacion > .datos-aprendiz > input{
+.editar > .informacion > .datos-usuario > input, select{
   height: 40px;
   border-radius: 10px;
   padding: 10px;
@@ -174,16 +174,6 @@ a{
   background: #d9d9d9;
   margin: 10px;
   margin-bottom: 30px;
-}
-.editar > .informacion > .datos-aprendiz > .nombre> input{
-  height: 40px;
-  border-radius: 10px;
-  padding: 10px;
-  width: 205px;
-  font-weight: normal;
-  border: none;
-  background: #d9d9d9;
-  margin: 5px;
 }
 
 .crear{
@@ -206,11 +196,11 @@ a{
   background: #F7F7F7;
   border-radius: 10px;
 }
-.crear > .informacion > .datos-aprendiz > .opcion{
+.crear > .informacion > .datos-usuario > .opcion{
   display: flex;
   margin-top: 10px;
 }
-.crear > .informacion > .datos-aprendiz > .opcion > input, button{
+.crear > .informacion > .datos-usuario > .opcion > input, button{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -225,11 +215,11 @@ a{
   background: #0074B5;
   border-radius: 10px;
 }
-.crear > .informacion > .datos-aprendiz{
+.crear > .informacion > .datos-usuario{
   display: flex;
   flex-direction: column;
 }
-.crear > .informacion > .datos-aprendiz > input{
+.crear > .informacion > .datos-usuario > input{
   height: 40px;
   border-radius: 10px;
   padding: 10px;
@@ -239,7 +229,7 @@ a{
   margin: 10px;
   margin-bottom: 30px;
 }
-.crear > .informacion > .datos-aprendiz > .nombre> input{
+.crear > .informacion > .datos-usuario > .nombre> input{
   height: 40px;
   border-radius: 10px;
   padding: 10px;
@@ -357,15 +347,18 @@ tr{
 .contrasena{
   max-width: 100px;
 }
-
-#paginationControls {
+.descripcion{
+  height: auto;
+  max-width: 450px;
+}
+#paginationControls, #paginacionProductos, #paginacionFiados {
   text-align: center;
   position: fixed;
   bottom: 20px;
   left: 200px;
   right: 0;
 }
-#paginationControls a {
+#paginationControls a, #paginacionProductos a, #paginacionFiados a {
   margin: 0 5px;
   padding: 5px 10px;
   border-radius: 10px;
@@ -374,11 +367,11 @@ tr{
   background: none;
   cursor: pointer;
 }
-#paginationControls a.active {
+#paginationControls a.active, #paginacionProductos a.active, #paginacionFiados a.active {
   font-weight: bold;
   background-color: #ddd;
 }
-#paginationControls a.disabled {
+#paginationControls a.disabled, #paginacionProductos a.disabled, #paginacionFiados a.disabled {
   pointer-events: none;
   color: #ccc;
 }
@@ -411,10 +404,11 @@ tr{
   width: 260px;
 }
 
-select{
-  height: 35px;
-  border-radius: 10px;
-  border: none;
+.estado{
+  height: 40px;
+  width: 150px;
+  background: none;
+  border: 1px black solid;
 }
 
 .tiles {

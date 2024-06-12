@@ -12,7 +12,8 @@ export const mostrarProducto = async (req,res)=>{
 export const listarProducto = async (req,res)=>{
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_PRODUCTO()`);
-        res.json({"respuesta": respuesta[0]})
+        // res.json({"respuesta": respuesta[0]})
+        return respuesta[0];
     } catch (error) {
         res.json({"error": error})
     }

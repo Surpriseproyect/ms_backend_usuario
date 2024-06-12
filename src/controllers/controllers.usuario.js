@@ -15,6 +15,16 @@ export const mostrarUsuario = async (req, res)=>{
         res.json({"error": error})
     }
 }
+
+export const fiados = async (req, res) =>{
+    try {
+        const respuesta = await pool.query('SELECT * FROM usuarios WHERE estado = "fiado" or estado = "pendiente";')
+        return respuesta[0];
+    } catch (error) {
+        console.error(error);
+        return { "error": error };
+    }
+}
 export const listarUsuario = async (req, res) => {
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_USUARIO()`);

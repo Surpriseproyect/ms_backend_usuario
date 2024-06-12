@@ -110,7 +110,7 @@
             </form>
             <button class="agregar" onclick="crear()">AGREGAR PRODUCTO +</button>
           </div>
-          <table>
+          <table id="tableProductos">
             <thead>
               <tr>
                 <td>ID</td>
@@ -118,27 +118,34 @@
                 <td>Categoria</td>
                 <td>Precio</td>
                 <td>Descripción</td>
+                <td>Stock</td>
                 <td>Opciones</td>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="productosTableBody">
+              <% if (producto && producto.length > 0) { %>
+              <% producto.forEach(producto => { %>
               <tr>
-                <td>1</td>
-                <td>Arroz</td>
-                <td>Almuerzo</td>
-                <td>$1000</td>
-                <td>Arroz para comer</td>
+                <td><%= producto.idproducto %></td>
+                <td><%= producto.producto %></td>
+                <td><%= producto.categoria %></td>
+                <td><%= producto.preciou %></td>
+                <td class="descripcion"><%= producto.descripcion %></td>
+                <td><%= producto.stock %></td>
                 <td class="mods">
                   <button class="edita" onclick="editar()"><i class="fa-solid fa-pen-to-square"></i></button>
                   <button class="elimina" onclick="eliminar()"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
               </tr>
+              <% }) %>
+              <% } else { %>
+                  <tr>
+                      <td colspan="9">No hay productos disponibles</td>
+                  </tr>
+              <% } %>
             </tbody>
           </table>
-          <div class="paginacion">
-            <a href="">Anterior</a>
-            <a href="">Siguiente</a>
-          </div>
+          <div id="paginacionProductos"></div>
           </div>
 
           <div class="col-12 contenido " id="metodo">
@@ -168,7 +175,7 @@
         
           <div class="col-12 contenido" id="cuentas">
             <button class="agregar act" onclick="act()">Actualizar</button>
-            <table>
+            <table id="fiadosTable">
               <thead>
                 <tr>
                   <td>ID</td>
@@ -177,24 +184,29 @@
                   <td>Estado</td>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="fiadosTableBody">
+                <% if (fiado && fiado.length > 0) { %>
+                <% fiado.forEach(fiado => { %>
                 <tr>
-                  <td>1</td>
-                  <td>103209</td>
-                  <td>Esneider Giraldo</td>
+                  <td><%= fiado.idusuario %></td>
+                  <td><%= fiado.identificacion %></td>
+                  <td><%= fiado.nombres %></td>
                   <td>
-                    <select name="" id="">
-                      <option value="Fiado">Fiado</option>
+                    <select class="estado">
+                      <option value="<%= fiado.estado %>"><%= fiado.estado %></option>
                       <option value="Pagado">Pagado</option>
                     </select>
                   </td>
                 </tr>
-              </tbody>
+              <% }) %>
+              <% } else { %>
+                <tr>
+                    <td colspan="9">No hay usuarios fiados o pendientes</td>
+                </tr>
+              <% } %>
+            </tbody>
             </table>  
-            <div class="paginacion">
-              <a href="">Anterior</a>
-              <a href="">Siguiente</a>
-            </div>        
+            <div id="paginacionFiados"></div>       
           </div>
 
           <div class="col-12 contenido" id="informes">
@@ -251,13 +263,23 @@
 
       <div class="editar" id="editar">
         <div class="informacion" id="info">
-          <form class="datos-aprendiz" action="">
-            <div class="nombre">
-              <input type="text" placeholder="Nombre">
-              <input type="text" placeholder="Apellido">
-            </div>
+          <form class="datos-usuario" action="">
+            <input type="number" placeholder="Identificación">
+            <input type="text" placeholder="Nombres">
+            <input type="number" placeholder="Telefono">
             <input type="email" placeholder="Correo">
             <input type="password" placeholder="Contraseña">
+            <select>
+              <option selected disabled>Rol</option>
+              <option value="Cliente">Cliente</option>
+              <option value="Programador">Programador</option>
+            </select>
+            <select>
+              <option selected disabled>Estado</option>
+              <option value="Fiado">Fiado</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Pagado">Pagado</option>
+            </select>
             <div class="opcion">
               <button onclick="ocultarE()">Cancelar</button>
               <input type="submit" placeholder="Confirmar">
