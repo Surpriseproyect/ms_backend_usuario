@@ -17,19 +17,16 @@ body{
     height: 100vh;
     width: 100%;
 }
-
 .header{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     padding: 25px 13%;
-    background: transparent;
+    backdrop-filter: blur(5px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 100;
-
 }
 header .logo{
     color: #fff;
