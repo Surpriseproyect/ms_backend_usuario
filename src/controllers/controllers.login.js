@@ -13,8 +13,13 @@ export const inicio = (req, res)=>{
 export const sobrenosotros = (req, res)=>{
     res.render("views.sobrenosotros.ejs")
 }
-export const productos = (req, res)=>{
-    res.render("views.productos.ejs")
+export const productos = async (req, res)=>{
+    try {
+        const producto = await listarProducto(req, res);
+        res.render("views.productos.ejs", {producto: producto[0]})
+    } catch (error) {
+        res.json({ "error": error });
+    }
 }
 export const dashboard = async (req, res) => {
     try {
