@@ -20,15 +20,6 @@ body{
 ::-webkit-scrollbar {
     display: none;
 }
-
-.icono-tienda{
-    width: 40px;
-    height: 40px;
-    stroke: rgb(255, 255, 255);
-}
-.icono-tienda:hover{
-    cursor: pointer;
-}
 img{
     max-width: 100%;
 }
@@ -73,105 +64,37 @@ header .logo{
     transform: translateY(0);
     opacity: 1;
 }
-.restaurante{
+.descarga{
     display: flex;
+    flex-direction: column;
+    margin-top: 100px;
     align-items: center;
-}
-.restaurante > h2{
-    margin-right: 30px;
-}
-.container-icon{
-    position: relative;
-}
-.count-productos{
-    position: absolute;
-    top: 55%;
-    right: 0;
-    background-color: rgb(255, 255, 255);
-    color: #000;
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-}
-#contador-productos{
-    font-size: 12px;
-}
-.container-cart-product{
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background-color: #fff;
-    width: 400px;
-    z-index: 1;
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 20);
-    border-radius: 10px;
-}
-.cart-product{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 10px;
-    border-bottom: 1px solid rgba(0, 0, 0, 20);
+    border-radius: 10px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: #999 1px solid;
 }
-.info-cart-product{
-    display: flex;
-    justify-content: space-between;
-    flex: 0.8;
+.descarga > button{
+    margin-top: 20px;
+    height: 30px;
+    width: 150px;
+    border-radius: 10px;
+    border: none;
 }
-.titulo-producto-carrito{
-    font-size: 20px;
-}
-.precio-producto-carrito{
-    font-weight: 700;
-    font-size: 20px;
-    margin-left: 10px;
-}
-.cantidad-producto-carrito{
-    font-weight: 400;
-    font-size: 20px;
-}
-.cart-total{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px 0;
-    gap: 20px;
-}
-.cart-total h3{
-    font-size: 20px;
-    font-weight: 700;
-}
-.total-pagar{
-    font-size: 20px;
-    font-weight: 900;
-}
-.hidden-cart{
-    display: none;
-}
-.icon-close{
-    width: 25px;
-    height: 55px;
-}
-.icon-close:hover{
-    stroke: red;
-    cursor: pointer;
-}
-
 .container-items{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    margin-top: 150px;
+    gap: 10px;
+    margin-top: 20px;
 }
 .item{
     border-radius: 10px;
     border: 1px #999 solid;
     color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
     transition: .2s;
+    margin-bottom: 10px;
 }
 .item:hover{
     box-shadow: 0 0px 5px rgba(0, 0, 0, 20);
