@@ -5,8 +5,6 @@ import rutaProveedor from "./routes.proveedor.js";
 import rutaFactura from "./routes.facturas.js";
 import rutaMetoPago from "./routes.metopago.js";
 import rutaLogin from "./routes.login.js";
-// import swaggerui from "swagger-ui-express";
-// import swaggerFile from "../"
 
 const ruta = Router();
 

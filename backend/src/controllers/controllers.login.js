@@ -7,7 +7,7 @@ export const inicio = (req, res)=>{
     const url = process.env.BACKEND_URL;
     const opciones = {
         url : url
-    }
+        };
     res.render("views.login.ejs", opciones);
 }
 export const sobrenosotros = (req, res)=>{

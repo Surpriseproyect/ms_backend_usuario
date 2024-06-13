@@ -22,7 +22,7 @@ server.use(express.static(path.join(__dirname, "../../frontend/public")));
 server.use(express.urlencoded({ extended : true }));
 server.use(cors());
 
-
+//Rutas
 server.use("/", ruta);
 
 server.set("view engine", "ejs");
