@@ -7,7 +7,7 @@ import { verifytoken } from "../middleware/token.js";
 
 const rutaUsuario = Router();
 
-rutaUsuario.get("/usuario/:id", mostrarUsuario )
+rutaUsuario.get("/:id", mostrarUsuario )
 rutaUsuario.get("/usuario", listarUsuario)
 rutaUsuario.post("/usuario", crearUsuario)
 rutaUsuario.put("/usuario", verifytoken, modificarUsuario )

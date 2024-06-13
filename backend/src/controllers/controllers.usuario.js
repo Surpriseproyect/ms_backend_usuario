@@ -6,16 +6,20 @@ import jwt from "jsonwebtoken";
 import { log } from "console";
 config();
 
-export const mostrarUsuario = async (req, res)=>{
-    const {id} = req.params;
+export const mostrarUsuario = async (req, res) => {
+    const { id } = req.params;
     try {
-        const [respuesta] = await pool.query (`CALL SP_MOSTRAR_USUARIO ("${id}")`)
-        // res.json({"respuesta": respuesta[0]})
-        return respuesta[0]
+        const [respuesta] = await pool.query(`CALL SP_MOSTRAR_USUARIO(?)`, [id]);
+        if (respuesta && respuesta.length > 0) {
+            res.json(respuesta[0]);
+        } else {
+            res.status(404).json({ message: "User not found" });
+        }
     } catch (error) {
-        res.json({"error": error})
+        res.status(500).json({ error: error.message });
     }
-}
+};
+
 
 export const fiados = async (req, res) =>{
     try {
