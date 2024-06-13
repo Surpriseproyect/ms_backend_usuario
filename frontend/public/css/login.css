@@ -3,12 +3,16 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI';
+    user-select: none;
 }
 body{
     height: 100vh;
     width: 100%;
     background: #000;
   
+}
+img {
+    pointer-events: none;
 }
 .background{
     background: url(../img/restaurant-interior.jpg) no-repeat;

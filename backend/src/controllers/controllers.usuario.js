@@ -54,20 +54,20 @@ export const crearUsuario = async (req, res)=>{
     }
 }
 export const modificarUsuario = async (req,res)=>{
-    const {idusuario, identificacion, nombres, telefono, correo, contrasena, rol, estado} = req.body;
+    const {id} = req.params
+    const {identificacion, nombres, telefono, correo, contrasena, rol, estado} = req.body;
     try {
-        const respuesta = await pool.query (`CALL SP_MODIFICAR_USUARIO ("${idusuario}","${identificacion}", "${nombres}", "${telefono}"
-            , "${correo}", "${contrasena}", "${rol}", "${estado}")`);
-            res.json({"respuesta": "el usuario ha sido modificado"})
+        const respuesta = await pool.query (`CALL SP_MODIFICAR_USUARIO (?,?, ?, ?, ?, ?, ?, ?)`, [id, identificacion, nombres, telefono, correo, contrasena, rol, estado]);
+            res.json(respuesta[0])
     } catch (error) {
             res.json({"error": "el usuario no ha sido modificado"})
     }
 }
 export const eliminarUsuario = async (req,res)=>{
-    const {idusuario} = req.body;
+    const {id} = req.params;
     try {
-        const respuesta = await pool.query(`CALL SP_ELIMINAR_USUARIO("${idusuario}")`);
-        res.json({"respuesta": "el usuario ha sido eliminado"})
+        const respuesta = await pool.query(`CALL SP_ELIMINAR_USUARIO(?)`, [id]);
+        res.json(respuesta[0])
     } catch (error) {
         res.json({"error": "el usuario no ha sido eliminado"})
     }

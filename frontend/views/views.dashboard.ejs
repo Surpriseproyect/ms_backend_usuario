@@ -84,7 +84,7 @@
                     <td class="mods">
                         <button class="edita"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button class="factura" onclick="facturas()"><i class="fa-solid fa-file-invoice"></i></button>
-                        <button class="elimina" onclick="eliminar()"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="elimina"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 </tr>
             <% }) %>
@@ -124,16 +124,16 @@
             <tbody id="productosTableBody">
               <% if (producto && producto.length > 0) { %>
               <% producto.forEach(producto => { %>
-              <tr>
-                <td><%= producto.idproducto %></td>
+              <tr class="user-list-item">
+                <td class="id"><%= producto.idproducto %></td>
                 <td><%= producto.producto %></td>
                 <td><%= producto.categoria %></td>
                 <td><%= producto.preciou %></td>
                 <td class="descripcion"><%= producto.descripcion %></td>
                 <td><%= producto.stock %></td>
                 <td class="mods">
-                  <button class="edita" onclick="editar()"><i class="fa-solid fa-pen-to-square"></i></button>
-                  <button class="elimina" onclick="eliminar()"><i class="fa-solid fa-trash-can"></i></button>
+                  <button class="editaProducto" onclick="editarProducto()"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button class="elimina"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
               </tr>
               <% }) %>
@@ -262,26 +262,27 @@
       <!-- Faltan las funciones de los botones para acutualizar y los dos "select" -->
       <div class="editar" id="editar">
         <div class="informacion" id="info">
+          <h3>Editar usuario</h3>
           <form class="datos-usuario" action="">
             <input class="identificacionEdit" type="number" placeholder="Identificación">
             <input class="nombreEdit" type="text" placeholder="Nombres">
-            <input class="telefonoEdit" type="number" placeholder="Telefono">
+            <input class="telefonoEdit" type="text" placeholder="Telefono">
             <input class="correoEdit" type="email" placeholder="Correo">
             <input class="contrasenaEdit" type="text" placeholder="Contraseña">
-            <select>
-              <option selected disabled>Rol</option>
+            <select class="select">
+              <option class="rol" value="rol" selected disabled>Rol</option>
               <option value="Cliente">Cliente</option>
               <option value="Programador">Programador</option>
             </select>
             <select>
-              <option selected disabled>Estado</option>
+              <option class="estado1" selected disabled>Estado</option>
               <option value="Fiado">Fiado</option>
               <option value="Pendiente">Pendiente</option>
               <option value="Pagado">Pagado</option>
             </select>
             <div class="opcion">
               <button onclick="ocultarE()">Cancelar</button>
-              <input type="submit" placeholder="Confirmar">
+              <input class="enviar" type="submit" placeholder="Confirmar">
             </div>
           </form>
         </div>
@@ -308,7 +309,7 @@
               <option value="Pagado">Pagado</option>
             </select>
             <div class="opcion">
-              <button onclick="ocultarE()">Cancelar</button>
+              <button onclick="ocultarC()">Cancelar</button>
               <input type="submit" placeholder="Confirmar">
             </div>
           </form>
@@ -321,99 +322,25 @@
           <p>¿Seguro que quieres eliminar la cuenta de {nombre}?</p>
             <div class="opcion">
               <button onclick="ocultarEliminar()">Cancelar</button>
-              <button>Confirmar</button>
+              <button class="aceptar">Confirmar</button>
             </div>
         </div>
       </div>
 
-      <div class="reporte" id="reporte">
+      <div class="editar" id="editarProducto">
         <div class="informacion" id="info">
-          <p>Reporte a {Nombre y Apellido}</p>
-          <p>Razón</p>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+          <h3>Editar producto</h3>
+          <form class="datos-usuario" action="">
+            <input class="productoEdit" type="text" placeholder="Nombre Producto">
+            <input class="categoriaEdit" type="text" placeholder="Categoria">
+            <input class="precioEdit" type="number" placeholder="Precio">
+            <textarea class="descripcionEdit" type="text" placeholder="Descripción"></textarea>
+            <input class="stockEdit" type="number" placeholder="Contraseña">
             <div class="opcion">
-              <button onclick="ocultarReporte()">Cancelar</button>
+              <button onclick="ocultarProducto()">Cancelar</button>
               <input type="submit" placeholder="Confirmar">
             </div>
-        </div>
-      </div>
-      
-      <div class="crear" id="crearLaptop">
-        <div class="informacion" id="info">
-          <form class="datos-aprendiz" action="">
-            <div class="nombre">
-              <input type="text" placeholder="Modelo">
-              <input type="text" placeholder="Codigo">
-            </div>
-            <input type="number" placeholder="No. Laptop">
-            <input type="text" placeholder="Estado">
-            <div class="opcion">
-              <button onclick="ocultarLaptop()">Cancelar</button>
-              <input type="submit" value="Confirmar">
-            </div>
           </form>
-        </div>
-      </div>
-
-      <div class="crear" id="editarLaptop">
-        <div class="informacion" id="info">
-          <form class="datos-aprendiz" action="">
-            <div class="nombre">
-              <input type="text" placeholder="Modelo">
-              <input type="text" placeholder="Codigo">
-            </div>
-            <input type="number" placeholder="No. Laptop">
-            <input type="text" placeholder="Estado">
-            <div class="opcion">
-              <button onclick="ocultarL()">Cancelar</button>
-              <input type="submit" value="Confirmar">
-            </div>
-          </form>
-        </div>
-      </div>
-
-      <div class="reporte" id="reporteLaptop">
-        <div class="informacion" id="info">
-          <p>Reporta un fallo</p>
-          <p>Razón</p>
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <div class="opcion">
-              <button onclick="ocultarR()">Cancelar</button>
-              <input type="submit" placeholder="Confirmar">
-            </div>
-        </div>
-      </div>
-
-      <div class="eliminar" id="eliminarLaptop">
-        <div class="informacion" id="info">
-          <i class="fa-solid fa-circle-question"></i>
-          <p class="p">¿Seguro que quieres eliminar la Laptop?</p>
-            <div class="opcion">
-              <button onclick="ocultarEliminar()">Cancelar</button>
-              <button>Confirmar</button>
-            </div>
-        </div>
-      </div>
-
-      <div class="eliminar" id="accion">
-        <div class="informacion" id="info">
-          <i class="fa-solid fa-circle-question"></i>
-          <p class="p">¿Seguro que quieres realizar esta acción?</p>
-            <div class="opcion">
-              <button onclick="ocultarAccion()">Cancelar</button>
-              <button>Confirmar</button>
-            </div>
-        </div>
-      </div>
-
-      <div class="eliminar" id="cambios">
-        <div class="informacion" id="info">
-          <i class="fa-solid fa-circle-question"></i>
-          <p class="p">¿Quieres confirmar los cambios?</p>
-            <div class="opcion">
-              <button onclick="ocultar()">Cancelar</button>
-              <button>Confirmar</button>
-            </div>
         </div>
       </div>
       

@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI';
+    user-select: none;
 }
 body{
     margin: 0 auto;
@@ -16,7 +17,9 @@ body{
     height: 100%;
     width: 100%;
 }
-
+img {
+    pointer-events: none;
+}
 ::-webkit-scrollbar {
     display: none;
 }

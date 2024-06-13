@@ -4,7 +4,7 @@ export const mostrarProducto = async (req,res)=>{
     const {id} = req.params;
     try {
         const respuesta = await pool.query(`CALL SP_MOSTRAR_PRODUCTO (?)`, [id]);
-        res.json({"respuesta": respuesta[0]})
+        res.json(respuesta[0])
     } catch (error) {
         res.json({"error": error})
     }
@@ -39,10 +39,10 @@ export const modificarProducto = async (req,res)=>{
     }
 }
 export const eliminarProducto = async (req,res)=>{
-    const {id} = req.body;
+    const {id} = req.params;
     try {
-        const respuesta = await pool.query(`CALL SP_ELIMINAR_PRODUCTO ("${id}");`);
-        res.json({"respuesta": "el producto fue eliminado"})
+        const respuesta = await pool.query(`CALL SP_ELIMINAR_PRODUCTO(?);`, [id]);
+        res.json(respuesta[0])
     } catch (error) {
         res.json({"error": "el producto no fue eliminado"})
     }

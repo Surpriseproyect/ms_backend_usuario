@@ -3,6 +3,10 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Segoe UI';
+    user-select: none;
+}
+video {
+    pointer-events: none;
 }
 .header{
     position: fixed;

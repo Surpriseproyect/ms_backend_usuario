@@ -10,7 +10,7 @@ import { crearProducto, eliminarProducto,
  rutaProducto.get("/producto", listarProducto)
  rutaProducto.post("/producto", crearProducto)
  rutaProducto.put("/producto", modificarProducto)
- rutaProducto.delete("/producto", eliminarProducto)
+ rutaProducto.delete("/producto/:id", eliminarProducto)
 
 
 export default rutaProducto;
