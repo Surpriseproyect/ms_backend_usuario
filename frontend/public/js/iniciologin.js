@@ -12,6 +12,7 @@ olvidocontraseñalink.addEventListener("click",()=>{
     loginsec.classList.remove("active")
 })
 
+//loguearse
 const loguear = async ()=>{
 
     const correo = document.getElementById("correo").value;
@@ -20,6 +21,7 @@ const loguear = async ()=>{
 
     sessionStorage.setItem("urlSurprise", url);
     const urlSurprise = sessionStorage.getItem("urlSurprise") + "/usuario/loginusuario";
+    console.log(urlSurprise);
     const options = {
         method:"POST",
         headers: {
@@ -27,14 +29,16 @@ const loguear = async ()=>{
         },
         body: JSON.stringify({
             correo: correo,
-            contraseña: password
+            contrasena: password
         })
+        
     }
+    
     await fetch(urlSurprise, options)
     .then(res => res.json())
     .then(data =>{
         if(data.error == true){
-            alertify.error('Contraseña Incorrecta');
+            alertify.error('Correo o Contraseña Incorrecta');
         }else{
             console.log(data);
         }

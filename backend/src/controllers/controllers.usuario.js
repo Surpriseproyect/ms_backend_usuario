@@ -82,7 +82,7 @@ export const logueoUsuario = async(req,res)=>{
             return;
         }
         const match = await bcrypt.compare(contrasena, respuesta[0][0][0].contrasena);
-        console.log(respuesta[0][0][0].contrasena);
+        console.log(respuesta[0][0][0].contrasena); 
         if(!match){
             Error(req, res, 401, "Contraseña Incorrecta");
             return;
@@ -92,7 +92,7 @@ export const logueoUsuario = async(req,res)=>{
             "correo": correo,
             
         }; 
-        let token = await jwt.sign(payload,process.env.TOKEN_PRIVATEKEY,
+        let token = jwt.sign(payload,process.env.TOKEN_PRIVATEKEY,
             {
                 expiresIn : process.env.TOKEN_EXPIRES_IN
             });

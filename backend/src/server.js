@@ -21,6 +21,7 @@ server.use(express.json());
 server.use(express.static(path.join(__dirname, "../../frontend/public")));
 server.use(express.urlencoded({ extended : true }));
 server.use(cors());
+server.use(morgan("dev"))
 
 //Rutas
 server.use("/", ruta);
