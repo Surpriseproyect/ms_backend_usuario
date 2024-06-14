@@ -105,3 +105,7 @@ export const logueoUsuario = async(req,res)=>{
         console.log(e);
     }
     }
+export const validarToken = (req, res) => {
+        Acceso(req, res, 200, {"token": "El token es valido"});
+    }
+//poner un export para poder hacer la documentacion del codigo despues de terminar con el backend    

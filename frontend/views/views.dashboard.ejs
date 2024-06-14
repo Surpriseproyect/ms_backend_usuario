@@ -11,18 +11,35 @@
         <script src="https://kit.fontawesome.com/decc9377a0.js" crossorigin="anonymous"></script>
         <title>Cajero</title>
 
-        <!-- Validacion del Token -->
+        <!-- Validacion del token -->
         <script>
+
           const token = sessionStorage.getItem("token");
           if(token == "" || token == null){
-            window.location.href = "/";
+            window.location.href = "/"
           }
-
+          const url = sessionStorage.getItem("urlSurprise") + "/usuario/oauth";
+          if(url == "" || url == null){
+            window.location.href = "/"
+          }
+          const options = {
+            method : "POST",
+            Headers:{
+              "content-Type": "application/json",
+              "x-access-token": token
+            }
+          }
+          fetch(url, options)
+          .then(res=>res.json())
+          .then(data=>{
+            if (data.error == true){
+              window.location.href="/"
+            }
+          })
         </script>
     </head>
-    
 <body>
-  
+
     <div class="container-fluid text-center">
         <div class="row dash">
           <div class="col-2 menu">
@@ -454,7 +471,4 @@
     <script src="js/paginacion.js"></script>
     <script src="js/ventanas.js"></script>
 </body>
-<!-- token privado -->
-<input type="hidden" id="tokenprivado" value="<%= tokenprivado  %>">
-  
 </html>

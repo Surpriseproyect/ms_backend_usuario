@@ -5,7 +5,7 @@ config();
 
 export const verifytoken = async (req,res, next)=>{
     
-    const token = req.headers["x-access-token"]
+    const token = req.headers["x-access-token"];
 
     try {
         const valida = await jwt.verify(
