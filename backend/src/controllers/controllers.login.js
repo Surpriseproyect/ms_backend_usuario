@@ -22,13 +22,13 @@ export const productos = async (req, res)=>{
     }
 }
 export const dashboard = async (req, res) => {
-    // const tokenprivado = process.env.TOKEN_PRIVATEKEY;
-    // res.render("views.dashboard.ejs" ,{tokenprivado: tokenprivado});
     try {
+        const tokenprivado = process.env.TOKEN_PRIVATEKEY;
         const respuesta = await listarUsuario(req, res);
         const producto = await listarProducto(req, res);
         const fiado = await fiados(req, res);
-        res.render("views.dashboard.ejs",  { 
+        res.render("views.dashboard.ejs", {
+            tokenprivado: tokenprivado, 
             usuarios: respuesta[0],
             producto: producto[0],
             fiado: fiado
