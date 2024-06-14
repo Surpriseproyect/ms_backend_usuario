@@ -33,14 +33,15 @@ const loguear = async ()=>{
         })
         
     }
-    
+    //URL generar token en el login y entrada al dashboard
     await fetch(urlSurprise, options)
     .then(res => res.json())
     .then(data =>{
         if(data.error == true){
             alertify.error('Correo o Contraseña Incorrecta');
         }else{
-            console.log(data);
+            sessionStorage.setItem("token", data.body.token);
+            window.location.href = "/dashboard";
         }
     })
     .catch(err=>{

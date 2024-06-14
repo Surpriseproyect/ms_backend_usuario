@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { render } from "ejs";
 import {dashboard, inicio, productos, sobrenosotros } from "../controllers/controllers.login.js";
 
 const rutaLogin = Router();
