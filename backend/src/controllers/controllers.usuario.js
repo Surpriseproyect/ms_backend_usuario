@@ -75,10 +75,8 @@ export const eliminarUsuario = async (req,res)=>{
 export const logueoUsuario = async(req,res)=>{
     const { correo, contrasena } = req.body;
     console.log(correo + contrasena);
-     //const hash = await bcrypt.hash(CLAVE, 2);
     try {
         const respuesta = await pool.query(`CALL SP_BUSCAR_USUARIO(?)`, [correo]);
-        console.log(respuesta[0][0][0]);
         if (respuesta[0][0] == 0) {
             Error(req, res, 404, "Usuario no existe");
             return;
@@ -86,7 +84,7 @@ export const logueoUsuario = async(req,res)=>{
         const match = await bcrypt.compare(contrasena, respuesta[0][0][0].contrasena);
         console.log(respuesta[0][0][0].contrasena);
         if(!match){
-            Error(req, res, 401, "contraseña errada");
+            Error(req, res, 401, "Contraseña Incorrecta");
             return;
         }
 
