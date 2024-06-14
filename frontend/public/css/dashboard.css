@@ -386,16 +386,19 @@ tr{
   pointer-events: none;
   color: #ccc;
 }
-.edita, .editaProducto{
+.editarUsuario, .editarProducto{
   background: rgb(220, 220, 0);
   color: #000;
   height: 35px;
   width: 35px;
 }
-.elimina{
+.eliminarUsuario, .eliminarProducto{
   background: rgb(220, 0, 0);
   height: 35px;
   width: 35px;
+}
+.aceptar{
+  background: #2a43ff;
 }
 .factura{
   background: #2a43ff;

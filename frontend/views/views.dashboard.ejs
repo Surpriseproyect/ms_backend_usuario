@@ -82,9 +82,9 @@
                     <td><%= usuario.rol %></td>
                     <td><%= usuario.estado %></td>
                     <td class="mods">
-                        <button class="edita"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button class="editarUsuario" onclick="editarUsuario()"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button class="factura" onclick="facturas()"><i class="fa-solid fa-file-invoice"></i></button>
-                        <button class="elimina"><i class="fa-solid fa-trash-can"></i></button>
+                        <button class="eliminarUsuario"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 </tr>
             <% }) %>
@@ -132,8 +132,8 @@
                 <td class="descripcion"><%= producto.descripcion %></td>
                 <td><%= producto.stock %></td>
                 <td class="mods">
-                  <button class="editaProducto" onclick="editarProducto()"><i class="fa-solid fa-pen-to-square"></i></button>
-                  <button class="elimina"><i class="fa-solid fa-trash-can"></i></button>
+                  <button class="editarProducto" onclick="editarProducto()"><i class="fa-solid fa-pen-to-square"></i></button>
+                  <button class="eliminarProducto"><i class="fa-solid fa-trash-can"></i></button>
                 </td>
               </tr>
               <% }) %>
@@ -259,30 +259,31 @@
           </div>
   </div>
 </div>
-      <!-- Faltan las funciones de los botones para acutualizar y los dos "select" -->
-      <div class="editar" id="editar">
+
+      <div class="editar" id="editarUsuario">
         <div class="informacion" id="info">
           <h3>Editar usuario</h3>
-          <form class="datos-usuario" action="">
+          <form class="datos-usuario" id="editarForm">
             <input class="identificacionEdit" type="number" placeholder="Identificación">
             <input class="nombreEdit" type="text" placeholder="Nombres">
             <input class="telefonoEdit" type="text" placeholder="Telefono">
             <input class="correoEdit" type="email" placeholder="Correo">
             <input class="contrasenaEdit" type="text" placeholder="Contraseña">
             <select class="select">
-              <option class="rol" value="rol" selected disabled>Rol</option>
+              <option class="rol" disabled>Rol</option>
               <option value="Cliente">Cliente</option>
+              <option value="Gerente">Gerente</option>
               <option value="Programador">Programador</option>
             </select>
-            <select>
-              <option class="estado1" selected disabled>Estado</option>
+            <select class="estado1">
+              <option class="estado" disabled>Estado</option>
               <option value="Fiado">Fiado</option>
               <option value="Pendiente">Pendiente</option>
               <option value="Pagado">Pagado</option>
             </select>
             <div class="opcion">
               <button onclick="ocultarE()">Cancelar</button>
-              <input class="enviar" type="submit" placeholder="Confirmar">
+              <input class="enviar" id="confirmarBtn" type="submit" value="Confirmar">
             </div>
           </form>
         </div>
