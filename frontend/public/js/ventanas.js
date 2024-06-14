@@ -62,7 +62,7 @@ editar1.forEach(btn => {
     });
 });
 
-// Eliminar Usuario
+// Eliminar Usuarios
 let elimina = document.querySelectorAll(".eliminarUsuario")
 elimina.forEach(btn => {
     btn.addEventListener("click", (e) => {
