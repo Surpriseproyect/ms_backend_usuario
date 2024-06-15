@@ -9,7 +9,7 @@ import { crearProducto, eliminarProducto,
  rutaProducto.get("/producto/:id", mostrarProducto)
  rutaProducto.get("/producto", listarProducto)
  rutaProducto.post("/producto", crearProducto)
- rutaProducto.put("/producto", modificarProducto)
+ rutaProducto.put("/producto/:id", modificarProducto)
  rutaProducto.delete("/producto/:id", eliminarProducto)
 
 

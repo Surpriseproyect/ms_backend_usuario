@@ -135,7 +135,7 @@
                     </div>
                 </div>
             </form>
-            <button class="agregar" onclick="crear()">AGREGAR PRODUCTO +</button>
+            <button class="agregar" onclick="crearProducto()">AGREGAR PRODUCTO +</button>
           </div>
           <table id="tableProductos">
             <thead>
@@ -145,6 +145,7 @@
                 <td>Categoria</td>
                 <td>Precio</td>
                 <td>Descripción</td>
+                <td>URL Imagen</td>
                 <td>Stock</td>
                 <td>Opciones</td>
               </tr>
@@ -158,6 +159,7 @@
                 <td><%= producto.categoria %></td>
                 <td><%= producto.preciou %></td>
                 <td class="descripcion"><%= producto.descripcion %></td>
+                <td><img src="<%= producto.imagen %>" alt=""></td>
                 <td><%= producto.stock %></td>
                 <td class="mods">
                   <button class="editarProducto" onclick="editarProducto()"><i class="fa-solid fa-pen-to-square"></i></button>
@@ -317,7 +319,6 @@
         </div>
       </div>
 
-      <!-- Falta crear el script para mandar la informacion -->
       <div class="crear" id="crear">
         <div class="informacion" id="info">
           <form class="datos-usuario" action="">
@@ -326,12 +327,12 @@
             <input class="telefonoCrear" type="number" placeholder="Telefono">
             <input class="correoCrear" type="email" placeholder="Correo">
             <input class="contrasenaCrear" type="text" placeholder="Contraseña">
-            <select>
+            <select class="selectCrear">
               <option selected disabled>Rol</option>
               <option value="Cliente">Cliente</option>
               <option value="Programador">Programador</option>
             </select>
-            <select>
+            <select class="estado1Crear">
               <option selected disabled>Estado</option>
               <option value="Fiado">Fiado</option>
               <option value="Pendiente">Pendiente</option>
@@ -339,7 +340,7 @@
             </select>
             <div class="opcion">
               <button onclick="ocultarC()">Cancelar</button>
-              <input type="submit" placeholder="Confirmar">
+              <input id="crearUsuario" type="submit" placeholder="Confirmar">
             </div>
           </form>
         </div>
@@ -364,15 +365,51 @@
             <input class="categoriaEdit" type="text" placeholder="Categoria">
             <input class="precioEdit" type="number" placeholder="Precio">
             <textarea class="descripcionEdit" type="text" placeholder="Descripción"></textarea>
-            <input class="stockEdit" type="number" placeholder="Contraseña">
+            <input class="urlEdit" type="text" placeholder="URL Imagen...">
+            <input class="stockEdit" type="number" placeholder="Stock">
             <div class="opcion">
               <button onclick="ocultarProducto()">Cancelar</button>
-              <input type="submit" placeholder="Confirmar">
+              <input class="enviar" id="confirmarBtnn" type="submit" value="Confirmar">
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="crear" id="crearP">
+        <div class="informacion" id="info">
+          <form class="datos-usuario" action="">
+            <input class="productoCrear" type="text" placeholder="Producto">
+            <input class="categoriaCrear" type="text" placeholder="Categoria">
+            <input class="precioCrear" type="number" placeholder="Precio">
+            <input class="descripcionCrear" type="text" placeholder="Descripción">
+            <input class="urlCrear" type="text" placeholder="URL Imagen">
+            <input class="stockCrear" type="text" placeholder="Stock">
+            <div class="opcion">
+              <button onclick="ocultarCrearProducto()">Cancelar</button>
+              <input id="crearProducto" type="submit" placeholder="Confirmar">
             </div>
           </form>
         </div>
       </div>
       
+      <!-- <div class="facturas" id="facturas">
+        <table>
+          <tr>
+            <td>ID Factura</td>
+            <td>Nombre</td>
+            <td>Fecha</td>
+            <td>Metodo de Pago</td>
+            <td>N. Cuenta</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>Esneider</td>
+            <td>Hoy</td>
+            <td>Efectivo</td>
+            <td>N. Cuenta</td>
+          </tr>
+        </table>
+      </div> -->
       <script>
         // Función para mostrar el contenido de la sección correspondiente según el hash en la URL
         function showSectionFromHash() {

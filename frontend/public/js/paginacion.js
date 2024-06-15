@@ -1,6 +1,6 @@
 // Paginación Usuarios
 document.addEventListener('DOMContentLoaded', function() {
-    const rowsPerPage = 10;
+    const rowsPerPage = 6;
     const tableBody = document.getElementById('usuariosTableBody');
     const paginationControls = document.getElementById('paginationControls');
     const rows = tableBody.querySelectorAll('tr');
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Paginación Productos
 document.addEventListener('DOMContentLoaded', function() {
-    const rowsPerPage = 10;
+    const rowsPerPage = 6;
     const tableBody = document.getElementById('productosTableBody');
     const paginationControls = document.getElementById('paginacionProductos');
     const rows = tableBody.querySelectorAll('tr');
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Paginación Fiados
 document.addEventListener('DOMContentLoaded', function() {
-    const rowsPerPage = 7;
+    const rowsPerPage = 5;
     const tableBody = document.getElementById('fiadosTableBody');
     const paginationControls = document.getElementById('paginacionFiados');
     const rows = tableBody.querySelectorAll('tr');
