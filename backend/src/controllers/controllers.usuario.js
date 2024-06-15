@@ -58,9 +58,13 @@ export const modificarUsuario = async (req,res)=>{
     const {identificacion, nombres, telefono, correo, contrasena, rol, estado} = req.body;
     try {
         const respuesta = await pool.query (`CALL SP_MODIFICAR_USUARIO (?,?, ?, ?, ?, ?, ?, ?)`, [id, identificacion, nombres, telefono, correo, contrasena, rol, estado]);
-            res.json(respuesta[0])
-    } catch (error) {
-            res.json({"error": "el usuario no ha sido modificado"})
+        if (respuesta[0].affectedRows == 1){
+            Acceso(req, res, 201,"Usuario modificado:" + correo);
+        }else{
+            Error(req, res, 400, "No se pudo modificar el usuario: " + correo);    
+        }
+    } catch (err) {
+        Error(req, res, 400, err);
     }
 }
 export const eliminarUsuario = async (req,res)=>{
@@ -89,7 +93,7 @@ export const logueoUsuario = async(req,res)=>{
         }
 
         let payload = {
-            "correo": correo,
+            "correo": respuesta.correo,
             
         }; 
         let token = jwt.sign(payload,process.env.TOKEN_PRIVATEKEY,

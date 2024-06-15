@@ -15,7 +15,7 @@ rutaUsuario.get("/usuario", listarUsuario)
 //crear
 rutaUsuario.post("/usuario", crearUsuario)
 //modificar
-rutaUsuario.put("/usuario/:id", verifytoken, modificarUsuario)
+rutaUsuario.put("/usuario", verifytoken, modificarUsuario)
 //eliminar
 rutaUsuario.delete("/usuario/:id", verifytoken, eliminarUsuario)
 //login
