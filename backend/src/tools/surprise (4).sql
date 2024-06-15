@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-06-2024 a las 01:05:54
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 15-06-2024 a las 22:35:21
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,39 +25,39 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BUSCAR_USUARIO` (IN `_CORREO` VARCHAR(200))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BUSCAR_USUARIO` (IN `_CORREO` VARCHAR(200))  BEGIN
 
 SELECT correo, contrasena FROM usuarios WHERE correo = _CORREO LIMIT 1;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_FACTURA` (IN `_IDUSUARIO` INT(10), IN `_IDMETODOPAGO` INT(10), IN `_ESTADO` VARCHAR(10), IN `_NCUENTA` INT(15))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_FACTURA` (IN `_IDUSUARIO` INT(10), IN `_IDMETODOPAGO` INT(10), IN `_ESTADO` VARCHAR(10), IN `_NCUENTA` INT(15))  BEGIN
 
 INSERT INTO facturas(idusuario, idmetodopago, estado, ncuenta)
 VALUES (_IDUSUARIO, _IDMETODOPAGO, _ESTADO, _NCUENTA);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_METODOPAGO` (IN `_TIPOPAGO` VARCHAR(20))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_METODOPAGO` (IN `_TIPOPAGO` VARCHAR(20))  BEGIN
 
 INSERT INTO metodopago(tipopago) VALUES (_TIPOPAGO);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PRODUCTO` (IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_STOCK` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PRODUCTO` (IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))  BEGIN
 
-INSERT INTO productos(producto, categoria, preciou, descripcion, stock) VALUES
-(_PRODUCTO, _CATEGORIA, _PRECIOU, _DESCRIPCION, _STOCK);
+INSERT INTO productos(producto, categoria, preciou, descripcion, imagen, stock) VALUES
+(_PRODUCTO, _CATEGORIA, _PRECIOU, _DESCRIPCION, _IMAGEN, _STOCK);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PROVEEDORES` (IN `PROVEEDOR` VARCHAR(100))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PROVEEDORES` (IN `PROVEEDOR` VARCHAR(100))  BEGIN
 
 INSERT INTO proveedores(proveedor) VALUES (PROVEEDOR);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_USUARIO` (IN `_IDENTIFICACION` INT(10), IN `_NOMBRES` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CORREO` VARCHAR(200), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(15), IN `_ESTADO` VARCHAR(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_USUARIO` (IN `_IDENTIFICACION` INT(10), IN `_NOMBRES` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CORREO` VARCHAR(200), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(15), IN `_ESTADO` VARCHAR(10))  BEGIN
 
 INSERT INTO usuarios(identificacion, nombres, telefono, correo, contrasena,
 rol, estado) VALUES (_IDENTIFICACION, _NOMBRES, _TELEFONO, _CORREO, _CONTRASENA,
@@ -65,105 +65,104 @@ _ROL, _ESTADO);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))  BEGIN
 
 DELETE FROM productos WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT(10))  BEGIN
 
 DELETE FROM proveedores WHERE idproveedor = _IDPROVEEDOR;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `_ID_NOMBRE` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `_ID_NOMBRE` INT(10))  BEGIN
 
 DELETE FROM usuarios WHERE idusuario = _ID_NOMBRE;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FACTURA` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FACTURA` ()  BEGIN
 
 SELECT * FROM facturas;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FIADO` ()   SELECT * FROM usuarios WHERE estado = "fiado" or estado = "pendiente"$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FIADO` ()  SELECT * FROM usuarios WHERE estado = "fiado" or estado = "pendiente"$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_METODOPAGO` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_METODOPAGO` ()  BEGIN
 
 SELECT * FROM metodopago;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PRODUCTO` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PRODUCTO` ()  BEGIN
 
 SELECT * FROM productos;
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PROVEEDORES` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PROVEEDORES` ()  BEGIN
 
 SELECT * FROM proveedores;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_USUARIO` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_USUARIO` ()  BEGIN
 
 SELECT * FROM usuarios;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10), IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_STOCK` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10), IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))  BEGIN
 
 UPDATE productos SET producto = _PRODUCTO, categoria = _CATEGORIA,
-preciou = _PRECIOU, descripcion = _DESCRIPCION, stock = _STOCK WHERE idproducto = _IDPRODUCTO;
+preciou = _PRECIOU, descripcion = _DESCRIPCION, imagen = _IMAGEN, stock = _STOCK WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_USUARIO` (IN `_ID_NOMBRE` INT(10), IN `_IDENTIFICACION` INT(10), IN `_NOMBRE` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CORREO` VARCHAR(200), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(10), IN `_ESTADO` VARCHAR(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_USUARIO` (IN `_ID_NOMBRE` INT(10), IN `_IDENTIFICACION` INT(10), IN `_NOMBRE` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CORREO` VARCHAR(200), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(10), IN `_ESTADO` VARCHAR(10))  BEGIN
 UPDATE usuarios SET identificacion = _IDENTIFICACION, nombres = _NOMBRE, telefono = _TELEFONO,
 correo = _CORREO, contrasena = _CONTRASENA, rol = _ROL, estado = _ESTADO WHERE idusuario = _ID_NOMBRE;
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_FACTURA` (IN `_IDFACTURA` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_FACTURA` (IN `_IDFACTURA` INT)  BEGIN
 
 SELECT * FROM facturas WHERE idfacturas = _IDFACTURA;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_METODOPAGO` (IN `_IDMETODOPAGO` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_METODOPAGO` (IN `_IDMETODOPAGO` INT)  BEGIN
 
 SELECT * FROM metodopago WHERE idmetodopago = _IDMETODOPAGO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))  BEGIN
 
-SELECT idproducto, producto, categoria, preciou, descripcion,
-stock
+SELECT idproducto, producto, categoria, preciou, descripcion, imagen, stock
 FROM productos WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT)  BEGIN
 
 SELECT * FROM proveedores WHERE idproveedor = _IDPROVEEDOR;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_USUARIO` (IN `_ID_USUARIO` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_USUARIO` (IN `_ID_USUARIO` INT)  BEGIN
 
 SELECT idusuario, identificacion, nombres, telefono, correo, contrasena,
 rol, estado FROM usuarios WHERE idusuario = _ID_USUARIO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGOS_ATRASADOS` (IN `pagos_atrasados` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGOS_ATRASADOS` (IN `pagos_atrasados` INT)  BEGIN
 
 SELECT 
   usuarios.identificacion,
@@ -193,7 +192,7 @@ CREATE TABLE `facturas` (
   `idmetodopago` int(10) NOT NULL,
   `estado` varchar(10) NOT NULL,
   `ncuenta` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `facturas`
@@ -240,7 +239,7 @@ INSERT INTO `facturas` (`idfacturas`, `idusuario`, `fecha`, `idmetodopago`, `est
 CREATE TABLE `metodopago` (
   `idmetodopago` int(10) NOT NULL,
   `tipopago` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `metodopago`
@@ -266,7 +265,7 @@ CREATE TABLE `pagos_atrasados` (
   `comentarios` varchar(200) DEFAULT NULL,
   `fecha_vencimiento` varchar(20) NOT NULL,
   `estado` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -282,14 +281,14 @@ CREATE TABLE `productos` (
   `descripcion` varchar(200) DEFAULT NULL,
   `imagen` text NOT NULL,
   `stock` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`idproducto`, `producto`, `categoria`, `preciou`, `descripcion`, `imagen`, `stock`) VALUES
-(1, 'Desayuno Continental', 'Desayuno', 10000, 'Una selección de panecillos frescos, mermeladas, mantequilla, jugo de naranja y café o té', 'https://www.hogarmania.com/archivos/202305/desayuno-continental-huevo-salchichas-1280x720x80xX.jpg', 100),
+(1, 'Desayuno Continental', 'Desayuno', 1000, 'Una selección de panecillos frescos, mermeladas, mantequilla, jugo de naranja y café o té', 'https://www.hogarmania.com/archivos/202305/desayuno-continental-huevo-salchichas-1280x720x80xX.jpg', 100),
 (2, 'Omelette de Champiñones', 'Desayuno', 5000, 'Un omelette esponjoso relleno de champiñones frescos, acompañado de tostadas de pan integral y una 		  ensalada de frutas frescas', 'https://lh5.googleusercontent.com/proxy/mwODIni5bH02ANZxL-PQDxW_dVwJ3RIaQJ8BV1vOSa--Sd74YzpS3WnBLjbDiMwtO5qqVZdYX4DZoSUjna8xG60sAg_C8FS8F8DAPbmHLm3-YrDbj48R5fmfi8GSwkw', 50),
 (3, 'Waffles con Jarabe de Arce', 'Desayuno', 10000, 'Waffles dorados y crujientes servidos con mantequilla derretida y jarabe de arce genuino, 			acompañados de una guarnición de frutas frescas', 'https://img.freepik.com/fotos-premium/jarabe-arce-vierte-sobre-waffle_921860-8394.jpg', 80),
 (4, 'Huevos Benedictinos', 'Desayuno', 5000, 'Dos huevos pochados sobre muffins ingleses, con lonchas de jamón, cubiertos con salsa holandesa y             acompañados de papas a la francesa', 'https://www.finedininglovers.com/es/sites/g/files/xknfdk1706/files/2023-06/Eggs%20Benedict.jpg', 100),
@@ -318,7 +317,8 @@ INSERT INTO `productos` (`idproducto`, `producto`, `categoria`, `preciou`, `desc
 (28, 'pollo', 'tienda', 1200, 'pollo muy rico', 'https://www.elespectador.com/resizer/qnmcZB28733ovmkLlBjlcnCiLPc=/arc-anglerfish-arc2-prod-elespectador/public/BF5ZMLR24NHKJHJJ3L23WDFF7Q.jpg', 100),
 (29, 'pollo de tercera', 'tienda', 10000, 'pollo asado de segunda', 'https://estaticos-cdn.prensaiberica.es/clip/ef0f2855-f04b-464a-b26f-b62a1d069657_16-9-aspect-ratio_default_0.jpg', 100),
 (31, 'Bandeja Paisa', 'Almuerzo', 1000, 'Bandeja Paisa 100% natural', 'https://cdn.colombia.com/gastronomia/2011/08/02/bandeja-paisa-1616.gif', 70),
-(33, 'papitas margarita', 'Tienda', 1000, 'papas de buena calidad y natural', 'https://pbs.twimg.com/ext_tw_video_thumb/1595885004382420993/pu/img/NezSOxZcdQK3l0rZ.jpg', 10);
+(33, 'papitas margarita', 'Tienda', 1000, 'papas de buena calidad y natural', 'https://pbs.twimg.com/ext_tw_video_thumb/1595885004382420993/pu/img/NezSOxZcdQK3l0rZ.jpg', 10),
+(49, 'Curry', 'Almuerzo', 1000, 'Curry rico', 'https://www.kitchensanctuary.com/wp-content/uploads/2022/09/Air-Fryer-Chicken-Curry-square-FS-36.jpg', 10);
 
 -- --------------------------------------------------------
 
@@ -329,7 +329,7 @@ INSERT INTO `productos` (`idproducto`, `producto`, `categoria`, `preciou`, `desc
 CREATE TABLE `proveedores` (
   `idproveedor` int(10) NOT NULL,
   `proveedor` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `proveedores`
@@ -358,14 +358,14 @@ CREATE TABLE `usuarios` (
   `contrasena` varchar(100) NOT NULL,
   `rol` varchar(15) NOT NULL,
   `estado` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`idusuario`, `identificacion`, `nombres`, `telefono`, `correo`, `contrasena`, `rol`, `estado`) VALUES
-(1, 123456789, 'Ana María Pérez López', '300 123 45', 'ana223@gmail.com', 'Ana123456', 'Cliente', 'Fiado'),
+(1, 123456789, 'Ana María Pérez López', '300 123 45', 'ana223@gmail.com', 'Ana123456', 'Gerente', 'Fiado'),
 (2, 987654321, 'Juan David García Martínez', '310 765 43', 'juandavid@gmail.com', 'Juan123456', 'Cliente', 'Fiado'),
 (3, 234567890, 'Laura Sofía Gómez Ramírez', '320 234 56', 'laura67352@gmail.com', 'Laura123456', 'Cliente', 'Fiado'),
 (4, 456789012, 'Pedro Antonio Rodríguez González', '330 345 67', 'pedrogonzalez@gmail.com', 'Pedro123456', 'Cliente', 'Fiado'),
@@ -470,7 +470,7 @@ ALTER TABLE `pagos_atrasados`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `idproducto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idproducto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -482,7 +482,7 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idusuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `idusuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- Restricciones para tablas volcadas
