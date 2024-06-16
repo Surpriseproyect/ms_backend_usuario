@@ -8,7 +8,7 @@ const rutaProveedor = Router();
 rutaProveedor.get("/proveedor/:id", mostrarProveedor)
 rutaProveedor.get("/proveedor", listarProveedor)
 rutaProveedor.post("/proveedor", crearProveedor )
-rutaProveedor.delete("/proveedor", eliminarProveedor)
+rutaProveedor.delete("/proveedor/:id", eliminarProveedor)
 
 
 export default rutaProveedor;

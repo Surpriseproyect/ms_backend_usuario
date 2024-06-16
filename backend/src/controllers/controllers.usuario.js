@@ -34,7 +34,7 @@ export const listarUsuario = async (req, res) => {
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_USUARIO()`);
         // res.json(respuesta[0])
-        return respuesta[0];
+        return respuesta;
     } catch (error) {
         console.error(error);
         return { "error": error };

@@ -18,11 +18,12 @@ export const listarFactura = async (req,res)=>{
     }
 }
 export const crearFactura = async (req,res)=>{
-    const {idusuario, idmetodopago, estado, ncuenta} = req.body;
+    const {idusuario, fecha, idmetodopago, estado, ncuenta} = req.body;
     try {
-        const respuesta = await pool.query(`CALL SP_CREAR_FACTURA ("${idusuario}", "${idmetodopago}","${estado}", "${ncuenta}")`);
+        const respuesta = await pool.query(`CALL SP_CREAR_FACTURA (?,?,?,?,?)`, [idusuario, fecha, idmetodopago, estado, ncuenta]);
         res.json({"respuesta": "la factura ha sido creada"})
     } catch (error) {
-        res.json({"error": "La factura no ha sido creada"})
+        // res.json({"error": "La factura no ha sido creada"})
+        console.log(error);
     }
 }

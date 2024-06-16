@@ -13,7 +13,7 @@
 
         <!-- Validacion del token -->
         <script>
-
+          // const usuario = document.getElementById("usuario");
           const token = sessionStorage.getItem("token");
           if(token == "" || token == null){
             window.location.href = "/"
@@ -35,6 +35,7 @@
             if (data.error == true){
               window.location.href="/"
             }
+            // usuario.innerText = data.body.correo
           })
         </script>
     </head>
