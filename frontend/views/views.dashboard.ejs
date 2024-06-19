@@ -13,7 +13,6 @@
 
         <!-- Validacion del token -->
         <script>
-          // const usuario = document.getElementById("usuario");
           const token = sessionStorage.getItem("token");
           if(token == "" || token == null){
             window.location.href = "/"
@@ -35,8 +34,13 @@
             if (data.error == true){
               window.location.href="/"
             }
-            // usuario.innerText = data.body.correo
           })
+        </script>
+        <script>
+          const cerrarSesion = ()=>{
+            sessionStorage.setItem("token", "");
+            window.location.href= "/";
+          }
         </script>
     </head>
 <body>
@@ -69,7 +73,7 @@
                   <span class="icon moon"><i class="fa-solid fa-moon"></i></span>
               </label>
           </div>
-            <a class="cerrar" href="#">CERRAR SESIÓN</a>
+            <a class="cerrar" onclick="cerrarSesion();">CERRAR SESIÓN</a>
           </div>
         </div>
 

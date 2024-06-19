@@ -15,9 +15,9 @@ rutaUsuario.get("/usuario", listarUsuario)
 //crear
 rutaUsuario.post("/usuario", crearUsuario)
 //modificar
-rutaUsuario.put("/usuario/:id", verifytoken, modificarUsuario)
+rutaUsuario.put("/usuario/:id", modificarUsuario)
 //eliminar
-rutaUsuario.delete("/usuario/:id", verifytoken, eliminarUsuario)
+rutaUsuario.delete("/usuario", eliminarUsuario)
 //login
 rutaUsuario.post("/loginusuario", logueoUsuario);
 //Validar token

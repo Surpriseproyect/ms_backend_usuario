@@ -67,6 +67,7 @@ a > i{
     text-decoration: none;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 .cont > :nth-child(1){
     display: flex;

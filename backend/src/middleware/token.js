@@ -15,6 +15,6 @@ export const verifytoken = async (req,res, next)=>{
         );
         next();
     } catch (e) {
-        Error(req,res, 401, "Token no valido")
+        Error(req,res, 401, "Falta Acceso del Token")
     }
 }
