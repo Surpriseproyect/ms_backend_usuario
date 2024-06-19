@@ -17,6 +17,7 @@ img{
     height: 40px;
     width: 40px;
     margin-right: 10px;
+    border-radius: 5px;
 }
 .cajero{
     color: #fff;
@@ -344,6 +345,8 @@ table{
 td{
   border: 1px #d9d9d9 solid;
   padding: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 table{
   border-radius: 10px;
@@ -476,18 +479,6 @@ tr{
 		align-items: center;
 		justify-content: space-between;
 		font-weight: 600;
-
-		.icon-button {
-			color: inherit;
-			border-color: inherit;
-			&:hover,
-			&:focus {
-				background-color: transparent;
-				i {
-					transform: none;
-				}
-			}
-		}
 
 		&:focus {
 			box-shadow: none;

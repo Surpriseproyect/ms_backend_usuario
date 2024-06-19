@@ -49,14 +49,16 @@
         <div class="row dash">
           <div class="col-2 menu">
             <div class="encabazado">
-                <a class="cajero" href=""><img src="img/cajero.png" alt="">CAJERO</a>
+                <a class="cajero" href=""><img src="img/cajero.png" alt="">GERENTE</a>
             </div>
             <div class="opciones">
-              <li class="enlace"><a href="#clientes"><i class="fa-solid fa-users"></i></i>Clientes</a></li>
-              <li class="enlace"><a href="#productos"><i class="fa-solid fa-carrot"></i></i>Productos</a></li>
-              <li class="enlace"><a href="#metodo"><i class="fa-regular fa-credit-card"></i></i>Metodo Pago</a></li>
-              <li class="enlace"><a href="#cuentas"><i class="fa-solid fa-file-invoice-dollar"></i></i>Cuentas Fiadas</a></li>
-              <li class="enlace"><a href="#informes"><i class="fa-solid fa-flag"></i></i>Informes</a></li>
+              <li class="enlace"><a href="#pedidos"><i class="fa-regular fa-rectangle-list"></i>Pedidos</a></li>
+              <li class="enlace"><a href="#facturas"><i class="fa-solid fa-receipt"></i>Facturas</a></li>
+              <li class="enlace"><a href="#clientes"><i class="fa-solid fa-users"></i>Clientes</a></li>
+              <li class="enlace"><a href="#productos"><i class="fa-solid fa-carrot"></i>Productos</a></li>
+              <li class="enlace"><a href="#metodo"><i class="fa-regular fa-credit-card"></i>Metodo Pago</a></li>
+              <li class="enlace"><a href="#cuentas"><i class="fa-solid fa-file-invoice-dollar"></i>Cuentas Fiadas</a></li>
+              <li class="enlace"><a href="#informes"><i class="fa-solid fa-flag"></i>Informes</a></li>
             </div>
           </div>
         
@@ -75,6 +77,41 @@
           </div>
             <a class="cerrar" onclick="cerrarSesion();">CERRAR SESIÓN</a>
           </div>
+        </div>
+
+        <div class="col-12 contenido" id="pedidos">
+          <table>
+            <thead>
+              <tr>
+                <td>ID Pedido</td>
+                <td>Nombres</td>
+                <td>Producto</td>
+                <td>Metodo de Pago</td>
+                <td>Hora</td>
+                <td>Cantidad</td>
+                <td>Total</td>
+                <td>Opciones</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Esneider Giraldo</td>
+                <td>Arroz</td>
+                <td>Efectivo</td>
+                <td>6:00 PM</td>
+                <td>1</td>
+                <td>$5.000</td>
+                <td>
+                  <input type="button" value="Pagado">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-12 contenido" id="facturas">
+          <p style="color:aliceblue">Facturas con los datos id usuario, id metodo de pago, estado</p>
         </div>
 
           <div class="col-12 contenido" id="clientes">
@@ -150,7 +187,7 @@
                 <td>Categoria</td>
                 <td>Precio</td>
                 <td>Descripción</td>
-                <td>URL Imagen</td>
+                <td>Imagen</td>
                 <td>Stock</td>
                 <td>Opciones</td>
               </tr>
@@ -208,7 +245,7 @@
           </div>
         
           <div class="col-12 contenido" id="cuentas">
-            <button class="agregar act" onclick="act()">Actualizar</button>
+            <button class="agregar act">Actualizar</button>
             <table id="fiadosTable">
               <thead>
                 <tr>
@@ -250,14 +287,11 @@
                   <i class="ph-lightning-light"></i>
                   <h3>
                     <span>NÚMERO DE VENTAS</span>
-                    <span>UrkEnergo LTD.</span>
+                    <span>10</span>
                   </h3>
                 </div>
-                <a href="#">
-                  <span>Go to service</span>
-                  <span class="icon-button">
-                    <i class="ph-caret-right-bold"></i>
-                  </span>
+                <a href="">
+                  
                 </a>
               </article>
               <article class="tile">
@@ -265,14 +299,10 @@
                   <i class="ph-fire-simple-light"></i>
                   <h3>
                     <span>GANANCIA</span>
-                    <span>Gazprom UA</span>
+                    <span>$100.000</span>
                   </h3>
                 </div>
                 <a href="#">
-                  <span>Go to service</span>
-                  <span class="icon-button">
-                    <i class="ph-caret-right-bold"></i>
-                  </span>
                 </a>
               </article>
               <article class="tile">
@@ -284,10 +314,6 @@
                   </h3>
                 </div>
                 <a href="#">
-                  <span>Go to service</span>
-                  <span class="icon-button">
-                    <i class="ph-caret-right-bold"></i>
-                  </span>
                 </a>
               </article>
             </div>
@@ -415,6 +441,7 @@
           </tr>
         </table>
       </div> -->
+
       <script>
         // Función para mostrar el contenido de la sección correspondiente según el hash en la URL
         function showSectionFromHash() {
