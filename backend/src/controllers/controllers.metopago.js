@@ -12,7 +12,7 @@ export const MostrarPago = async (req, res) =>{
 export const ListarPago = async (req,res)=>{
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_METODOPAGO()`);
-        res.json({"respuesta": respuesta[0][0]})
+        return respuesta[0][0]
     } catch (error) {
         res.json({"respuesta": error})
     }

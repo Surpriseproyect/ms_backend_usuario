@@ -5,6 +5,7 @@ import rutaProveedor from "./routes.proveedor.js";
 import rutaFactura from "./routes.facturas.js";
 import rutaMetoPago from "./routes.metopago.js";
 import rutaLogin from "./routes.login.js";
+import routesPedidos from "./routes.pedido.js";
 
 const ruta = Router();
 
@@ -13,6 +14,7 @@ ruta.use("/usuario", rutaUsuario);
 ruta.use("/proveedor", rutaProveedor);
 ruta.use("/factura", rutaFactura);
 ruta.use("/metopago", rutaMetoPago);
+ruta.use("/pedido", routesPedidos)
 //Rutas views
 ruta.use("/", rutaLogin);
 

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-06-2024 a las 02:33:13
--- Versión del servidor: 10.4.22-MariaDB
--- Versión de PHP: 8.1.1
+-- Tiempo de generación: 20-06-2024 a las 18:44:12
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,39 +25,39 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BUSCAR_USUARIO` (IN `_CORREO` VARCHAR(200))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BUSCAR_USUARIO` (IN `_CORREO` VARCHAR(200))   BEGIN
 
 SELECT correo, contrasena FROM usuarios WHERE correo = _CORREO LIMIT 1;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_FACTURA` (IN `_IDUSUARIO` INT(10), IN `_IDMETODOPAGO` INT(10), IN `_ESTADO` VARCHAR(10), IN `_NCUENTA` INT(15), IN `_FECHA` TIMESTAMP)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_FACTURA` (IN `_IDUSUARIO` INT(10), IN `_IDMETODOPAGO` INT(10), IN `_ESTADO` VARCHAR(10), IN `_NCUENTA` INT(15), IN `_FECHA` TIMESTAMP)   BEGIN
 
 INSERT INTO facturas(idusuario, fecha, idmetodopago, estado, ncuenta)
 VALUES (_IDUSUARIO, _FECHA, _IDMETODOPAGO, _ESTADO, _NCUENTA);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_METODOPAGO` (IN `_TIPOPAGO` VARCHAR(20))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_METODOPAGO` (IN `_TIPOPAGO` VARCHAR(20))   BEGIN
 
 INSERT INTO metodopago(tipopago) VALUES (_TIPOPAGO);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PRODUCTO` (IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PRODUCTO` (IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))   BEGIN
 
 INSERT INTO productos(producto, categoria, preciou, descripcion, imagen, stock) VALUES
 (_PRODUCTO, _CATEGORIA, _PRECIOU, _DESCRIPCION, _IMAGEN, _STOCK);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PROVEEDORES` (IN `PROVEEDOR` VARCHAR(100))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PROVEEDORES` (IN `PROVEEDOR` VARCHAR(100))   BEGIN
 
 INSERT INTO proveedores(proveedor) VALUES (PROVEEDOR);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_USUARIO` (IN `_IDENTIFICACION` INT(10), IN `_NOMBRES` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CORREO` VARCHAR(200), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(15), IN `_ESTADO` VARCHAR(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_USUARIO` (IN `_IDENTIFICACION` INT(10), IN `_NOMBRES` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CORREO` VARCHAR(200), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(15), IN `_ESTADO` VARCHAR(10))   BEGIN
 
 INSERT INTO usuarios(identificacion, nombres, telefono, correo, contrasena,
 rol, estado) VALUES (_IDENTIFICACION, _NOMBRES, _TELEFONO, _CORREO, _CONTRASENA,
@@ -65,103 +65,107 @@ _ROL, _ESTADO);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))   BEGIN
 
 DELETE FROM productos WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT(10))   BEGIN
 
 DELETE FROM proveedores WHERE idproveedor = _IDPROVEEDOR;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `_ID_NOMBRE` INT(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `_ID_NOMBRE` INT(10))   BEGIN
 
 DELETE FROM usuarios WHERE idusuario = _ID_NOMBRE;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FACTURA` ()  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTARPEDIDO` ()   BEGIN
+SELECT p.Id_pedido, u.nombres, pr.producto, m.tipopago, p.hora, p.cantidad, p.total FROM pedido p INNER JOIN usuarios u ON p.idusuario = u.idusuario INNER JOIN productos pr ON p.idproducto = pr.idproducto INNER JOIN metodopago m ON p.idmetodopago = m.idmetodopago;
+END$$
 
-SELECT * FROM facturas;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FACTURA` ()   BEGIN
+
+SELECT f.idfacturas, u.nombres, p.producto, f.fecha, m.tipopago, f.estado FROM facturas f INNER JOIN usuarios u ON f.idusuario = u.idusuario INNER JOIN productos p ON f.idproducto = p.idproducto INNER JOIN metodopago m ON f.idmetodopago = m.idmetodopago ;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FIADO` ()  SELECT * FROM usuarios WHERE estado = "fiado" or estado = "pendiente"$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FIADO` ()   SELECT * FROM usuarios WHERE estado = "fiado" or estado = "pendiente"$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_METODOPAGO` ()  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_METODOPAGO` ()   BEGIN
 
 SELECT * FROM metodopago;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PRODUCTO` ()  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PRODUCTO` ()   BEGIN
 
 SELECT * FROM productos;
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PROVEEDORES` ()  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PROVEEDORES` ()   BEGIN
 
 SELECT * FROM proveedores;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_USUARIO` ()  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_USUARIO` ()   BEGIN
 
 SELECT * FROM usuarios;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10), IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10), IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))   BEGIN
 
 UPDATE productos SET producto = _PRODUCTO, categoria = _CATEGORIA,
 preciou = _PRECIOU, descripcion = _DESCRIPCION, imagen = _IMAGEN, stock = _STOCK WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_USUARIO` (IN `_ID_USUARIO` INT(10), IN `_IDENTIFICACION` INT(10), IN `_NOMBRE` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(10), IN `_ESTADO` VARCHAR(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_USUARIO` (IN `_ID_USUARIO` INT(10), IN `_IDENTIFICACION` INT(10), IN `_NOMBRE` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(15), IN `_ESTADO` VARCHAR(10))   BEGIN
 UPDATE usuarios SET identificacion = _IDENTIFICACION, nombres = _NOMBRE, telefono = _TELEFONO, contrasena = _CONTRASENA, rol = _ROL, estado = _ESTADO WHERE idusuario = _ID_USUARIO;
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_FACTURA` (IN `_IDFACTURA` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_FACTURA` (IN `_IDFACTURA` INT)   BEGIN
 
 SELECT * FROM facturas WHERE idfacturas = _IDFACTURA;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_METODOPAGO` (IN `_IDMETODOPAGO` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_METODOPAGO` (IN `_IDMETODOPAGO` INT)   BEGIN
 
 SELECT * FROM metodopago WHERE idmetodopago = _IDMETODOPAGO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))   BEGIN
 
 SELECT idproducto, producto, categoria, preciou, descripcion, imagen, stock
 FROM productos WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT)   BEGIN
 
 SELECT * FROM proveedores WHERE idproveedor = _IDPROVEEDOR;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_USUARIO` (IN `_ID_USUARIO` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_USUARIO` (IN `_ID_USUARIO` INT)   BEGIN
 
 SELECT idusuario, identificacion, nombres, telefono, correo, contrasena,
 rol, estado FROM usuarios WHERE idusuario = _ID_USUARIO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGOS_ATRASADOS` (IN `pagos_atrasados` INT)  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGOS_ATRASADOS` (IN `pagos_atrasados` INT)   BEGIN
 
 SELECT 
   usuarios.identificacion,
@@ -186,47 +190,36 @@ DELIMITER ;
 
 CREATE TABLE `facturas` (
   `idfacturas` int(10) NOT NULL,
+  `idpedido` int(10) NOT NULL,
   `idusuario` int(10) NOT NULL,
+  `idproducto` int(10) NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT current_timestamp(),
   `idmetodopago` int(10) NOT NULL,
-  `estado` varchar(10) NOT NULL,
-  `ncuenta` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `total` int(100) NOT NULL,
+  `estado` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `facturas`
 --
 
-INSERT INTO `facturas` (`idfacturas`, `idusuario`, `fecha`, `idmetodopago`, `estado`, `ncuenta`) VALUES
-(27, 1, '2023-01-15 05:00:00', 1, 'Pagada', '8723683'),
-(28, 2, '2023-02-03 05:00:00', 2, 'Pendiente', '5432198'),
-(29, 3, '2023-02-12 05:00:00', 2, 'Pagada', '9345671'),
-(30, 4, '2023-03-07 05:00:00', 2, 'Cancelada', '7865432'),
-(31, 5, '2023-03-15 05:00:00', 1, 'Pagada', '6754321'),
-(32, 6, '2023-04-02 05:00:00', 2, 'Pendiente', '8954321'),
-(33, 27, '2023-04-11 05:00:00', 2, 'Pagada', '1245678'),
-(34, 28, '2023-05-01 05:00:00', 2, 'Cancelada', '3654789'),
-(35, 29, '2023-05-09 05:00:00', 1, 'Pagada', '4567890'),
-(36, 30, '2023-06-17 05:00:00', 1, 'Pagada', '9876543'),
-(37, 31, '2023-06-25 05:00:00', 1, 'Pendiente', '5678901'),
-(38, 32, '2023-07-03 05:00:00', 2, 'Pagada', '6789012'),
-(39, 33, '2023-07-22 05:00:00', 2, 'Pagada', '5432789'),
-(40, 34, '2023-08-11 05:00:00', 2, 'Pendiente', '9812345'),
-(41, 35, '2023-08-19 05:00:00', 2, 'Cancelada', '7890123'),
-(42, 36, '2023-09-05 05:00:00', 2, 'Pagada', '8901234'),
-(43, 37, '2023-09-13 05:00:00', 2, 'Pagada', '2345678'),
-(44, 38, '2023-10-21 05:00:00', 1, 'Pagada', '4567890'),
-(45, 39, '2023-10-29 05:00:00', 1, 'Pendiente', '5678901'),
-(46, 40, '2023-11-06 05:00:00', 1, 'Pagada', '1234567'),
-(47, 41, '2023-11-25 05:00:00', 1, 'Pagada', '3456789'),
-(48, 42, '2023-12-04 05:00:00', 2, 'Cancelada', '4567890'),
-(49, 43, '2024-01-02 05:00:00', 2, 'Pagada', '6789012'),
-(50, 44, '2024-01-10 05:00:00', 1, 'Pagada', '2345678'),
-(51, 45, '2024-02-18 05:00:00', 1, 'Pendiente', '7890123'),
-(53, 41, '2024-06-02 00:50:46', 1, 'Pagada', '53953895'),
-(54, 42, '2024-06-02 01:31:13', 2, 'Pagada', '899283'),
-(56, 47, '2024-06-05 01:02:08', 4, 'pagada', '1234567'),
-(59, 48, '2024-06-05 01:03:08', 4, 'pagada', '1234567');
+INSERT INTO `facturas` (`idfacturas`, `idpedido`, `idusuario`, `idproducto`, `fecha`, `idmetodopago`, `total`, `estado`) VALUES
+(41, 0, 35, 2, '2023-08-19 05:00:00', 2, 0, 'Cancelada'),
+(42, 0, 36, 2, '2023-09-05 05:00:00', 2, 0, 'Pagada'),
+(43, 0, 37, 2, '2023-09-13 05:00:00', 2, 0, 'Pagada'),
+(44, 0, 38, 2, '2023-10-21 05:00:00', 1, 0, 'Pagada'),
+(45, 0, 39, 2, '2023-10-29 05:00:00', 1, 0, 'Pendiente'),
+(46, 0, 40, 2, '2023-11-06 05:00:00', 1, 0, 'Pagada'),
+(47, 0, 41, 2, '2023-11-25 05:00:00', 1, 0, 'Pagada'),
+(48, 0, 42, 2, '2023-12-04 05:00:00', 2, 0, 'Cancelada'),
+(49, 0, 43, 2, '2024-01-02 05:00:00', 2, 0, 'Pagada'),
+(50, 0, 44, 2, '2024-01-10 05:00:00', 1, 0, 'Pagada'),
+(51, 0, 45, 2, '2024-02-18 05:00:00', 1, 0, 'Pendiente'),
+(53, 0, 41, 2, '2024-06-02 00:50:46', 1, 0, 'Pagada'),
+(54, 0, 42, 2, '2024-06-02 01:31:13', 2, 0, 'Pagada'),
+(68, 2, 31, 49, '2024-06-20 16:27:02', 2, 0, 'Pendiente'),
+(69, 3, 86, 14, '2024-06-20 16:30:10', 1, 0, 'Pendiente'),
+(70, 4, 1, 10, '2024-06-20 16:42:43', 1, 45000, 'Pendiente');
 
 -- --------------------------------------------------------
 
@@ -237,7 +230,7 @@ INSERT INTO `facturas` (`idfacturas`, `idusuario`, `fecha`, `idmetodopago`, `est
 CREATE TABLE `metodopago` (
   `idmetodopago` int(10) NOT NULL,
   `tipopago` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `metodopago`
@@ -245,11 +238,7 @@ CREATE TABLE `metodopago` (
 
 INSERT INTO `metodopago` (`idmetodopago`, `tipopago`) VALUES
 (1, 'Efectivo'),
-(2, 'Transferencia'),
-(3, 'transferencia'),
-(4, 'efectivo'),
-(5, 'transferencia'),
-(6, 'Efectivo');
+(2, 'Transferencia');
 
 -- --------------------------------------------------------
 
@@ -263,15 +252,42 @@ CREATE TABLE `pedido` (
   `idproducto` int(10) NOT NULL,
   `idmetodopago` int(10) NOT NULL,
   `hora` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `cantidad` int(11) NOT NULL,
   `total` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedido` (`Id_pedido`, `idusuario`, `idproducto`, `idmetodopago`, `hora`, `total`) VALUES
-(1, 29, 49, 1, '2024-06-19 20:03:30', 1000);
+INSERT INTO `pedido` (`Id_pedido`, `idusuario`, `idproducto`, `idmetodopago`, `hora`, `cantidad`, `total`) VALUES
+(0, 29, 49, 1, '2024-06-20 16:17:52', 0, 1000),
+(2, 31, 49, 2, '2024-06-20 16:27:02', 1, 2),
+(3, 86, 14, 1, '2024-06-20 16:30:10', 9, 2),
+(4, 1, 10, 1, '2024-06-20 16:42:43', 3, 3000);
+
+--
+-- Disparadores `pedido`
+--
+DELIMITER $$
+CREATE TRIGGER `generar_factura_despues_insert` AFTER INSERT ON `pedido` FOR EACH ROW BEGIN
+	DECLARE valor_unitario int(100);
+    DECLARE total_pedido int(100);
+    
+    -- Obtener el valor unitario del producto del pedido
+    SELECT preciou INTO valor_unitario
+    FROM productos
+    WHERE idproducto = NEW.idproducto;
+    
+    -- Calcular el total del pedido
+    SET total_pedido = NEW.cantidad * valor_unitario;
+    
+    -- Insertar un registro en la tabla facturas
+    INSERT INTO facturas (idpedido, idusuario, idproducto, idmetodopago, estado, total)
+    VALUES (NEW.Id_pedido, NEW.idusuario, NEW.idproducto, NEW.idmetodopago, 'Pendiente', total_pedido);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -287,14 +303,14 @@ CREATE TABLE `productos` (
   `descripcion` varchar(200) DEFAULT NULL,
   `imagen` text NOT NULL,
   `stock` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
 INSERT INTO `productos` (`idproducto`, `producto`, `categoria`, `preciou`, `descripcion`, `imagen`, `stock`) VALUES
-(2, 'Omelette de Champiñones', 'Desayuno', 5000, 'Un omelette esponjoso relleno de champiñones frescos, acompañado de tostadas de pan integral y una 		  ensalada de frutas frescas', 'https://lh5.googleusercontent.com/proxy/mwODIni5bH02ANZxL-PQDxW_dVwJ3RIaQJ8BV1vOSa--Sd74YzpS3WnBLjbDiMwtO5qqVZdYX4DZoSUjna8xG60sAg_C8FS8F8DAPbmHLm3-YrDbj48R5fmfi8GSwkw', 50),
+(2, 'Omelette de Champiñones', 'Desayuno', 5000, 'Un omelette esponjoso relleno de champiñones frescos, acompañado de tostadas de pan integral y una ensalada de frutas frescas', 'https://lh5.googleusercontent.com/proxy/mwODIni5bH02ANZxL-PQDxW_dVwJ3RIaQJ8BV1vOSa--Sd74YzpS3WnBLjbDiMwtO5qqVZdYX4DZoSUjna8xG60sAg_C8FS8F8DAPbmHLm3-YrDbj48R5fmfi8GSwkw', 50),
 (3, 'Waffles con Jarabe de Arce', 'Desayuno', 10000, 'Waffles dorados y crujientes servidos con mantequilla derretida y jarabe de arce genuino, 			acompañados de una guarnición de frutas frescas', 'https://img.freepik.com/fotos-premium/jarabe-arce-vierte-sobre-waffle_921860-8394.jpg', 80),
 (4, 'Huevos Benedictinos', 'Desayuno', 5000, 'Dos huevos pochados sobre muffins ingleses, con lonchas de jamón, cubiertos con salsa holandesa y             acompañados de papas a la francesa', 'https://www.finedininglovers.com/es/sites/g/files/xknfdk1706/files/2023-06/Eggs%20Benedict.jpg', 100),
 (5, 'Tortitas de Plátano', 'Desayuno', 5000, 'Tortitas esponjosas hechas con plátanos maduros, servidas con mantequilla y jarabe de arce', 'https://www.comedera.com/wp-content/uploads/2021/03/tortitas-de-platano-544712_1920.jpg', 70),
@@ -321,7 +337,8 @@ INSERT INTO `productos` (`idproducto`, `producto`, `categoria`, `preciou`, `desc
 (29, 'pollo de tercera', 'tienda', 10000, 'pollo asado de segunda', 'https://estaticos-cdn.prensaiberica.es/clip/ef0f2855-f04b-464a-b26f-b62a1d069657_16-9-aspect-ratio_default_0.jpg', 100),
 (31, 'Bandeja Paisa', 'Almuerzo', 1000, 'Bandeja Paisa 100% natural', 'https://cdn.colombia.com/gastronomia/2011/08/02/bandeja-paisa-1616.gif', 70),
 (49, 'Curry', 'Almuerzo', 1000, 'Curry rico', 'https://www.kitchensanctuary.com/wp-content/uploads/2022/09/Air-Fryer-Chicken-Curry-square-FS-36.jpg', 10),
-(52, 'giancarlos', 'asco', 10000, 'miedoso', 'https://image.shutterstock.com/image-photo/3d-cute-colorful-unicorn-valentines-260nw-2401151293.jpg', 1);
+(52, 'Yan Carlos', 'asco', 10000, 'miedoso', 'https://image.shutterstock.com/image-photo/3d-cute-colorful-unicorn-valentines-260nw-2401151293.jpg', 1),
+(54, 'Ensalada Rusa', 'Almuerzo', 12000, 'De Rusia', 'https://www.comedera.com/wp-content/uploads/2018/05/ensalada-rusa-1.jpg', 5);
 
 -- --------------------------------------------------------
 
@@ -332,7 +349,7 @@ INSERT INTO `productos` (`idproducto`, `producto`, `categoria`, `preciou`, `desc
 CREATE TABLE `proveedores` (
   `idproveedor` int(10) NOT NULL,
   `proveedor` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `proveedores`
@@ -361,14 +378,14 @@ CREATE TABLE `usuarios` (
   `contrasena` varchar(500) NOT NULL,
   `rol` varchar(15) NOT NULL,
   `estado` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
 INSERT INTO `usuarios` (`idusuario`, `identificacion`, `nombres`, `telefono`, `correo`, `contrasena`, `rol`, `estado`) VALUES
-(1, 123456789, 'Ana María Pérez López', '2', 'ana223@gmail.com', '$2b$04$3sGVahxn0gzT9k8r.riuaOahHycqn5h6P62TUPpJGc8OilhkMapI2', 'Gerente', 'Fiado'),
+(1, 123456789, 'Ana María Pérez López', '2', 'ana223@gmail.com', '$2b$04$Y8sa7cGkRNPeT0Rmemkco.Ru451xnkZvz2kRgS2sr.DuxPzTSXTcm', 'Gerente', 'Fiado'),
 (2, 987654321, 'Juan David García Martínez', '310 765 43', 'juandavid@gmail.com', 'Juan123456', 'Cliente', 'Fiado'),
 (3, 234567890, 'Laura Sofía Gómez Ramírez', '320 234 56', 'laura67352@gmail.com', 'Laura123456', 'Cliente', 'Fiado'),
 (4, 456789012, 'Pedro Antonio Rodríguez González', '330 345 67', 'pedrogonzalez@gmail.com', 'Pedro123456', 'Cliente', 'Fiado'),
@@ -393,12 +410,13 @@ INSERT INTO `usuarios` (`idusuario`, `identificacion`, `nombres`, `telefono`, `c
 (43, 2147483647, 'María Martínez', '555-4567', 'maria.martinez@example.com', '$2b$04$wQXjKdpPKuK.4M1aFgeauuaQwnWTSKR1v6ICp78I00eCFyaE/MA12', 'Cliente', 'Pagado'),
 (44, 2147483647, 'Carlos Rodríguez', '555-7890', 'carlos.rodriguez@example.com', '$2b$04$tgHEt3fmIADxK1mX1pSAFOt84la3YkrKGS4HI88RgEcvdDAcxSvUK', 'Cliente', 'Fiado'),
 (45, 2147483647, 'Laura Sánchez', '555-2109', 'laura.sanchez@example.com', '$2b$04$RgL/UptkTiTYKe3XuiM9MOYBnxqlvlgSU/gSFrIoH7M6Q1NqPEfcq', 'Cliente', 'Pagado'),
-(47, 1040521345, 'Jhoan Monsalve', '123456789', 'jhoanmonsalve121@gmail.com', '$2b$04$osCtRgHm9kmIFc8IT9DjdexhuPeE5z3SKOFoO9VuievCZwUDtGmXS', 'Programado', 'Pagado'),
-(48, 1231234567, 'Esneider Giraldo', '123454321', 'esneidergiraldo@gmail.com', '$2b$04$W5hQ8Bn5LVgWnUGotfWoOOIxOocjxdbI1iyLVjb4xsa01Ht7t4fIu', 'Programado', 'Pendiente'),
-(73, 12, 'Jhoangerente', '318834212', 'jhoanmonsalve@gmail.com', '$2b$04$XcmwzphMd0pY0YIuTMwPT.p2uL7ExdMF9tMzcSxu7EMQ4N5nNA3Z2', 'Programado', 'Fiado'),
-(76, 10, 'Jhoan', '3188342121', 'jhoanpruebatoken@gmail.com', '$2b$04$OcXsCeAZCFMkltcbOtURs.Rq41ynzZl6L.ISkDGHCBEAZeY2pm7yS', 'Programado', 'Pendiente'),
-(79, 12, 'Jhoan', '21234123', 'hola@gmail.com', '$2b$04$eWKhHc8Xv0cON30HnXoo2uwsCdAMaZADJk.y7vbQAW4ZQDiFrf1NG', 'Gerente', 'Pagado'),
-(85, 12, 'PRUEBA', '2123412362', 'pruebatoken@gmail.com', '$2b$04$eeNE/Au4RPGgStMvzVrnuu81L9sG9H1/c9y.IPfwVJ9rayMgurMuW', 'Gerente', 'Pagado');
+(47, 1040521345, 'Jhoan Monsalve', '123456789', 'jhoanmonsalve121@gmail.com', '$2b$04$UGXyQWMdZID6EnVqznmn4u9mDPg2LNC20RYdDHAGESZU2sRfNg/PC', 'Programador', 'Pagado'),
+(48, 1231234567, 'Esneider Giraldo', '123454321', 'esneidergiraldo@gmail.com', '$2b$04$6cQESD3u4sf.e2slPKC/YOPrHsYJaVtOhAldnZJHqsSUMsNL6QVIq', 'Programador', 'Pendiente'),
+(73, 12, 'Jhoangerente', '318834212', 'jhoanmonsalve@gmail.com', '$2b$04$cvj3JJ2rd.4TT3aQ0lqfu.tm9eNzchzneoBRoRotQVHiJRBnQJ.r6', 'Programador', 'Fiado'),
+(76, 10, 'Jhoan', '3188342121', 'jhoanpruebatoken@gmail.com', '$2b$04$8PMMRi6jbqalvM6PnPp/kuSDniXyaoEqBXLFgip0IVoF97lObdoly', 'Programador', 'Pendiente'),
+(79, 12, 'Jhoan', '21234123', 'hola@gmail.com', '$2b$04$nOv6NFrE2/mlCEPd4.ZjvOAqZcufxSoUmvYjMaC16vZcLg8ALpHj.', 'Gerente', 'Pagado'),
+(85, 12, 'PRUEBA', '2123412362', 'pruebatoken@gmail.com', '$2b$04$H.YiPEArZzaQ52xiV3Ra1eOFc6Z0rM66ZUMeEeO1WqO0Cz/qQ1u1y', 'Gerente', 'Pagado'),
+(86, 12, 'Klimber Barret', '23233', 'klimber@gmail.com', '$2b$04$9E0rxV9ajAFEx4tUOt19S.Pf1wvlcaPjaEjo/nHx1BmZnXG0HnfUa', 'Cliente', 'Pagado');
 
 --
 -- Índices para tablas volcadas
@@ -410,7 +428,9 @@ INSERT INTO `usuarios` (`idusuario`, `identificacion`, `nombres`, `telefono`, `c
 ALTER TABLE `facturas`
   ADD PRIMARY KEY (`idfacturas`),
   ADD KEY `facturas_ibfk_1` (`idmetodopago`),
-  ADD KEY `facturas_ibfk_2` (`idusuario`);
+  ADD KEY `facturas_ibfk_2` (`idusuario`),
+  ADD KEY `fk_factura_idproducto` (`idproducto`) USING BTREE,
+  ADD KEY `facturas_ibfk_4` (`idpedido`);
 
 --
 -- Indices de la tabla `metodopago`
@@ -425,14 +445,13 @@ ALTER TABLE `pedido`
   ADD PRIMARY KEY (`Id_pedido`),
   ADD KEY `fk_pedido_idusuario` (`idusuario`) USING BTREE,
   ADD KEY `fk_metodopago_idmetodopago` (`idmetodopago`) USING BTREE,
-  ADD KEY `fk_producto_idproducto` (`idproducto`) USING BTREE;
+  ADD KEY `fk_pedido_idproducto` (`idproducto`) USING BTREE;
 
 --
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
-  ADD PRIMARY KEY (`idproducto`),
-  ADD UNIQUE KEY `producto` (`producto`);
+  ADD PRIMARY KEY (`idproducto`);
 
 --
 -- Indices de la tabla `proveedores`
@@ -457,7 +476,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `idfacturas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `idfacturas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT de la tabla `metodopago`
@@ -469,13 +488,13 @@ ALTER TABLE `metodopago`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `Id_pedido` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_pedido` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `idproducto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `idproducto` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
@@ -487,7 +506,7 @@ ALTER TABLE `proveedores`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idusuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `idusuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- Restricciones para tablas volcadas
@@ -498,7 +517,9 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `facturas`
   ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`idmetodopago`) REFERENCES `metodopago` (`idmetodopago`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `facturas_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `facturas_ibfk_2` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `facturas_ibfk_3` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `facturas_ibfk_4` FOREIGN KEY (`idpedido`) REFERENCES `pedido` (`Id_pedido`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `pedido`
@@ -506,7 +527,7 @@ ALTER TABLE `facturas`
 ALTER TABLE `pedido`
   ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`idusuario`) REFERENCES `usuarios` (`idusuario`),
   ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`idmetodopago`) REFERENCES `metodopago` (`idmetodopago`),
-  ADD CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`);
+  ADD CONSTRAINT `pedido_ibfk_3` FOREIGN KEY (`idproducto`) REFERENCES `productos` (`idproducto`) ON DELETE NO ACTION ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

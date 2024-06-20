@@ -12,7 +12,7 @@ export const mostrarFactura = async (req,res) =>{
 export const listarFactura = async (req,res)=>{
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_FACTURA()`);
-        res.json({"respuesta": respuesta})
+        return respuesta[0];
     } catch (error) {
         res.json({"error": error})
     }

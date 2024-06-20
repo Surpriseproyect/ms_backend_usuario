@@ -57,6 +57,7 @@
               <li class="enlace"><a href="#clientes"><i class="fa-solid fa-users"></i>Clientes</a></li>
               <li class="enlace"><a href="#productos"><i class="fa-solid fa-carrot"></i>Productos</a></li>
               <li class="enlace"><a href="#metodo"><i class="fa-regular fa-credit-card"></i>Metodo Pago</a></li>
+              <li class="enlace"><a href="#proveedor"><i class="fa-solid fa-truck-field-un"></i>Proveedores</a></li>
               <li class="enlace"><a href="#cuentas"><i class="fa-solid fa-file-invoice-dollar"></i>Cuentas Fiadas</a></li>
               <li class="enlace"><a href="#informes"><i class="fa-solid fa-flag"></i>Informes</a></li>
             </div>
@@ -94,24 +95,65 @@
               </tr>
             </thead>
             <tbody>
+              <% if (pedido && pedido.length > 0) { %>
+                <% pedido.forEach(p => { %>
               <tr>
-                <td>1</td>
-                <td>Esneider Giraldo</td>
-                <td>Arroz</td>
-                <td>Efectivo</td>
-                <td>6:00 PM</td>
-                <td>1</td>
-                <td>$5.000</td>
+                <td><%= p.Id_pedido %></td>
+                <td><%= p.nombres %></td>
+                <td><%= p.producto%></td>
+                <td><%= p.tipopago %></td>
+                <td><%= p.hora %></td>
+                <td><%= p.cantidad %></td>
+                <td><%= p.total %></td>
                 <td>
                   <input type="button" value="Pagado">
                 </td>
               </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                  <td colspan="9">No hay usuarios</td>
+              </tr>
+            <% } %>
             </tbody>
           </table>
         </div>
 
         <div class="col-12 contenido" id="facturas">
           <p style="color:rgb(255, 0, 0)">Facturas con los datos id usuario, id metodo de pago, estado</p>
+          <div class="facturas" id="facturas">
+            <table>
+              <thead>
+                <tr>
+                  <td>ID Factura</td>
+                  <td>Nombre</td>
+                  <td>Producto</td>
+                  <td>Fecha</td>
+                  <td>Metodo de Pago</td>
+                  <td>Total</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                <% if (factura && factura.length > 0) { %>
+                <% factura.forEach(f => { %>
+                  <td><%= f.idfacturas %></td>
+                  <td><%= f.nombres %></td>
+                  <td><%= f.producto %></td>
+                  <td><%= f.fecha %></td>
+                  <td><%= f.tipopago %></td>
+                  <td><%= f.estado %></td>
+                </tr>
+                <% }) %>
+                <% } else { %>
+                  <tr>
+                      <td colspan="9">No hay usuarios</td>
+                  </tr>
+                <% } %>
+              </tbody>
+              
+            </table>
+          </div>
         </div>
 
           <div class="col-12 contenido" id="clientes">
@@ -145,7 +187,7 @@
                 <tr class="user-list-item">
                     <td class="id"><%= usuario.idusuario %></td>
                     <td><%= usuario.identificacion %></td>
-                    <td><%= usuario.nombres %></td>
+                    <td class="nombre"><%= usuario.nombres %></td>
                     <td><%= usuario.telefono %></td>
                     <td><%= usuario.correo %></td>
                     <td class="contrasena"><%= usuario.contrasena %></td>
@@ -197,7 +239,7 @@
               <% producto.forEach(producto => { %>
               <tr class="user-list-item">
                 <td class="id"><%= producto.idproducto %></td>
-                <td><%= producto.producto %></td>
+                <td class="nombreP"><%= producto.producto %></td>
                 <td><%= producto.categoria %></td>
                 <td><%= producto.preciou %></td>
                 <td class="descripcion"><%= producto.descripcion %></td>
@@ -219,23 +261,66 @@
           <div id="paginacionProductos"></div>
           </div>
 
+          <div class="col-12 contenido " id="proveedor">
+            <table>
+              <thead>
+                <tr>
+                  <td>ID</td>
+                  <td>Metodo de Pago</td>
+                  <td>Opciones</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <% if (proveedor && proveedor.length > 0) { %>
+                    <% proveedor.forEach(p => { %>
+                  <td><%= p.idproveedor %></td>
+                  <td><%= p.proveedor %></td>
+                  <td>
+                    <input type="button" value="">
+                    <input type="button" value="">
+                  </td>
+                </tr>
+                <% }) %>
+            <% } else { %>
+              <tr>
+                  <td colspan="9">No hay usuarios</td>
+              </tr>
+            <% } %>
+              </tbody>
+            </table>
+            <div class="paginacion">
+              <a href="">Anterior</a>
+              <a href="">Siguiente</a>
+            </div>
+          </div>
+
           <div class="col-12 contenido " id="metodo">
             <table>
               <thead>
                 <tr>
                   <td>ID</td>
-                  <td>Identificacion</td>
-                  <td>Nombres</td>
                   <td>Metodo de Pago</td>
+                  <td>Opciones</td>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                  <td>103209</td>
-                  <td>Esneider Giraldo</td>
-                  <td>Efectivo</td>
+                  <% if (metopago && metopago.length > 0) { %>
+                    <% metopago.forEach(m => { %>
+                  <td><%= m.idmetodopago %></td>
+                  <td><%= m.tipopago %></td>
+                  <td>
+                    <input type="button" value="">
+                    <input type="button" value="">
+                  </td>
                 </tr>
+                <% }) %>
+            <% } else { %>
+              <tr>
+                  <td colspan="9">No hay usuarios</td>
+              </tr>
+            <% } %>
               </tbody>
             </table>
             <div class="paginacion">
@@ -380,7 +465,7 @@
       <div class="eliminar" id="eliminar">
         <div class="informacion" id="info">
           <i class="fa-solid fa-circle-question"></i>
-          <p>¿Seguro que quieres eliminar la cuenta de {nombre}?</p>
+          <p class="texto">¿Seguro que quieres eliminar la cuenta de {nombre}?</p>
             <div class="opcion">
               <button onclick="ocultarEliminar()">Cancelar</button>
               <button class="aceptar">Confirmar</button>
@@ -422,30 +507,11 @@
           </form>
         </div>
       </div>
-      
-      <!-- <div class="facturas" id="facturas">
-        <table>
-          <tr>
-            <td>ID Factura</td>
-            <td>Nombre</td>
-            <td>Fecha</td>
-            <td>Metodo de Pago</td>
-            <td>N. Cuenta</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Esneider</td>
-            <td>Hoy</td>
-            <td>Efectivo</td>
-            <td>N. Cuenta</td>
-          </tr>
-        </table>
-      </div> -->
 
       <script>
         // Función para mostrar el contenido de la sección correspondiente según el hash en la URL
         function showSectionFromHash() {
-          const hash = window.location.hash || '#clientes';
+          const hash = window.location.hash || '#pedidos';
           const target = document.querySelector(hash);
           if (target) {
               const allContenido = document.querySelectorAll(".contenido");
@@ -459,7 +525,7 @@
         // Mostrar la sección correspondiente al cargar la página
         document.addEventListener("DOMContentLoaded", () => {
             if (!window.location.hash) {
-                window.location.hash = '#clientes';
+                window.location.hash = '#pedidos';
             }
             showSectionFromHash();
         });

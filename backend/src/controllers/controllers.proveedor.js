@@ -13,7 +13,7 @@ export const mostrarProveedor = async (req, res) =>{
 export const listarProveedor = async (req,res)=>{
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_PROVEEDORES()`);
-        res.json({"respuesta": respuesta[0][0]})
+        return respuesta[0][0]
     } catch (error) {
         res.json({"error": error})
     }

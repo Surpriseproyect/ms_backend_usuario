@@ -104,7 +104,6 @@ editar1.forEach(btn => {
 
 // Crear Usuarios
 
-// Crear producto
 document.getElementById("crearUsuario").addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -154,7 +153,10 @@ elimina.forEach(btn => {
         let ventana = document.getElementById("eliminar");
         ventana.style.display = "flex";
         let usuario = e.target.closest(".user-list-item");
+        let nombre = usuario.querySelector(".nombre").innerHTML;
         let aceptar = document.querySelector(".aceptar");
+        let textoVentana = document.querySelector(".texto")
+        textoVentana.innerHTML = `¿Seguro que quieres eliminar la cuenta de ${nombre}?`
         let id = usuario.querySelector(".id").innerHTML
         aceptar.addEventListener("click", () => {
         fetch(`http://localhost:3000/usuario/usuario/${id}`, {
@@ -317,7 +319,10 @@ eliminarProducto.forEach(btn => {
         let ventana = document.getElementById("eliminar")
         ventana.style.display = "flex"
         let producto = e.target.closest(".user-list-item")
+        let nombre = producto.querySelector(".nombreP").innerHTML;
         let aceptar = document.querySelector(".aceptar");
+        let textoVentana = document.querySelector(".texto")
+        textoVentana.innerHTML = `¿Seguro que quieres eliminar el producto ${nombre}?`
         let id = producto.querySelector(".id").innerHTML
         aceptar.addEventListener("click", () => {
         fetch(`http://localhost:3000/producto/producto/${id}`, {
@@ -334,6 +339,8 @@ eliminarProducto.forEach(btn => {
         console.log(producto);
     })
 })
+
+
 
 // Usuario
 function editarUsuario(){
