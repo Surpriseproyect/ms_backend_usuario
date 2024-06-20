@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-06-2024 a las 17:36:18
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 20-06-2024 a las 02:33:13
+-- Versión del servidor: 10.4.22-MariaDB
+-- Versión de PHP: 8.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -25,39 +25,39 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BUSCAR_USUARIO` (IN `_CORREO` VARCHAR(200))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BUSCAR_USUARIO` (IN `_CORREO` VARCHAR(200))  BEGIN
 
 SELECT correo, contrasena FROM usuarios WHERE correo = _CORREO LIMIT 1;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_FACTURA` (IN `_IDUSUARIO` INT(10), IN `_IDMETODOPAGO` INT(10), IN `_ESTADO` VARCHAR(10), IN `_NCUENTA` INT(15), IN `_FECHA` TIMESTAMP)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_FACTURA` (IN `_IDUSUARIO` INT(10), IN `_IDMETODOPAGO` INT(10), IN `_ESTADO` VARCHAR(10), IN `_NCUENTA` INT(15), IN `_FECHA` TIMESTAMP)  BEGIN
 
 INSERT INTO facturas(idusuario, fecha, idmetodopago, estado, ncuenta)
 VALUES (_IDUSUARIO, _FECHA, _IDMETODOPAGO, _ESTADO, _NCUENTA);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_METODOPAGO` (IN `_TIPOPAGO` VARCHAR(20))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_METODOPAGO` (IN `_TIPOPAGO` VARCHAR(20))  BEGIN
 
 INSERT INTO metodopago(tipopago) VALUES (_TIPOPAGO);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PRODUCTO` (IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PRODUCTO` (IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))  BEGIN
 
 INSERT INTO productos(producto, categoria, preciou, descripcion, imagen, stock) VALUES
 (_PRODUCTO, _CATEGORIA, _PRECIOU, _DESCRIPCION, _IMAGEN, _STOCK);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PROVEEDORES` (IN `PROVEEDOR` VARCHAR(100))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_PROVEEDORES` (IN `PROVEEDOR` VARCHAR(100))  BEGIN
 
 INSERT INTO proveedores(proveedor) VALUES (PROVEEDOR);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_USUARIO` (IN `_IDENTIFICACION` INT(10), IN `_NOMBRES` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CORREO` VARCHAR(200), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(15), IN `_ESTADO` VARCHAR(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_USUARIO` (IN `_IDENTIFICACION` INT(10), IN `_NOMBRES` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CORREO` VARCHAR(200), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(15), IN `_ESTADO` VARCHAR(10))  BEGIN
 
 INSERT INTO usuarios(identificacion, nombres, telefono, correo, contrasena,
 rol, estado) VALUES (_IDENTIFICACION, _NOMBRES, _TELEFONO, _CORREO, _CONTRASENA,
@@ -65,103 +65,103 @@ _ROL, _ESTADO);
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))  BEGIN
 
 DELETE FROM productos WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT(10))  BEGIN
 
 DELETE FROM proveedores WHERE idproveedor = _IDPROVEEDOR;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `_ID_NOMBRE` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_ELIMINAR_USUARIO` (IN `_ID_NOMBRE` INT(10))  BEGIN
 
 DELETE FROM usuarios WHERE idusuario = _ID_NOMBRE;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FACTURA` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FACTURA` ()  BEGIN
 
 SELECT * FROM facturas;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FIADO` ()   SELECT * FROM usuarios WHERE estado = "fiado" or estado = "pendiente"$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_FIADO` ()  SELECT * FROM usuarios WHERE estado = "fiado" or estado = "pendiente"$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_METODOPAGO` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_METODOPAGO` ()  BEGIN
 
 SELECT * FROM metodopago;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PRODUCTO` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PRODUCTO` ()  BEGIN
 
 SELECT * FROM productos;
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PROVEEDORES` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_PROVEEDORES` ()  BEGIN
 
 SELECT * FROM proveedores;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_USUARIO` ()   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_LISTAR_USUARIO` ()  BEGIN
 
 SELECT * FROM usuarios;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10), IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10), IN `_PRODUCTO` VARCHAR(100), IN `_CATEGORIA` VARCHAR(100), IN `_PRECIOU` INT(10), IN `_DESCRIPCION` VARCHAR(200), IN `_IMAGEN` TEXT, IN `_STOCK` INT(10))  BEGIN
 
 UPDATE productos SET producto = _PRODUCTO, categoria = _CATEGORIA,
 preciou = _PRECIOU, descripcion = _DESCRIPCION, imagen = _IMAGEN, stock = _STOCK WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_USUARIO` (IN `_ID_USUARIO` INT(10), IN `_IDENTIFICACION` INT(10), IN `_NOMBRE` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(10), IN `_ESTADO` VARCHAR(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MODIFICAR_USUARIO` (IN `_ID_USUARIO` INT(10), IN `_IDENTIFICACION` INT(10), IN `_NOMBRE` VARCHAR(100), IN `_TELEFONO` VARCHAR(10), IN `_CONTRASENA` VARCHAR(200), IN `_ROL` VARCHAR(10), IN `_ESTADO` VARCHAR(10))  BEGIN
 UPDATE usuarios SET identificacion = _IDENTIFICACION, nombres = _NOMBRE, telefono = _TELEFONO, contrasena = _CONTRASENA, rol = _ROL, estado = _ESTADO WHERE idusuario = _ID_USUARIO;
 
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_FACTURA` (IN `_IDFACTURA` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_FACTURA` (IN `_IDFACTURA` INT)  BEGIN
 
 SELECT * FROM facturas WHERE idfacturas = _IDFACTURA;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_METODOPAGO` (IN `_IDMETODOPAGO` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_METODOPAGO` (IN `_IDMETODOPAGO` INT)  BEGIN
 
 SELECT * FROM metodopago WHERE idmetodopago = _IDMETODOPAGO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PRODUCTO` (IN `_IDPRODUCTO` INT(10))  BEGIN
 
 SELECT idproducto, producto, categoria, preciou, descripcion, imagen, stock
 FROM productos WHERE idproducto = _IDPRODUCTO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_PROVEEDOR` (IN `_IDPROVEEDOR` INT)  BEGIN
 
 SELECT * FROM proveedores WHERE idproveedor = _IDPROVEEDOR;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_USUARIO` (IN `_ID_USUARIO` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_MOSTRAR_USUARIO` (IN `_ID_USUARIO` INT)  BEGIN
 
 SELECT idusuario, identificacion, nombres, telefono, correo, contrasena,
 rol, estado FROM usuarios WHERE idusuario = _ID_USUARIO;
 
 END$$
 
-CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGOS_ATRASADOS` (IN `pagos_atrasados` INT)   BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_PAGOS_ATRASADOS` (IN `pagos_atrasados` INT)  BEGIN
 
 SELECT 
   usuarios.identificacion,
@@ -191,7 +191,7 @@ CREATE TABLE `facturas` (
   `idmetodopago` int(10) NOT NULL,
   `estado` varchar(10) NOT NULL,
   `ncuenta` varchar(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `facturas`
@@ -237,7 +237,7 @@ INSERT INTO `facturas` (`idfacturas`, `idusuario`, `fecha`, `idmetodopago`, `est
 CREATE TABLE `metodopago` (
   `idmetodopago` int(10) NOT NULL,
   `tipopago` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `metodopago`
@@ -262,8 +262,16 @@ CREATE TABLE `pedido` (
   `idusuario` int(10) NOT NULL,
   `idproducto` int(10) NOT NULL,
   `idmetodopago` int(10) NOT NULL,
+  `hora` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `total` int(15) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `pedido`
+--
+
+INSERT INTO `pedido` (`Id_pedido`, `idusuario`, `idproducto`, `idmetodopago`, `hora`, `total`) VALUES
+(1, 29, 49, 1, '2024-06-19 20:03:30', 1000);
 
 -- --------------------------------------------------------
 
@@ -279,7 +287,7 @@ CREATE TABLE `productos` (
   `descripcion` varchar(200) DEFAULT NULL,
   `imagen` text NOT NULL,
   `stock` int(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `productos`
@@ -313,7 +321,7 @@ INSERT INTO `productos` (`idproducto`, `producto`, `categoria`, `preciou`, `desc
 (29, 'pollo de tercera', 'tienda', 10000, 'pollo asado de segunda', 'https://estaticos-cdn.prensaiberica.es/clip/ef0f2855-f04b-464a-b26f-b62a1d069657_16-9-aspect-ratio_default_0.jpg', 100),
 (31, 'Bandeja Paisa', 'Almuerzo', 1000, 'Bandeja Paisa 100% natural', 'https://cdn.colombia.com/gastronomia/2011/08/02/bandeja-paisa-1616.gif', 70),
 (49, 'Curry', 'Almuerzo', 1000, 'Curry rico', 'https://www.kitchensanctuary.com/wp-content/uploads/2022/09/Air-Fryer-Chicken-Curry-square-FS-36.jpg', 10),
-(52, 'giancarlos', 'asco', 10000, 'miedoso', 'https://image.shutterstock.com/image-photo/3d-cute-colorful-unicorn-valentines-260nw-2401151293.jpg', 0);
+(52, 'giancarlos', 'asco', 10000, 'miedoso', 'https://image.shutterstock.com/image-photo/3d-cute-colorful-unicorn-valentines-260nw-2401151293.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -324,7 +332,7 @@ INSERT INTO `productos` (`idproducto`, `producto`, `categoria`, `preciou`, `desc
 CREATE TABLE `proveedores` (
   `idproveedor` int(10) NOT NULL,
   `proveedor` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `proveedores`
@@ -353,7 +361,7 @@ CREATE TABLE `usuarios` (
   `contrasena` varchar(500) NOT NULL,
   `rol` varchar(15) NOT NULL,
   `estado` varchar(10) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -364,33 +372,33 @@ INSERT INTO `usuarios` (`idusuario`, `identificacion`, `nombres`, `telefono`, `c
 (2, 987654321, 'Juan David García Martínez', '310 765 43', 'juandavid@gmail.com', 'Juan123456', 'Cliente', 'Fiado'),
 (3, 234567890, 'Laura Sofía Gómez Ramírez', '320 234 56', 'laura67352@gmail.com', 'Laura123456', 'Cliente', 'Fiado'),
 (4, 456789012, 'Pedro Antonio Rodríguez González', '330 345 67', 'pedrogonzalez@gmail.com', 'Pedro123456', 'Cliente', 'Fiado'),
-(5, 567890123, 'Isabella Valentina Restrepo Díaz', '340 456 78', 'isarestrepo@gmail.com', 'Isabella123456', 'Cliente', 'pendiente'),
+(5, 567890123, 'Isabella Valentina Restrepo Díaz', '340 456 78', 'isarestrepo@gmail.com', 'Isabella123456', 'Cliente', 'Pendiente'),
 (6, 83648839, 'Andres Restrepo Villa', '304 728769', 'andres56783@gmail.com', '87348andre', 'Cliente', 'Fiado'),
-(27, 1234567890, 'María García', '555-1234', 'maria.garcia@example.com', '12345678', 'Cliente', 'fiado'),
-(28, 2147483647, 'Juan Pérez', '555-5678', 'juan.perez@example.com', 'abcdefg', 'Cliente', 'pagado'),
-(29, 2147483647, 'Ana Martínez', '555-9876', 'ana.martinez@example.com', 'qwerty', 'Cliente', 'fiado'),
-(30, 2147483647, 'Luis Rodríguez', '555-4321', 'luis.rodriguez@example.com', 'password123', 'Cliente', 'pagado'),
-(31, 2147483647, 'Carmen López', '555-8763', 'carmen.lopez@example.com', '87654321', 'Cliente', 'fiado'),
-(32, 2147483647, 'Roberto Sánchez', '555-2468', 'roberto.sanchez@example.com', 'pass1234', 'Cliente', 'pagado'),
-(33, 2147483647, 'Julia Fernández', '555-1357', 'julia.fernandez@example.com', 'fernandez123', 'Cliente', 'fiado'),
-(34, 2147483647, 'Pablo Gómez', '555-3698', 'pablo.gomez@example.com', 'gomez456', 'Cliente', 'pagado'),
-(35, 2147483647, 'Laura Díaz', '555-7532', 'laura.diaz@example.com', 'lauradiaz', 'Cliente', 'fiado'),
-(36, 123456789, 'Diego Ramírez', '555-6842', 'diego.ramirez@example.com', 'ramirez567', 'Cliente', 'pagado'),
-(37, 1234509876, 'Sara Sánchez', '555-9870', 'sara.sanchez@example.com', 'sanchez789', 'Cliente', 'pagado'),
-(38, 2147483647, 'Manuel García', '555-6789', 'manuel.garcia@example.com', 'manuelgarcia', 'Cliente', 'fiado'),
-(39, 2147483647, 'Elena Martínez', '555-0987', 'elena.martinez@example.com', 'elenamartinez', 'Cliente', 'pagado'),
-(40, 2147483647, 'Pedro Pérez', '555-8901', 'pedro.perez@example.com', 'perezpedro', 'Cliente', 'fiado'),
-(41, 2147483647, 'Ana López', '555-5432', 'ana.lopez@example.com', 'analorena', 'Cliente', 'pagado'),
-(42, 2147483647, 'Juan García', '555-2345', 'juan.garcia@example.com', 'juangarcia', 'Cliente', 'fiado'),
-(43, 2147483647, 'María Martínez', '555-4567', 'maria.martinez@example.com', 'mariamartinez', 'Cliente', 'pagado'),
-(44, 2147483647, 'Carlos Rodríguez', '555-7890', 'carlos.rodriguez@example.com', 'carlosrodriguez', 'Cliente', 'fiado'),
-(45, 2147483647, 'Laura Sánchez', '555-2109', 'laura.sanchez@example.com', 'laurasanchez', 'Cliente', 'pagado'),
-(47, 1040521345, 'Jhoan Monsalve', '123456789', 'jhoanmonsalve121@gmail.com', '12345', 'PROGRAMADOR', 'PAZYSALVO'),
-(48, 1231234567, 'Esneider Giraldo', '123454321', 'esneidergiraldo@gmail.com', '123123123', 'programado', 'pazysalvo'),
-(73, 12, 'Jhoangerente', '318834212', 'jhoanmonsalve@gmail.com', '$2b$04$cZd5brRKm2xRfhDcgwghg.NBrwxqBTFmU8/L8baXt.l', 'programador/ger', 'pazys'),
-(76, 10, 'Jhoan', '3188342121', 'jhoanpruebatoken@gmail.com', '1', 'programado', 'pazysalvo'),
-(79, 12, 'Jhoan', '21234123', 'hola@gmail.com', '1', 'gerentebas', 'pazysalvo'),
-(85, 12, 'PRUEBA', '2123412362', 'pruebatoken@gmail.com', '$2b$04$PfZzMZOfL7rKAOfIJijYg.BCbhoty4XvMilEop61sfVXpSZaT.EKy', 'gerente', 'pazysalvo');
+(27, 1234567890, 'María García', '555-1234', 'maria.garcia@example.com', '12345678', 'Cliente', 'Fiado'),
+(28, 2147483647, 'Juan Pérez', '555-5678', 'juan.perez@example.com', '$2b$04$OgquC.zCigd9RjofW6KJyOtSHZUaapc.2PQ3etQE5xQtFd91kst46', 'Cliente', 'Pagado'),
+(29, 2147483647, 'Ana Martínez', '555-9876', 'ana.martinez@example.com', 'qwerty', 'Cliente', 'Fiado'),
+(30, 2147483647, 'Luis Rodríguez', '555-4321', 'luis.rodriguez@example.com', '$2b$04$Zsi9MgDsHGDdISdY11sYgeE7hrO2pKWw2U/23dJUmBz8x8Agoscrm', 'Cliente', 'Pagado'),
+(31, 2147483647, 'Carmen López', '555-8763', 'carmen.lopez@example.com', '$2b$04$WFVmLUXLir3lVmiTcFWdv.H48oLYbJkRl1/sireHaOUWrHKJ2yikq', 'Cliente', 'Fiado'),
+(32, 2147483647, 'Roberto Sánchez', '555-2468', 'roberto.sanchez@example.com', '$2b$04$x0Y5lI6wjv8izmsCb5Z5QeybaawVOh6ka0OzueVU83fVbq/p0xwoG', 'Cliente', 'Pagado'),
+(33, 2147483647, 'Julia Fernández', '555-1357', 'julia.fernandez@example.com', '$2b$04$e.mYUNflnkq9LZRwCc09q.YCmshJVwVrcetC6dT1rsPMdR5e07p5K', 'Cliente', 'Fiado'),
+(34, 2147483647, 'Pablo Gómez', '555-3698', 'pablo.gomez@example.com', '$2b$04$hWA9KG2sp7Py6.hu7G3rH.TnoTBLAG1A6wKscQ4rlMXMSucDsVSOa', 'Cliente', 'Pagado'),
+(35, 2147483647, 'Laura Díaz', '555-7532', 'laura.diaz@example.com', '$2b$04$UB3nWNEX6LQnLGVnqB85qeltGqyfLXCI/Vt/8.seQU50fEutuM6hW', 'Cliente', 'Fiado'),
+(36, 123456789, 'Diego Ramírez', '555-6842', 'diego.ramirez@example.com', '$2b$04$kaqaQPaxuoVV9Q.6Rcu0Jexy1vvijYnobigf00NPUHg/k67ZdVsOa', 'Cliente', 'Pagado'),
+(37, 1234509876, 'Sara Sánchez', '555-9870', 'sara.sanchez@example.com', '$2b$04$38s4Pu1dzAb2iPdImq3LtOaK8q5yfKlYS9h25FQpCRFdyDOJcPFFu', 'Cliente', 'Pagado'),
+(38, 2147483647, 'Manuel García', '555-6789', 'manuel.garcia@example.com', '$2b$04$3d67Dt3Tnjya3bhIVMj/d.BI6Y8WzpMztwW3VWmTQN9vNHv.usUiy', 'Cliente', 'Fiado'),
+(39, 2147483647, 'Elena Martínez', '555-0987', 'elena.martinez@example.com', '$2b$04$B8KxpO3yM6kRx2Oovh/ncuhLGDroCeEeVektT.scb9dQTbWaEDTNG', 'Cliente', 'Pagado'),
+(40, 2147483647, 'Pedro Pérez', '555-8901', 'pedro.perez@example.com', '$2b$04$Ac8fgynF8as6q6C1OEdIHe6UbtHTquykAbZmc4nDMzqPeWl.fphBa', 'Cliente', 'Fiado'),
+(41, 2147483647, 'Ana López', '555-5432', 'ana.lopez@example.com', '$2b$04$KJ8ZOkattqaB3KcCbT1M1.sc0UPr8WP46NSWwQTjopOBtwPmmZTc.', 'Cliente', 'Pagado'),
+(42, 2147483647, 'Juan García', '555-2345', 'juan.garcia@example.com', '$2b$04$r1qbg45ZkpVYdCZLUgn5C.qqUgpryoMJFoK10iJmO/mSNHqhz8SRK', 'Cliente', 'Fiado'),
+(43, 2147483647, 'María Martínez', '555-4567', 'maria.martinez@example.com', '$2b$04$wQXjKdpPKuK.4M1aFgeauuaQwnWTSKR1v6ICp78I00eCFyaE/MA12', 'Cliente', 'Pagado'),
+(44, 2147483647, 'Carlos Rodríguez', '555-7890', 'carlos.rodriguez@example.com', '$2b$04$tgHEt3fmIADxK1mX1pSAFOt84la3YkrKGS4HI88RgEcvdDAcxSvUK', 'Cliente', 'Fiado'),
+(45, 2147483647, 'Laura Sánchez', '555-2109', 'laura.sanchez@example.com', '$2b$04$RgL/UptkTiTYKe3XuiM9MOYBnxqlvlgSU/gSFrIoH7M6Q1NqPEfcq', 'Cliente', 'Pagado'),
+(47, 1040521345, 'Jhoan Monsalve', '123456789', 'jhoanmonsalve121@gmail.com', '$2b$04$osCtRgHm9kmIFc8IT9DjdexhuPeE5z3SKOFoO9VuievCZwUDtGmXS', 'Programado', 'Pagado'),
+(48, 1231234567, 'Esneider Giraldo', '123454321', 'esneidergiraldo@gmail.com', '$2b$04$W5hQ8Bn5LVgWnUGotfWoOOIxOocjxdbI1iyLVjb4xsa01Ht7t4fIu', 'Programado', 'Pendiente'),
+(73, 12, 'Jhoangerente', '318834212', 'jhoanmonsalve@gmail.com', '$2b$04$XcmwzphMd0pY0YIuTMwPT.p2uL7ExdMF9tMzcSxu7EMQ4N5nNA3Z2', 'Programado', 'Fiado'),
+(76, 10, 'Jhoan', '3188342121', 'jhoanpruebatoken@gmail.com', '$2b$04$OcXsCeAZCFMkltcbOtURs.Rq41ynzZl6L.ISkDGHCBEAZeY2pm7yS', 'Programado', 'Pendiente'),
+(79, 12, 'Jhoan', '21234123', 'hola@gmail.com', '$2b$04$eWKhHc8Xv0cON30HnXoo2uwsCdAMaZADJk.y7vbQAW4ZQDiFrf1NG', 'Gerente', 'Pagado'),
+(85, 12, 'PRUEBA', '2123412362', 'pruebatoken@gmail.com', '$2b$04$eeNE/Au4RPGgStMvzVrnuu81L9sG9H1/c9y.IPfwVJ9rayMgurMuW', 'Gerente', 'Pagado');
 
 --
 -- Índices para tablas volcadas
@@ -461,7 +469,7 @@ ALTER TABLE `metodopago`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `Id_pedido` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_pedido` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
