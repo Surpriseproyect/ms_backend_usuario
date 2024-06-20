@@ -49,7 +49,7 @@
         <div class="row dash">
           <div class="col-2 menu">
             <div class="encabazado">
-                <a class="cajero" href=""><img src="img/cajero.png" alt="">GERENTE</a>
+                <a class="cajero" href=""><img src="img/cajero.png" alt="">CAJERO</a>
             </div>
             <div class="opciones">
               <li class="enlace"><a href="#pedidos"><i class="fa-regular fa-rectangle-list"></i>Pedidos</a></li>
@@ -195,9 +195,7 @@
                     <td><%= usuario.rol %></td>
                     <td><%= usuario.estado %></td>
                     <td class="mods">
-                        <button class="editarUsuario" onclick="editarUsuario()"><i class="fa-solid fa-pen-to-square"></i></button>
                         <button class="factura" onclick="facturas()"><i class="fa-solid fa-file-invoice"></i></button>
-                        <button class="eliminarUsuario"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 </tr>
             <% }) %>

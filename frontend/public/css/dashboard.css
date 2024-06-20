@@ -396,13 +396,25 @@ tr{
   height: 35px;
   width: 35px;
 }
-.eliminarUsuario, .eliminarProducto{
+.eliminarUsuario, .eliminarProducto, .eliminarProveedor{
   background: rgb(220, 0, 0);
   height: 35px;
   width: 35px;
 }
 .aceptar{
   background: #2a43ff;
+}
+.pagado{
+  background: #008000;
+  height: 35px;
+  border: none;
+  color: #fff;
+  border-radius: 10px;
+  transition: .2s;
+}
+.pagado:hover{
+  background: #00b000;
+  transition: .2s;
 }
 .factura{
   background: #2a43ff;
