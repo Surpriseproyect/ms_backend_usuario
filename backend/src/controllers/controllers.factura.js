@@ -27,3 +27,13 @@ export const crearFactura = async (req,res)=>{
         console.log(error);
     }
 }
+
+export const actualizarEstado = async (req,res)=>{
+    const {id} = req.body;
+    try {
+        const respuesta = await pool.query(`CALL SP_ESTADO_FACTURA(?)`, [id]);
+        res.json({"respuesta": "Estado actualizado"})
+    } catch (error) {
+        console.log(error);
+    }
+}

@@ -26,3 +26,14 @@ export const crearPago = async (req,res)=>{
         res.json({"error": "El metodo de pago no se creo"})
     }
 }
+
+export const eliminarPago = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const respuesta = await pool.query(`CALL SP_ELIMINAR_METODOPAGO(?)`, [id]);
+        res.json({ "respuesta": "El metodo de pago ha sido eliminado" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ "error": "El metodo de pago no se elimino" });
+    }
+};

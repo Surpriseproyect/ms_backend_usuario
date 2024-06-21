@@ -340,7 +340,63 @@ eliminarProducto.forEach(btn => {
     })
 })
 
+//Actualizar estado factura
+let pagado = document.querySelectorAll(".pagado");
+pagado.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        let estado = e.target.closest(".user-list-item");
+        let id = estado.querySelector(".id").innerHTML
 
+        fetch(`http://localhost:3000/factura/factura/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id: id })
+        })
+        .then(res => {
+            if(res.ok) {
+                return res.json();
+            } else {
+                throw new Error('Something went wrong');
+            }
+        })
+        .then(data => {
+            console.log(data.respuesta);
+            estado.remove();
+
+        })
+        .catch(error => console.log(error));
+    });
+});
+
+// Eliminar metodo de pago
+let eliminarMetodo = document.querySelectorAll(".eliminarMetodo")
+eliminarMetodo.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        let ventana = document.getElementById("eliminar")
+        ventana.style.display = "flex"
+        let metopago = e.target.closest(".user-list-item")
+        let nombre = metopago.querySelector(".nombreTipo").innerHTML;
+        let aceptar = document.querySelector(".aceptar");
+        let textoVentana = document.querySelector(".texto")
+        textoVentana.innerHTML = `¿Seguro que quieres eliminar el metodo de pago ${nombre}?`
+        let id = metopago.querySelector(".id").innerHTML
+        aceptar.addEventListener("click", () => {
+        fetch(`http://localhost:3000/metopago/metopago/${id}`, {
+            method: "DELETE"
+        })
+        .then(res => {
+            if(res.ok) {
+                metopago.remove();
+                ventana.style.display= "none"
+            } 
+        })
+        .catch(error => console.log(error))
+        })
+        console.log(metopago);
+    })
+})
 
 // Usuario
 function editarUsuario(){

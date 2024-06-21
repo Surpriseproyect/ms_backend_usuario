@@ -88,7 +88,7 @@
                 <td>Nombres</td>
                 <td>Producto</td>
                 <td>Metodo de Pago</td>
-                <td>Hora</td>
+                <td>Fecha</td>
                 <td>Cantidad</td>
                 <td>Total</td>
                 <td>Opciones</td>
@@ -97,16 +97,22 @@
             <tbody>
               <% if (pedido && pedido.length > 0) { %>
                 <% pedido.forEach(p => { %>
-              <tr>
-                <td><%= p.Id_pedido %></td>
+              <tr class="user-list-item">
+                <td class="id"><%= p.Id_pedido %></td>
                 <td><%= p.nombres %></td>
                 <td><%= p.producto%></td>
                 <td><%= p.tipopago %></td>
-                <td><%= p.hora %></td>
+                <td><% let fecha = new Date(p.hora);
+                      let opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                      let opcionesHora = { hour: 'numeric', minute: '2-digit', hour12: true };
+                      let fechaFormateada = fecha.toLocaleDateString('es-CO', opcionesFecha);
+                      let horaFormateada = fecha.toLocaleTimeString('es-CO', opcionesHora); %>
+                    <%= fechaFormateada %> a las <%= horaFormateada %>
+                </td>
                 <td><%= p.cantidad %></td>
                 <td><%= p.total %></td>
                 <td>
-                  <input class="pagado" type="button" value="Pagado">
+                  <button class="pagado" id="pagado">Pagado</button>
                 </td>
               </tr>
               <% }) %>
@@ -140,7 +146,13 @@
                   <td><%= f.idfacturas %></td>
                   <td><%= f.nombres %></td>
                   <td><%= f.producto %></td>
-                  <td><%= f.fecha %></td>
+                  <td><% let fecha = new Date(f.fecha);
+                        let opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
+                        let opcionesHora = { hour: 'numeric', minute: '2-digit', hour12: true };
+                        let fechaFormateada = fecha.toLocaleDateString('es-CO', opcionesFecha);
+                        let horaFormateada = fecha.toLocaleTimeString('es-CO', opcionesHora); %>
+                      <%= fechaFormateada %> a las <%= horaFormateada %>
+                  </td>
                   <td><%= f.tipopago %></td>
                   <td><%= f.total %></td>
                   <td><%= f.estado %></td>
@@ -311,16 +323,16 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <% if (metopago && metopago.length > 0) { %>
-                    <% metopago.forEach(m => { %>
-                  <td><%= m.idmetodopago %></td>
-                  <td><%= m.tipopago %></td>
+                <% if (metopago && metopago.length > 0) { %>
+                <% metopago.forEach(m => { %>
+                <tr class="user-list-item">
+                  <td class="id"><%= m.idmetodopago %></td>
+                  <td class="nombreTipo"><%= m.tipopago %></td>
                   <td>
-                    <button class="eliminarProveedor"><i class="fa-solid fa-trash-can"></i></button>
+                    <button class="eliminarMetodo"><i class="fa-solid fa-trash-can"></i></button>
                   </td>
                 </tr>
-                <% }) %>
+            <% }) %>
             <% } else { %>
               <tr>
                   <td colspan="9">No hay metodos de pago</td>
