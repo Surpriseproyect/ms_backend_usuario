@@ -22,6 +22,6 @@ rutaUsuario.delete("/usuario", eliminarUsuario)
 rutaUsuario.post("/loginusuario", logueoUsuario);
 //Validar token
 rutaUsuario.post("/oauth", verifytoken, validarToken);
-
+//verificar rol
 
 export default rutaUsuario;

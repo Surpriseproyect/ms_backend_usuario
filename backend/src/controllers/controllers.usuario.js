@@ -85,6 +85,7 @@ export const logueoUsuario = async(req,res)=>{
     const { correo, contrasena } = req.body;
     console.log(correo + contrasena)
     try {
+        const rol = await pool.query(`CALL SP_VERIFICAR_ROLES(?)`, [correo])
         const respuesta = await pool.query(`CALL SP_BUSCAR_USUARIO(?)`, [correo]);
         if (respuesta[0][0] == 0) {
             Error(req, res, 404, "Usuario no existe");
@@ -106,9 +107,12 @@ export const logueoUsuario = async(req,res)=>{
             {
                 expiresIn : process.env.TOKEN_EXPIRES_IN
             });
-
-        Acceso(req, res, 200, {token});
-
+        
+            if(rol[0][0][0].rol === "Gerente"){
+                Acceso(req, res, 200, {token, "rol": "/dashboard"});
+            } else if(rol[0][0][0].rol === "cajero"){
+                Acceso(req, res, 200, {token, "rol": "/cajero"});
+            }
 
     } catch (e) {
         Error(req, res, 500, "Error en el servidor, por favor inténtalo de nuevo más tarde");

@@ -41,7 +41,8 @@ const loguear = async ()=>{
             alertify.error('Correo o Contraseña Incorrecta');
         }else{
             sessionStorage.setItem("token", data.body.token);
-            window.location.href = "/dashboard";
+            sessionStorage.setItem("rol", data.body.rol);
+            window.location.href = sessionStorage.getItem("rol");
         }
     })
     .catch(err=>{

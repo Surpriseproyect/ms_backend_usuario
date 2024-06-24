@@ -4,6 +4,7 @@ import {cajero, dashboard, inicio, productos, sobrenosotros } from "../controlle
 
 const rutaLogin = Router();
 
+
 rutaLogin.get("/", inicio)
 rutaLogin.get("/sobrenosotros", sobrenosotros)
 rutaLogin.get("/productos", productos)
