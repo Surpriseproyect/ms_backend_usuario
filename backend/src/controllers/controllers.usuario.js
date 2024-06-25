@@ -14,7 +14,7 @@ export const mostrarUsuario = async (req, res) => {
         if (respuesta && respuesta.length > 0) {
             res.json(respuesta[0]);
         } else {
-            res.status(404).json({ message: "User not found" });
+            res.status(404).json({ message: "Usuario no encontrado" });
         }
     } catch (error) {
         res.status(500).json({ error: error.message });
