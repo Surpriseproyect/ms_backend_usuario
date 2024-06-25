@@ -276,4 +276,6 @@ header .logo{
 .create-account a:hover{
     text-decoration: underline;
 }
-
+.terminos{
+    text-decoration:wavy;
+}

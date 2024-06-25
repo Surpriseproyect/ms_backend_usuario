@@ -398,6 +398,65 @@ eliminarMetodo.forEach(btn => {
     })
 })
 
+// Eliminar metodo de pago
+let eliminarProveedor = document.querySelectorAll(".eliminarProveedor")
+eliminarProveedor.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        let ventana = document.getElementById("eliminar")
+        ventana.style.display = "flex"
+        let proveedor = e.target.closest(".user-list-item")
+        let nombre = proveedor.querySelector(".nombreProveedor").innerHTML;
+        let aceptar = document.querySelector(".aceptar");
+        let textoVentana = document.querySelector(".texto")
+        textoVentana.innerHTML = `¿Seguro que quieres eliminar al proveedor ${nombre}?`
+        let id = proveedor.querySelector(".id").innerHTML
+        aceptar.addEventListener("click", () => {
+        fetch(`http://localhost:3000/proveedor/proveedor/${id}`, {
+            method: "DELETE"
+        })
+        .then(res => {
+            if(res.ok) {
+                proveedor.remove();
+                ventana.style.display= "none"
+            } 
+        })
+        .catch(error => console.log(error))
+        })
+        console.log(proveedor);
+    })
+})
+
+// Crear Metodo de Pago
+document.getElementById("crearMPago").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const tipopago = document.querySelector(".metodo").value;
+
+    const datosMetodo = {
+        tipopago: tipopago
+    };
+    fetch(`http://localhost:3000/metopago/metopago`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosMetodo)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Metodo agregado:", data);
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+    });
+    // location.reload()
+});
+
 // Usuario
 function editarUsuario(){
     let ventana = document.getElementById("editarUsuario")
@@ -446,4 +505,12 @@ function ocultarCrearProducto(){
     ventana.style.display = "none"
 }
 
-
+// Crear Metodo Pago
+function crearMetodo(){
+    let ventana = document.getElementById("crearMetodo")
+    ventana.style.display = "flex"
+}
+function ocultarMetodo(){
+    let ventana = document.getElementById("crearMetodo")
+    ventana.style.display = "none"
+}

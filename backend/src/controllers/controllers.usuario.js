@@ -110,7 +110,7 @@ export const logueoUsuario = async(req,res)=>{
         
             if(rol[0][0][0].rol === "Gerente"){
                 Acceso(req, res, 200, {token, "rol": "/dashboard"});
-            } else if(rol[0][0][0].rol === "cajero"){
+            } else if(rol[0][0][0].rol === "Cajero"){
                 Acceso(req, res, 200, {token, "rol": "/cajero"});
             }
 

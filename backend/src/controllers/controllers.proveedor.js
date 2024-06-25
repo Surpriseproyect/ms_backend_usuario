@@ -28,9 +28,9 @@ export const crearProveedor = async (req,res)=>{
     }
 }
 export const eliminarProveedor = async (req,res)=>{
-    const {idproveedor}= req.body;
+    const {id}= req.params;
     try {
-        const respuesta = await pool.query(`CALL SP_ELIMINAR_PROVEEDOR (?)`, [idproveedor]);
+        const respuesta = await pool.query(`CALL SP_ELIMINAR_PROVEEDOR (?)`, [id]);
         res.json({"respuesta": "el proveedor ha sido eliminado"})
     } catch (error) {
         res.json({"error": "el proveedor no ha sido eliminado"})

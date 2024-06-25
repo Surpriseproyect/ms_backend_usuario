@@ -279,11 +279,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <% if (proveedor && proveedor.length > 0) { %>
-                    <% proveedor.forEach(p => { %>
-                  <td><%= p.idproveedor %></td>
-                  <td><%= p.proveedor %></td>
+                <% if (proveedor && proveedor.length > 0) { %>
+                  <% proveedor.forEach(p => { %>
+                <tr class="user-list-item">
+                  <td class="id"><%= p.idproveedor %></td>
+                  <td class="nombreProveedor"><%= p.proveedor %></td>
                   <td>
                     <button class="eliminarProveedor"><i class="fa-solid fa-trash-can"></i></button>
                   </td>
@@ -304,7 +304,7 @@
 
           <div class="col-12 contenido " id="metodo">
             <div class="funcion">
-              <button class="agregar" onclick="crear()">AGREGAR +</button>
+              <button class="agregar" onclick="crearMetodo()">AGREGAR +</button>
             </div>
             <table>
               <thead>
@@ -508,6 +508,19 @@
             <div class="opcion">
               <button onclick="ocultarCrearProducto()">Cancelar</button>
               <input id="crearProducto" type="submit" placeholder="Confirmar">
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="crear" id="crearMetodo">
+        <div class="informacion" id="info">
+        <h4>Agregar Metodo de Pago</h4>
+          <form class="datos-usuario" action="">
+            <input class="metodo" type="text" placeholder="Ingresa el Tipo">
+            <div class="opcion">
+              <button onclick="ocultarMetodo()">Cancelar</button>
+              <input id="crearMPago" type="submit" placeholder="Confirmar">
             </div>
           </form>
         </div>
