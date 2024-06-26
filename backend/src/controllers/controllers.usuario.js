@@ -72,6 +72,22 @@ export const modificarUsuario = async (req,res)=>{
         Error(req, res, 400, err);
     }
 }
+export const actualizarEstado = async (req,res)=>{
+    const {id} = req.params
+    const {estado} = req.body;
+    try {
+        
+        const respuesta = await pool.query (`CALL SP_ACTULIZAR_ESTADOS (?, ?)`, [id, estado]);
+
+        if (respuesta[0].affectedRows == 1){
+            Acceso(req, res, 201,"Estado modificado:"  +  estado);
+        }else{
+            Error(req, res, 400, "No se pudo modificar el estado");    
+        }
+    } catch (err) {
+        Error(req, res, 400, err);
+    }
+}
 export const eliminarUsuario = async (req,res)=>{
     const {idusuario} = req.body
     try {

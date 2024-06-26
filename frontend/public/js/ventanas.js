@@ -488,7 +488,36 @@ document.getElementById("crearPr").addEventListener("click", (e) => {
     // location.reload()
 });
 
-
+//Actualizar estado Usuario
+let estadoUsuario = document.querySelectorAll(".estado");
+estadoUsuario.forEach(btn => {
+    btn.addEventListener("change", (e) => {
+        let proveedor = e.target.closest(".user-list-item")
+        let aceptar = document.querySelector(".act");
+        let id = proveedor.querySelector(".id").innerHTML
+        let estado = proveedor.querySelector(".estado").value; 
+        aceptar.addEventListener("click", () => {
+            const datosEstado = {
+                estado: estado
+            };
+            console.log(datosEstado);
+        fetch(`http://localhost:3000/usuario/estado/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datosEstado)
+        })
+        .then(res => {
+            if(res.ok) {
+                proveedor.remove();
+            } 
+        })
+        .catch(error => console.log(error))
+        })
+        console.log(proveedor);
+    })
+});
 // Usuario
 function editarUsuario(){
     let ventana = document.getElementById("editarUsuario")

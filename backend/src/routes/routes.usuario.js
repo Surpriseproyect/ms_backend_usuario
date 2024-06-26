@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { crearUsuario, eliminarUsuario,
+import { actualizarEstado, crearUsuario, eliminarUsuario,
         listarUsuario, logueoUsuario, modificarUsuario,
         mostrarUsuario, 
         validarToken} from "../controllers/controllers.usuario.js";
@@ -16,6 +16,8 @@ rutaUsuario.get("/usuario", listarUsuario)
 rutaUsuario.post("/usuario", crearUsuario)
 //modificar
 rutaUsuario.put("/usuario/:id", modificarUsuario)
+//modificar estado usuario
+rutaUsuario.put("/estado/:id", actualizarEstado)
 //eliminar
 rutaUsuario.delete("/usuario", eliminarUsuario)
 //login
