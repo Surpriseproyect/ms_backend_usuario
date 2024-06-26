@@ -49,3 +49,46 @@ const loguear = async ()=>{
         console.error("Se presento un problema", err)
     })
 }
+
+//Registro Usuario
+document.getElementById("registrar").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const identificacion = document.querySelector(".identificacion").value;
+    const nombres = document.querySelector(".nombre").value;
+    const telefono = document.querySelector(".telefono").value;
+    const correo = document.querySelector(".correo").value;
+    const contrasena = document.querySelector(".contrasena").value;
+    const rol = document.querySelector(".roles").value;
+    const estado = "Pagado"
+
+    const datosUsuario = {
+        identificacion: identificacion,
+        nombres: nombres,
+        telefono: telefono,
+        correo: correo,
+        contrasena: contrasena,
+        rol: rol,
+        estado: estado
+    };
+    fetch(`http://localhost:3000/usuario/usuario`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosUsuario)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Producto agregado:", data);
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+    });
+    location.reload()
+});

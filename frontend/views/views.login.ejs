@@ -62,27 +62,47 @@
                     <div class="form">
     
                         <h2>Registrarse</h2>
-    
-                        <div class="input-box">
-                            <span class="icon"><i class='bx bxs-user'></i></span>
-                            <input type="text" required>
-                            <label >Nombre</label>
+                        <div class="campo1">
+                            <div class="input-box">
+                                <span class="icon"><i class='bx bxs-user'></i></span>
+                                <input class="identificacion" type="number" required>
+                                <label >Identificación</label>
+                            </div>
+                            <div class="input-box">
+                                <span class="icon"><i class='bx bxs-user'></i></span>
+                                <input class="nombre" type="text" required>
+                                <label >Nombres</label>
+                            </div>
                         </div>
-                        <div class="input-box">
-                            <span class="icon"><i class='bx bxs-user-account'></i></span>
-                            <input type="email" id="correoregister" required>
-                            <label>Correo</label>
+                        <div class="campo2">
+                            <div class="input-box">
+                                <span class="icon"><i class='bx bxs-user'></i></span>
+                                <input class="telefono" type="number" required>
+                                <label >Telefono</label>
+                            </div>
+                            <div class="input-box">
+                                <span class="icon"><i class='bx bxs-user-account'></i></span>
+                                <input class="correo" type="email" id="correoregister" required>
+                                <label>Correo</label>
+                            </div>
                         </div>
-                        <div class="input-box">
-                            <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
-                            <input type="password" id="passwordregister" required>
-                            <label>Contraseña</label>
+                        <div class="campo3">
+                            <div class="input-box">
+                                <span class="icon"><i class='bx bxs-lock-alt' ></i></span>
+                                <input class="contrasena" type="password" id="passwordregister" required>
+                                <label>Contraseña</label>
+                            </div>
+                            <select class="roles">
+                                <option selected disabled>Seleccionar Rol</option>
+                                <option value="Cajero">Cajero</option>
+                                <option value="Gerente">Gerente</option>
+                            </select>
                         </div>
                         <div class="remember-password">
                             <input type="checkbox" required>
-                            <p>He leido y acepto <a class="terminos" href="/pdf/terminos.pdf">Terminos y Condiciones</a></p>
+                            <p>He leido y acepto <a class="terminos" href="/pdf/terminos.pdf" target="_blank">Terminos y Condiciones</a></p>
                         </div>
-                        <button class="btn">Registrarse</button>
+                        <button class="btn" id="registrar">Registrarse</button>
                         <div class="create-account">
                             <p>¿Ya tienes una cuenta? <a href="#" class="login-link">
                                 Iniciar Sesión</a></p>
