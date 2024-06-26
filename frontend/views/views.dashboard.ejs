@@ -91,6 +91,7 @@
                 <td>Fecha</td>
                 <td>Cantidad</td>
                 <td>Total</td>
+                <td>Estado</td>
                 <td>Opciones</td>
               </tr>
             </thead>
@@ -111,6 +112,7 @@
                 </td>
                 <td><%= p.cantidad %></td>
                 <td><%= p.total %></td>
+                <td><%= p.estado %></td>
                 <td>
                   <button class="pagado" id="pagado">Pagado</button>
                 </td>
@@ -130,7 +132,7 @@
             <% factura.forEach(f => { %>
             <div class="container">
               <header class="header">
-                  <h3>Surprise.Box</h3>
+                  <h3>Surprise</h3>
                   <p>Restaurante</p>
               </header>
 
@@ -485,7 +487,7 @@
           <i class="fa-solid fa-circle-question"></i>
           <p class="texto">¿Seguro que quieres eliminar la cuenta de {nombre}?</p>
             <div class="opcion">
-              <button onclick="ocultarEliminar()">Cancelar</button>
+              <button class="cancelar" onclick="ocultarEliminar()">Cancelar</button>
               <button class="aceptar">Confirmar</button>
             </div>
         </div>

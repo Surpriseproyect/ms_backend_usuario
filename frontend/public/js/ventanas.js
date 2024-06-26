@@ -322,6 +322,10 @@ eliminarProducto.forEach(btn => {
         let nombre = producto.querySelector(".nombreP").innerHTML;
         let aceptar = document.querySelector(".aceptar");
         let textoVentana = document.querySelector(".texto")
+        let cancelar = ventana.querySelector(".cancelar")
+        cancelar.addEventListener("click", () => {
+            location.reload()
+        })
         textoVentana.innerHTML = `¿Seguro que quieres eliminar el producto ${nombre}?`
         let id = producto.querySelector(".id").innerHTML
         aceptar.addEventListener("click", () => {
@@ -346,7 +350,19 @@ pagado.forEach(btn => {
     btn.addEventListener("click", (e) => {
         let estado = e.target.closest(".user-list-item");
         let id = estado.querySelector(".id").innerHTML
-
+        let pagado = document.querySelector(".pagado").innerHTML;
+        fetch(`http://localhost:3000/pedido/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                estado: "Pagado"
+            })
+        })
+        .then(res => res.json())
+        .then(esneider => console.log(esneider))
+        .catch(error => console.log(error))
         fetch(`http://localhost:3000/factura/factura/${id}`, {
             method: "PUT",
             headers: {
@@ -367,6 +383,7 @@ pagado.forEach(btn => {
 
         })
         .catch(error => console.log(error));
+       
     });
 });
 

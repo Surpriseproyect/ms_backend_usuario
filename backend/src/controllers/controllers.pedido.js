@@ -17,3 +17,24 @@ export const contadorPedidos = async(req, res) => {
         res.status(500).json(error)
     }
 }
+
+export const crearPedido = async(req, res) => {
+    const {_idusuario, _idproducto, _idmetodopago, _cantidad, _total, _estado} = req.body
+    try {
+        const respuesta = await pool.query("CALL SP_CREAR_PEDIDO(?, ?, ?, ?, ?, ?)", [_idusuario, _idproducto, _idmetodopago, _cantidad, _total, _estado]);
+        return respuesta[0]
+    } catch (error) {
+        res.status(500).json(error);        
+    }
+}
+
+export const actualizarPedido = async(req, res) => {
+    const {id} = req.params;
+    const {estado} = req.body;
+    try {
+        const respuesta = await pool.query("CALL SP_ACTUALIZAR_PEDIDO(?, ?)", [id, estado]);
+        return respuesta[0]
+    } catch (error) {
+        res.status(500).json(error);
+    }
+}
