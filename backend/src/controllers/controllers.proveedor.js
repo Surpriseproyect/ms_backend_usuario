@@ -21,7 +21,7 @@ export const listarProveedor = async (req,res)=>{
 export const crearProveedor = async (req,res)=>{
     const {proveedor} = req.body;
     try {
-        const respuesta = await pool.query(`CALL SP_CREAR_PROVEEDORES (?)`, [proveedor]);
+        const respuesta = await pool.query(`CALL SP_CREAR_PROVEEDORES(?)`, [proveedor]);
         res.json({"respuesta": "el proveedor ha sido agregado"})
     } catch (error) {
         res.json({"error": "el proveedor no se agrego"})

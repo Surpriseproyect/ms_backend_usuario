@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-06-2024 a las 21:53:16
+-- Tiempo de generación: 26-06-2024 a las 04:07:17
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.1
 
@@ -29,6 +29,14 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_BUSCAR_USUARIO` (IN `_CORREO` VA
 
 SELECT correo, contrasena FROM usuarios WHERE correo = _CORREO LIMIT 1;
 
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CONTADOR_PEDIDO` ()  BEGIN
+	SELECT COUNT(*) cantidad FROM pedido;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CONTADOR_VENTAS` ()  BEGIN
+	SELECT COUNT(*) cantidad FROM facturas WHERE estado = 'Pagado';
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_CREAR_FACTURA` (IN `_IDUSUARIO` INT(10), IN `_IDMETODOPAGO` INT(10), IN `_ESTADO` VARCHAR(10), IN `_NCUENTA` INT(15), IN `_FECHA` TIMESTAMP)  BEGIN
@@ -190,6 +198,10 @@ ORDER BY facturas.fecha ASC;
 
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_TOTAL_VENTAS` ()  BEGIN
+    SELECT SUM(total) total FROM facturas WHERE estado = 'Pagado';
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_VERIFICAR_ROLES` (IN `_correo` VARCHAR(200))  BEGIN
 	SELECT correo, rol FROM usuarios WHERE correo = _correo;
 END$$
@@ -222,7 +234,7 @@ INSERT INTO `facturas` (`idfacturas`, `idpedido`, `idusuario`, `idproducto`, `fe
 (69, 3, 86, 14, '2024-06-20 16:30:10', 1, 1000, 'Pagado'),
 (70, 4, 1, 10, '2024-06-20 16:42:43', 1, 45000, 'Pagado'),
 (71, 5, 28, 8, '2024-06-20 18:35:20', 1, 15000, 'Pagado'),
-(72, 6, 41, 24, '2024-06-21 01:54:02', 1, 10000, 'Pendiente');
+(72, 6, 41, 24, '2024-06-21 01:54:02', 1, 10000, 'Pagado');
 
 -- --------------------------------------------------------
 
@@ -241,8 +253,7 @@ CREATE TABLE `metodopago` (
 
 INSERT INTO `metodopago` (`idmetodopago`, `tipopago`) VALUES
 (1, 'Efectivo'),
-(2, 'Transferencia'),
-(22, 'ddd');
+(2, 'Transferencia');
 
 -- --------------------------------------------------------
 
@@ -357,7 +368,8 @@ CREATE TABLE `proveedores` (
 
 INSERT INTO `proveedores` (`idproveedor`, `proveedor`) VALUES
 (33, 'Proveedor'),
-(34, 'Proveedor 2');
+(34, 'Proveedor 2'),
+(36, 'Yupi');
 
 -- --------------------------------------------------------
 
@@ -413,7 +425,9 @@ INSERT INTO `usuarios` (`idusuario`, `identificacion`, `nombres`, `telefono`, `c
 (79, 12, 'Jhoan', '21234123', 'hola@gmail.com', '1', 'Gerente', 'Pendiente'),
 (85, 12, 'PRUEBA', '2123412362', 'pruebatoken@gmail.com', '$2b$04$3q1l8N95pFZF.kJf5XFbgeesttkq1elskrPUYsMo6OkDe/n1I2Roi', 'Gerente', 'Fiado'),
 (86, 12, 'Klimber Barret', '23233', 'klimber@gmail.com', '$2b$04$.PSFllDPsKkTTKskIruq9uzt0KpXo6uLom.uMt9tQaaYj8Mcrljwi', 'Cliente', 'Pagado'),
-(87, 123, 'esme', '213', 'esneider@gmail.com', '$2b$04$T5lnAWRbKx29VQr8AT.D5eStZzjN1yooOdXiAWtuRax8rE2IWJiCS', 'Gerente', 'Pagado');
+(87, 123, 'esme', '213', 'esneider@gmail.com', '$2b$04$T5lnAWRbKx29VQr8AT.D5eStZzjN1yooOdXiAWtuRax8rE2IWJiCS', 'Gerente', 'Pagado'),
+(88, 111, 'es', '111', 'esnei@gmail.com', '$2b$04$YlliJ4rkZMsqUO/tfijqw.kl.DW6D3V.vlmoyYA2ij9K5cY7hCF6O', 'Cajero', 'Pagado'),
+(90, 1, 'esneud', '1233', 'i@gmail.com', '$2b$04$AHC.Z2wS/6siQnstF/gmvu27hCh5QTDCbaEJZ1bkaA7/dEecw2QqO', 'Gerente', 'Pagado');
 
 --
 -- Índices para tablas volcadas
@@ -497,13 +511,13 @@ ALTER TABLE `productos`
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `idproveedor` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `idproveedor` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idusuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `idusuario` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=92;
 
 --
 -- Restricciones para tablas volcadas

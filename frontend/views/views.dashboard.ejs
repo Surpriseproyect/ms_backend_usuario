@@ -268,7 +268,7 @@
 
           <div class="col-12 contenido " id="proveedor">
             <div class="funcion">
-              <button class="agregar" onclick="crear()">AGREGAR +</button>
+              <button class="agregar" onclick="crearProveedor()">AGREGAR +</button>
             </div>
             <table>
               <thead>
@@ -296,10 +296,6 @@
             <% } %>
               </tbody>
             </table>
-            <div class="paginacion">
-              <a href="">Anterior</a>
-              <a href="">Siguiente</a>
-            </div>
           </div>
 
           <div class="col-12 contenido " id="metodo">
@@ -377,7 +373,13 @@
                   <i class="ph-lightning-light"></i>
                   <h3>
                     <span>NÚMERO DE VENTAS</span>
-                    <span>10</span>
+                    <% if (ventas && ventas.length > 0) { %>
+                      <% ventas.forEach(ventas => { %>
+                    <span><%= ventas.cantidad %></span>
+                    <% }) %>
+                    <% } else { %>
+                      <span>No hay ventas aún</span>
+                    <% } %>
                   </h3>
                 </div>
                 <a href="">
@@ -389,7 +391,13 @@
                   <i class="ph-fire-simple-light"></i>
                   <h3>
                     <span>GANANCIA</span>
-                    <span>$100.000</span>
+                    <% if (total && total.length > 0) { %>
+                      <% total.forEach(total => { %>
+                      <span>$<%= new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'COL' }).format(total.total) %></span>
+                    <% }) %>
+                    <% } else { %>
+                      <span>No hay un total aún</span>
+                    <% } %>
                   </h3>
                 </div>
                 <a href="#">
@@ -400,7 +408,13 @@
                   <i class="ph-file-light"></i>
                   <h3>
                     <span>NÚMERO DE PEDIDOS</span>
-                    <span>0</span>
+                    <% if (pedidos && pedidos.length > 0) { %>
+                      <% pedidos.forEach(pedidos => { %>
+                    <span><%= pedidos.cantidad %></span>
+                    <% }) %>
+                    <% } else { %>
+                      <span>No hay pedidos aún</span>
+                    <% } %>
                   </h3>
                 </div>
                 <a href="#">
@@ -521,6 +535,19 @@
             <div class="opcion">
               <button onclick="ocultarMetodo()">Cancelar</button>
               <input id="crearMPago" type="submit" placeholder="Confirmar">
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="crear" id="crearProveedor">
+        <div class="informacion" id="info">
+        <h4>Agregar Proveedor</h4>
+          <form class="datos-usuario" action="">
+            <input class="nombrePr" type="text" placeholder="Ingresa Nombre del Proveedor">
+            <div class="opcion">
+              <button onclick="ocultarProveedor()">Cancelar</button>
+              <input id="crearPr" type="submit" placeholder="Confirmar">
             </div>
           </form>
         </div>

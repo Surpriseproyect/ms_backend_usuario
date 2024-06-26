@@ -457,6 +457,38 @@ document.getElementById("crearMPago").addEventListener("click", (e) => {
     // location.reload()
 });
 
+// Crear Proveedor
+document.getElementById("crearPr").addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const proveedor = document.querySelector(".nombrePr").value;
+
+    const datosProveedor = {
+        proveedor: proveedor
+    };
+    fetch(`http://localhost:3000/proveedor/proveedor`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosProveedor)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log("Metodo agregado:", data);
+    })
+    .catch(error => {
+        console.error("Fetch error:", error);
+    });
+    // location.reload()
+});
+
+
 // Usuario
 function editarUsuario(){
     let ventana = document.getElementById("editarUsuario")
@@ -512,5 +544,15 @@ function crearMetodo(){
 }
 function ocultarMetodo(){
     let ventana = document.getElementById("crearMetodo")
+    ventana.style.display = "none"
+}
+
+// Crear Proveedor
+function crearProveedor(){
+    let ventana = document.getElementById("crearProveedor")
+    ventana.style.display = "flex"
+}
+function ocultarProveedor(){
+    let ventana = document.getElementById("crearProveedor")
     ventana.style.display = "none"
 }

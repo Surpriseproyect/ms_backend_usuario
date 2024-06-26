@@ -6,8 +6,8 @@
 import { config } from "dotenv";
 import {listarUsuario, fiados} from "./controllers.usuario.js"
 import { listarProducto } from "./controllers.producto.js";
-import { listarFactura } from "./controllers.factura.js";
-import { listarPedido } from "./controllers.pedido.js";
+import { contadorVentas, listarFactura, totalVentas } from "./controllers.factura.js";
+import { contadorPedidos, listarPedido } from "./controllers.pedido.js";
 import { ListarPago } from "./controllers.metopago.js";
 import { listarProveedor } from "./controllers.proveedor.js";
 config();
@@ -59,6 +59,9 @@ const productos = async (req, res)=>{
         const pedido = await listarPedido(req, res);
         const metopago = await ListarPago(req, res);
         const proveedor = await listarProveedor(req, res);
+        const ventas = await contadorVentas(req, res);
+        const total = await totalVentas(req, res);
+        const pedidos = await contadorPedidos(req, res);
         res.render("views.dashboard.ejs", { 
             usuarios: respuesta[0],
             producto: producto[0],
@@ -66,7 +69,10 @@ const productos = async (req, res)=>{
             factura: factura[0],
             pedido: pedido[0],
             metopago: metopago,
-            proveedor: proveedor
+            proveedor: proveedor,
+            ventas: ventas[0],
+            total: total[0],
+            pedidos: pedidos[0]
          });
     } catch (error) {
         res.json({ "error": error });

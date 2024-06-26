@@ -37,3 +37,21 @@ export const actualizarEstado = async (req,res)=>{
         console.log(error);
     }
 }
+
+export const contadorVentas = async (req, res) =>{
+    try {
+        const respuesta = await pool.query(`CALL SP_CONTADOR_VENTAS()`)
+        return respuesta[0]
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const totalVentas = async (req, res) =>{
+    try {
+        const respuesta = await pool.query(`CALL SP_TOTAL_VENTAS()`)
+        return respuesta[0]
+    } catch (error) {
+        console.log(error);
+    }
+}
