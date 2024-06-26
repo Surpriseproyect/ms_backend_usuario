@@ -672,7 +672,9 @@ input:checked + .switch .slider {
   border: 1px solid #e0e0e0;
   border-radius: 5px;
 }
-
+h3{
+  margin-top: -40px;
+}
 .detail strong {
   color: #000000;
 }
@@ -688,4 +690,10 @@ input:checked + .switch .slider {
   margin: 0;
   font-size: 1.2em;
   color: #777;
+}
+.generar{
+  height: 35px;
+  width: 35px;
+  position: relative;
+  background: #b20a00;
 }
