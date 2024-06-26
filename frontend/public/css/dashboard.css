@@ -485,7 +485,7 @@ tr{
 		}
 	}}
 
-.tile >a {
+.tile > button {
 		text-decoration: none;
 		display: flex;
 		align-items: center;
@@ -507,6 +507,9 @@ tr{
 		}
 	}
 
+article >.contorno{
+  background: transparent;
+}
 .tile-header {
 	display: flex;
 	align-items: center;
