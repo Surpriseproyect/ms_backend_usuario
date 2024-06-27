@@ -97,7 +97,7 @@ editar1.forEach(btn => {
                 .catch(error => {
                     console.error("Fetch error:", error);
                 });
-            // location.reload()
+            location.reload()
             });
     });
 });
@@ -471,7 +471,7 @@ document.getElementById("crearMPago").addEventListener("click", (e) => {
     .catch(error => {
         console.error("Fetch error:", error);
     });
-    // location.reload()
+    location.reload()
 });
 
 // Crear Proveedor
@@ -502,7 +502,7 @@ document.getElementById("crearPr").addEventListener("click", (e) => {
     .catch(error => {
         console.error("Fetch error:", error);
     });
-    // location.reload()
+    location.reload()
 });
 
 //Actualizar estado Usuario
@@ -535,6 +535,35 @@ estadoUsuario.forEach(btn => {
         console.log(proveedor);
     })
 });
+
+// Eliminar Usuarios
+let eliminaPedido = document.querySelectorAll(".cancelarP")
+eliminaPedido.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        let ventana = document.getElementById("eliminar");
+        ventana.style.display = "flex";
+        let pedido = e.target.closest(".user-list-item");
+        let nombre = pedido.querySelector(".nombre").innerHTML;
+        let aceptar = document.querySelector(".aceptar");
+        let textoVentana = document.querySelector(".texto")
+        textoVentana.innerHTML = `¿Seguro que quieres eliminar el pedido ${nombre}?`
+        let id = pedido.querySelector(".id").innerHTML
+        aceptar.addEventListener("click", () => {
+        fetch(`http://localhost:3000/pedido/${id}`, {
+            method: "DELETE"
+        })
+        .then(res => {
+            if(res.ok) {
+                pedido.remove();
+                ventana.style.display= "none"
+            } 
+        })
+        .catch(error => console.log(error))
+        })
+        console.log(pedido);
+    })
+})
+
 // Usuario
 function editarUsuario(){
     let ventana = document.getElementById("editarUsuario")

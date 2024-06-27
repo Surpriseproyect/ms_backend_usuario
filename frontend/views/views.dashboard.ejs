@@ -50,7 +50,7 @@
         <div class="row dash">
           <div class="col-2 menu">
             <div class="encabazado">
-                <a class="cajero" href=""><img src="img/cajero.png" alt="">GERENTE</a>
+                <a class="cajero" href=""><img src="img/gerente.png" alt="">GERENTE</a>
             </div>
             <div class="opciones">
               <li class="enlace"><a href="#pedidos"><i class="fa-regular fa-rectangle-list"></i>Pedidos</a></li>
@@ -61,13 +61,14 @@
               <li class="enlace"><a href="#proveedor"><i class="fa-solid fa-truck-field-un"></i>Proveedores</a></li>
               <li class="enlace"><a href="#cuentas"><i class="fa-solid fa-file-invoice-dollar"></i>Cuentas Fiadas</a></li>
               <li class="enlace"><a href="#informes"><i class="fa-solid fa-flag"></i>Informes</a></li>
+              <li class="enlace"><a href="/"><i class="fa-solid fa-square-up-right"></i>Pagina de Inicio</a></li>
             </div>
           </div>
         
           <div class="col-10">
             <div class="row cont">
           <div class="col-12 nav" id="nav">
-            {Nombre Administrador}
+            Entraste como Gerente de Surprise
           <div class="modos">
             <div class="switch-container">
               <input type="checkbox" id="toggleSwitch">
@@ -101,7 +102,7 @@
                 <% pedido.forEach(p => { %>
               <tr class="user-list-item">
                 <td class="id"><%= p.Id_pedido %></td>
-                <td><%= p.nombres %></td>
+                <td class="nombre"><%= p.nombres %></td>
                 <td><%= p.producto%></td>
                 <td><%= p.tipopago %></td>
                 <td><% let fecha = new Date(p.hora);
@@ -114,8 +115,9 @@
                 <td><%= p.cantidad %></td>
                 <td><%= p.total %></td>
                 <td><%= p.estado %></td>
-                <td>
+                <td class="opc_pedidos">
                   <button class="pagado" id="pagado">Pagado</button>
+                  <button class="cancelarP" id="cancelar">Cancelar</button>
                 </td>
               </tr>
               <% }) %>
@@ -134,7 +136,7 @@
               <div class="container" id="invoice">
                 <header class="header">
                   <button class="generar"><i class="fa-regular fa-file-pdf"></i></button>
-                    <h3>Surprise</h3>
+                    <h3 class="surprise">Surprise</h3>
                     <p>Restaurante</p>
                 </header>
                 <section class="invoice">
@@ -202,7 +204,7 @@
                     <td><%= usuario.estado %></td>
                     <td class="mods">
                         <button class="editarUsuario" onclick="editarUsuario()"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="factura" onclick="facturas()"><i class="fa-solid fa-file-invoice"></i></button>
+                        <!-- <button class="factura" onclick="facturas()"><i class="fa-solid fa-file-invoice"></i></button> -->
                         <button class="eliminarUsuario"><i class="fa-solid fa-trash-can"></i></button>
                     </td>
                 </tr>

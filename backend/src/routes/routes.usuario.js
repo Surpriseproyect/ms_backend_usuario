@@ -19,7 +19,7 @@ rutaUsuario.put("/usuario/:id", modificarUsuario)
 //modificar estado usuario
 rutaUsuario.put("/estado/:id", actualizarEstado)
 //eliminar
-rutaUsuario.delete("/usuario", eliminarUsuario)
+rutaUsuario.delete("/usuario/:id", eliminarUsuario)
 //login
 rutaUsuario.post("/loginusuario", logueoUsuario);
 //Validar token

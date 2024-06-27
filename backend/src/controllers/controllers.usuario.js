@@ -89,9 +89,9 @@ export const actualizarEstado = async (req,res)=>{
     }
 }
 export const eliminarUsuario = async (req,res)=>{
-    const {idusuario} = req.body
+    const {id} = req.params
     try {
-        const respuesta = await pool.query(`CALL SP_ELIMINAR_USUARIO(?)`, [idusuario]);
+        const respuesta = await pool.query(`CALL SP_ELIMINAR_USUARIO(?)`, [id]);
         res.json({"respuesta": "eliminado"})
     } catch (error) {
         res.json({"error": "el usuario no ha sido eliminado"})

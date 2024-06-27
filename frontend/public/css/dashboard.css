@@ -404,22 +404,35 @@ tr{
 .aceptar{
   background: #2a43ff;
 }
+.opc_pedidos{
+  display: flex;
+  justify-content: space-evenly;
+}
 .pagado{
   background: #008000;
   height: 35px;
+  width: auto;
   border: none;
   color: #fff;
   border-radius: 10px;
   transition: .2s;
 }
+.cancelarP{
+  background: #800000;
+  height: 35px;
+  width: auto;
+  border: none;
+  color: #fff;
+  border-radius: 10px;
+  transition: .2s;
+}
+.cancelarP:hover{
+  background: #bf0000;
+  transition: .2s;
+}
 .pagado:hover{
   background: #00b000;
   transition: .2s;
-}
-.factura{
-  background: #2a43ff;
-  height: 35px;
-  width: 35px;
 }
 .mods{
   display: flex;
@@ -672,7 +685,7 @@ input:checked + .switch .slider {
   border: 1px solid #e0e0e0;
   border-radius: 5px;
 }
-h3{
+.surprise {
   margin-top: -40px;
 }
 .detail strong {
