@@ -1,3 +1,7 @@
+/**
+ * Rutas
+ * @module Rutas
+ */
 import { Router } from "express";
 import { ListarPago, MostrarPago, crearPago, eliminarPago } from "../controllers/controllers.metopago.js";
 

@@ -1,7 +1,6 @@
-
 /**
  * Importaciones para los controladores del login
- * @type {object}
+ * @module controladores
  */
 import { config } from "dotenv";
 import {listarUsuario, fiados} from "./controllers.usuario.js"
@@ -11,6 +10,7 @@ import { contadorPedidos, listarPedido } from "./controllers.pedido.js";
 import { ListarPago } from "./controllers.metopago.js";
 import { listarProveedor } from "./controllers.proveedor.js";
 config();
+
 
 /**
  * Inicio donde se encuentra el login
@@ -24,6 +24,8 @@ const inicio = (req, res)=>{
         };
     res.render("views.login.ejs", opciones);
 }
+
+
 /**
  * Es la informacion de nuestra Web
  * @param {object} req Peticion
@@ -32,6 +34,8 @@ const inicio = (req, res)=>{
 const sobrenosotros = (req, res)=>{
     res.render("views.sobrenosotros.ejs")
 }
+
+
 /**
  * Los productos
  * @param {object} req Peticion
@@ -45,8 +49,10 @@ const productos = async (req, res)=>{
         res.json({ "error": error });
     }
 }
+
+
 /**
- * Menu del cajero
+ * Metodo listar para el gerente
  * @param {object} req Peticion
  * @param {object} res Respuesta
  */
@@ -79,6 +85,12 @@ const productos = async (req, res)=>{
     }
 };
 
+
+/**
+ * Metodo listar para el cajero
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
 const cajero = async (req, res) => {
     try {
         const respuesta = await listarUsuario(req, res);
@@ -101,6 +113,7 @@ const cajero = async (req, res) => {
         res.json({ "error": error });
     }
 };
+
 export { dashboard, 
         cajero,
         productos,

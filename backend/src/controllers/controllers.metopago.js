@@ -1,5 +1,15 @@
+/**
+ * Importacion de la base de datos
+ * @module controladores
+ */
 import { pool } from "../config/mysql.db.js";
 
+
+/**
+ * Se creo la constancia para mostrar el pago
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
 export const MostrarPago = async (req, res) =>{
     const {id} = req.params;
     try {
@@ -9,6 +19,13 @@ export const MostrarPago = async (req, res) =>{
         res.json({"respuesta": error})
     }
 }
+
+/**
+ * Se creo la constancia para listar el pago
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ * @returns 
+ */
 export const ListarPago = async (req,res)=>{
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_METODOPAGO()`);
@@ -17,6 +34,12 @@ export const ListarPago = async (req,res)=>{
         res.json({"respuesta": error})
     }
 }
+
+/**
+ * Se creo la constancia para crear el pago
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
 export const crearPago = async (req,res)=>{
     const {tipopago} = req.body;
     try {
@@ -27,6 +50,11 @@ export const crearPago = async (req,res)=>{
     }
 }
 
+/**
+ * Se creo la constancia para eliminar el pago
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
 export const eliminarPago = async (req, res) => {
     const { id } = req.params;
     try {

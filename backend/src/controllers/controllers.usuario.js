@@ -1,13 +1,20 @@
+/**
+ * Importanciones de los paquetes necesarios
+ * @module controladores
+ */
 import bcrypt from "bcrypt";
 import { pool } from "../config/mysql.db.js";
 import { Acceso, Error } from "../message/mensaje.js";
 import { config } from "dotenv";
 import jwt from "jsonwebtoken";
-import { log } from "console";
-import { match } from "assert";
 config();
 
-export const mostrarUsuario = async (req, res) => {
+/**
+ * Se creo la constancia mostrar usuario
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
+const mostrarUsuario = async (req, res) => {
     const { id } = req.params;
     try {
         const [respuesta] = await pool.query(`CALL SP_MOSTRAR_USUARIO(?)`, [id]);
@@ -21,8 +28,13 @@ export const mostrarUsuario = async (req, res) => {
     }
 };
 
-
-export const fiados = async (req, res) =>{
+/**
+ * Se creo la constancia fiado 
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ * @returns 
+ */
+const fiados = async (req, res) =>{
     try {
         const respuesta = await pool.query('SELECT * FROM usuarios WHERE estado = "fiado" or estado = "pendiente";')
         return respuesta[0];
@@ -31,17 +43,31 @@ export const fiados = async (req, res) =>{
         return { "error": error };
     }
 }
-export const listarUsuario = async (req, res) => {
+
+
+/**
+ * Se creo la constancia para listar un usuario
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ * @returns 
+ */
+const listarUsuario = async (req, res) => {
     try {
         const respuesta = await pool.query(`CALL SP_LISTAR_USUARIO()`);
-        // res.json(respuesta[0])
         return respuesta[0];
     } catch (error) {
         console.error(error);
         return { "error": error };
     }
 };
-export const crearUsuario = async (req, res)=>{
+
+
+/**
+ * Se creo la constancia para crear el usuario
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
+const crearUsuario = async (req, res)=>{
     const {identificacion, nombres, telefono, correo,rol, estado} = req.body;
     const contrasenasincifrar = req.body.contrasena;
     try {
@@ -50,11 +76,17 @@ export const crearUsuario = async (req, res)=>{
         const respuesta = await pool.query (`CALL SP_CREAR_USUARIO (?,?,?,?,?,?,?)`, [identificacion, nombres, telefono, correo, contrasena, rol, estado]);
             res.json({"respuesta": "el usuario ha sido creado"})
     } catch (error) {
-        // res.json({"error": "el usuario no ha sido creado"})
         console.log(error);
     }
 }
-export const modificarUsuario = async (req,res)=>{
+
+
+/**
+ * Se creo la constancia de modificar el usuario
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
+const modificarUsuario = async (req,res)=>{
     const {id} = req.params
     const {identificacion, nombres, telefono, correo, rol, estado} = req.body;
     const contrasenasincifrar = req.body.contrasena;
@@ -72,7 +104,14 @@ export const modificarUsuario = async (req,res)=>{
         Error(req, res, 400, err);
     }
 }
-export const actualizarEstado = async (req,res)=>{
+
+
+/**
+ * Se creo la constancia para actualizar el estado
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
+const actualizarEstado = async (req,res)=>{
     const {id} = req.params
     const {estado} = req.body;
     try {
@@ -88,7 +127,14 @@ export const actualizarEstado = async (req,res)=>{
         Error(req, res, 400, err);
     }
 }
-export const eliminarUsuario = async (req,res)=>{
+
+
+/**
+ * Se creo la constancia para eliminar el usuario
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
+const eliminarUsuario = async (req,res)=>{
     const {id} = req.params
     try {
         const respuesta = await pool.query(`CALL SP_ELIMINAR_USUARIO(?)`, [id]);
@@ -97,7 +143,15 @@ export const eliminarUsuario = async (req,res)=>{
         res.json({"error": "el usuario no ha sido eliminado"})
     }
 }
-export const logueoUsuario = async(req,res)=>{
+
+
+/**
+ * Se creo la constancia para loguear el usuario
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ * @returns 
+ */
+const logueoUsuario = async(req,res)=>{
     const { correo, contrasena } = req.body;
     console.log(correo + contrasena)
     try {
@@ -135,7 +189,18 @@ export const logueoUsuario = async(req,res)=>{
         console.log(e);
     }
     }
-export const validarToken = (req, res) => {
+
+
+    /**
+     * Se creo la constacancia para validar el token
+     * @param {object} req Peticion
+     * @param {object} res Respuesta
+     */
+const validarToken = (req, res) => {
         Acceso(req, res, 200, {"token": "El token es valido"});
     }
-//poner un export para poder hacer la documentacion del codigo despues de terminar con el backend    
+export {
+    mostrarUsuario, fiados, listarUsuario,
+    crearUsuario, modificarUsuario, actualizarEstado,
+    eliminarUsuario, logueoUsuario, validarToken
+}    

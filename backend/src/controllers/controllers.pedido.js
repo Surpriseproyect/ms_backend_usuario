@@ -1,6 +1,17 @@
+/**
+ * Se importo la base de datos
+ * @module controladores
+ */
 import { pool } from "../config/mysql.db.js";
 
-export const listarPedido = async(req, res) => {
+
+/**
+ * Se creo la constancia de listar el pedido 
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ * @returns 
+ */
+const listarPedido = async(req, res) => {
     try {
         const respuesta = await pool.query("CALL SP_LISTARPEDIDO();")
         return respuesta[0]
@@ -9,7 +20,14 @@ export const listarPedido = async(req, res) => {
     }
 }
 
-export const contadorPedidos = async(req, res) => {
+
+/**
+ * Se creo la constancia de contar los pedidos
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ * @returns 
+ */
+const contadorPedidos = async(req, res) => {
     try {
         const respuesta = await pool.query("CALL SP_CONTADOR_PEDIDO();")
         return respuesta[0]
@@ -18,7 +36,14 @@ export const contadorPedidos = async(req, res) => {
     }
 }
 
-export const crearPedido = async(req, res) => {
+
+/**
+ * Se creo la constancia para crear el pedido
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ * @returns 
+ */
+const crearPedido = async(req, res) => {
     const {_idusuario, _idproducto, _idmetodopago, _cantidad, _total, _estado} = req.body
     try {
         const respuesta = await pool.query("CALL SP_CREAR_PEDIDO(?, ?, ?, ?, ?, ?)", [_idusuario, _idproducto, _idmetodopago, _cantidad, _total, _estado]);
@@ -28,7 +53,14 @@ export const crearPedido = async(req, res) => {
     }
 }
 
-export const actualizarPedido = async(req, res) => {
+
+/**
+ * Se creo la constancia para actualizar los pedidos
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ * @returns 
+ */
+const actualizarPedido = async(req, res) => {
     const {id} = req.params;
     const {estado} = req.body;
     try {
@@ -39,7 +71,13 @@ export const actualizarPedido = async(req, res) => {
     }
 }
 
-export const eliminarPedido = async (req,res)=>{
+
+/**
+ * Se creo la constancia para eliminar el pedido
+ * @param {object} req Peticion
+ * @param {object} res Respuesta
+ */
+const eliminarPedido = async (req,res)=>{
     const {id} = req.params
     try {
         const respuesta = await pool.query(`CALL SP_ELIMINAR_PEDIDO(?)`, [id]);
@@ -47,4 +85,9 @@ export const eliminarPedido = async (req,res)=>{
     } catch (error) {
         res.json({"error": "el usuario no ha sido eliminado"})
     }
+}
+export {
+    listarPedido, contadorPedidos,
+    crearPedido, actualizarPedido,
+    eliminarPedido
 }
