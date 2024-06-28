@@ -11,3 +11,6 @@ export const productos = (req, res) => {
             producto: datos.producto })
     })
 }
+export const sobrenosotros = (req, res) => {
+    res.render("views.sobrenosotros.ejs")
+}
