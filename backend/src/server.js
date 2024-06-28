@@ -1,10 +1,5 @@
 import express from "express";
 import { config } from "dotenv";
-import rutaProducto from "./routes/routes.producto.js";
-import rutaUsuario from "./routes/routes.usuario.js";
-import rutaProveedor from "./routes/routes.proveedor.js";
-import rutaFactura from "./routes/routes.facturas.js";
-import rutaMetoPago from "./routes/routes.metopago.js";
 import ruta from "./routes/index.js";
 import ejs from "ejs";
 import path from "path";

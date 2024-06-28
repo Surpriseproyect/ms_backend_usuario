@@ -139,11 +139,11 @@ document.getElementById("crearUsuario").addEventListener("click", (e) => {
     })
     .then(data => {
         console.log("Producto agregado:", data);
+        ocultarC();
     })
     .catch(error => {
         console.error("Fetch error:", error);
     });
-    location.reload()
 });
 
 // Eliminar Usuarios

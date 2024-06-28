@@ -22,7 +22,7 @@ const inicio = (req, res)=>{
     const opciones = {
         url : url
         };
-    res.render("views.login.ejs", opciones);
+    res.json(opciones);
 }
 
 
@@ -31,9 +31,6 @@ const inicio = (req, res)=>{
  * @param {object} req Peticion
  * @param {object} res Respuesta
  */
-const sobrenosotros = (req, res)=>{
-    res.render("views.sobrenosotros.ejs")
-}
 
 
 /**
@@ -44,7 +41,7 @@ const sobrenosotros = (req, res)=>{
 const productos = async (req, res)=>{
     try {
         const producto = await listarProducto(req, res);
-        res.render("views.productos.ejs", {producto: producto[0]})
+        res.json({producto: producto[0]})
     } catch (error) {
         res.json({ "error": error });
     }
@@ -68,7 +65,7 @@ const productos = async (req, res)=>{
         const ventas = await contadorVentas(req, res);
         const total = await totalVentas(req, res);
         const pedidos = await contadorPedidos(req, res);
-        res.render("views.dashboard.ejs", { 
+        res.json({ 
             usuarios: respuesta[0],
             producto: producto[0],
             fiado: fiado,
@@ -100,7 +97,7 @@ const cajero = async (req, res) => {
         const pedido = await listarPedido(req, res);
         const metopago = await ListarPago(req, res);
         const proveedor = await listarProveedor(req, res);
-        res.render("views.cajero.ejs", { 
+        res.json({ 
             usuarios: respuesta[0],
             producto: producto[0],
             fiado: fiado,
@@ -117,5 +114,4 @@ const cajero = async (req, res) => {
 export { dashboard, 
         cajero,
         productos,
-        sobrenosotros,
         inicio}

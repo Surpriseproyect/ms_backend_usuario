@@ -88,7 +88,7 @@ const loguear = async () => {
     const password = document.getElementById("password").value;
     const url = document.getElementById("url").value;
 
-    sessionStorage.setItem("urlSurprise", url);
+    sessionStorage.setItem("urlSurprise", "http://localhost:3000");
     const urlSurprise = sessionStorage.getItem("urlSurprise") + "/usuario/loginusuario";
 
     const options = {
