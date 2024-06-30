@@ -1,3 +1,7 @@
+/**
+ * Server Principal
+ * @module Server
+ */
 import express from "express";
 import { config } from "dotenv";
 import ruta from "./routes/index.js";
@@ -9,6 +13,10 @@ import cors from "cors";
 import morgan from "morgan";
 config();
 
+/**
+ * Se utilizo las constancias para poder conectar el frontend de las vistas con el backend
+ */
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const server = express();
@@ -18,9 +26,15 @@ server.use(express.urlencoded({ extended : true }));
 server.use(cors());
 server.use(morgan("dev"))
 
+/**
+ * Esta es la ruta principal del login
+ */
 //Rutas
 server.use("/", ruta);
 
+/**
+ * Esta es la ruta server para conectar el puerto con las vistas del frontend
+ */
 server.set("view engine", "ejs");
 server.set("views", path.join(__dirname, '../../frontend/views'));
 server.set("port", process.env.PORT || 3000)

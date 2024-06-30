@@ -7,6 +7,9 @@ import { ListarPago, MostrarPago, crearPago, eliminarPago } from "../controllers
 
 const rutaMetoPago = Router()
 
+/**
+ * Rutas para poder utilizar los metodos de pago
+ */
 rutaMetoPago.get("/metopago/:id", MostrarPago);
 rutaMetoPago.get("/metopago", ListarPago);
 rutaMetoPago.post("/metopago", crearPago );

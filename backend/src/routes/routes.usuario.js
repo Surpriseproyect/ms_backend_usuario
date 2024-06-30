@@ -1,3 +1,8 @@
+
+/**
+ * Rutas
+ * @module Rutas
+ */
 import { Router } from "express";
 import { actualizarEstado, crearUsuario, eliminarUsuario,
         listarUsuario, logueoUsuario, modificarUsuario,
@@ -5,6 +10,11 @@ import { actualizarEstado, crearUsuario, eliminarUsuario,
         validarToken} from "../controllers/controllers.usuario.js";
 import { verifytoken } from "../middleware/token.js";
 
+
+/**
+ * Se utilizo las rutas para poder mostrar, listar, crear, modificar, actualizar, eliminar, loguearse
+ * y validar el token
+ */
 
 const rutaUsuario = Router();
 
