@@ -23,6 +23,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const server = express();
 server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+server.use("/docu", express.static(path.join(__dirname, "../tools")));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "../../frontend/public")));
 server.use(express.urlencoded({ extended : true }));
