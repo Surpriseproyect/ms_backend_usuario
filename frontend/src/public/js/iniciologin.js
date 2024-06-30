@@ -1,7 +1,6 @@
 const loginsec = document.querySelector('.login-section');
 const loginlink = document.querySelector('.login-link');
 const registerlink = document.querySelector('.register-link');
-const olvidocontraseñalink = document.querySelector(".olvido-contraseña");
 
 registerlink.addEventListener('click', () => {
     loginsec.classList.add('active');
@@ -11,36 +10,9 @@ loginlink.addEventListener('click', () => {
     loginsec.classList.remove('active');
 });
 
-olvidocontraseñalink.addEventListener("click", () => {
-    loginsec.classList.remove("active");
-});
-
-// Función para validar campos antes de registrar
-function validarCamposRegistro() {
-    const identificacion = document.querySelector(".identificacion").value.trim();
-    const nombres = document.querySelector(".nombre").value.trim();
-    const telefono = document.querySelector(".telefono").value.trim();
-    const correo = document.querySelector(".correo").value.trim();
-    const contrasena = document.querySelector(".contrasena").value.trim();
-    const rol = document.querySelector(".roles").value.trim();
-    const terminos = document.querySelector(".terminosycondiciones");
-
-    if (!identificacion || !nombres || !telefono || !correo || !contrasena || !rol || !terminos.checked) {
-        var notification = alertify.notify('Rellene todos los capos por favor', 'error', 5, function(){  console.log('dismissed'); });
-        return false; // Detener el envío del formulario si faltan campos
-    }
-
-    return true; // Todos los campos están completos
-}
 
 // Registro de usuario
 document.getElementById("registrar").addEventListener("click", async (e) => {
-    e.preventDefault();
-
-    // Validar campos antes de proceder
-    if (!validarCamposRegistro()) {
-        return; // Detener la ejecución si faltan campos
-    }
 
     const identificacion = document.querySelector(".identificacion").value.trim();
     const nombres = document.querySelector(".nombre").value.trim();
@@ -48,7 +20,12 @@ document.getElementById("registrar").addEventListener("click", async (e) => {
     const correo = document.querySelector(".correo").value.trim();
     const contrasena = document.querySelector(".contrasena").value.trim();
     const rol = document.querySelector(".roles").value.trim();
+    const terminos = document.querySelector(".terminosycondiciones").checked;
     const estado = "Pagado";
+
+    if (!terminos) {
+        return;
+    }
 
     const datosUsuario = {
         identificacion,
@@ -81,6 +58,7 @@ document.getElementById("registrar").addEventListener("click", async (e) => {
         alert("Ocurrió un error al registrar al usuario. Por favor, inténtelo nuevamente.");
     }
 });
+
 
 // Función para iniciar sesión
 const loguear = async () => {
