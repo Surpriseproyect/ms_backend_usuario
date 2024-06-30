@@ -11,6 +11,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import cors from "cors";
 import morgan from "morgan";
+import swaggerUi from 'swagger-ui-express';
+import swaggerFile from './tools/swagger-output.json' assert { type: 'json' };
 config();
 
 /**
@@ -20,6 +22,7 @@ config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const server = express();
+server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 server.use(express.json());
 server.use(express.static(path.join(__dirname, "../../frontend/public")));
 server.use(express.urlencoded({ extended : true }));
